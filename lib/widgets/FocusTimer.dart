@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:screen_state/screen_state.dart';
 
+import '../app_localizations.dart';
+
 class FocusTimer extends StatefulWidget {
   FocusTimer({Key key, this.onOutFocus, this.onStartFocus}) : super(key: key);
   final void Function() onStartFocus;
@@ -55,6 +57,7 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    print(state);
     if (state == AppLifecycleState.resumed && _screenTurnedOff == false){
       if (widget.onOutFocus != null){
         widget.onOutFocus();
@@ -79,10 +82,11 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   }
 
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(_focus ? 'You are in focus 😊' : 'you are not in focus 😢', style: TextStyle(fontSize: 30),),
+        Text(_focus ? t('You are in focus') : t('you are not in focus 😢'), style: TextStyle(fontSize: 30),),
         RaisedButton(
           onPressed: this.startFocus,
           child: Text('Start Focus'),

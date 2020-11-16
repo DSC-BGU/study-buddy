@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/MainScreen.dart';
+import 'package:study_buddy/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -15,6 +18,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('he', 'IL'),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       routes: {
         '/': (ctx)=>MainScreen(),
       },
