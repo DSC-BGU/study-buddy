@@ -6,6 +6,13 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Store"),
+      ),
+      body: Card(
+        child: Text("myStore"),
+      ),
+    );
   }
 }
