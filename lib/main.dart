@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/Screens/FocusScreen/FocusScreen.dart';
 import './Screens/MainScreen/MainScreen.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       supportedLocales: [
@@ -37,7 +38,13 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       routes: {
-        '/': (ctx)=>MainScreen(),
+        '/': (ctx) => MainScreen(),
+        FocusScreen.routeName: (ctx) => FocusScreen()
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == FocusScreen.routeName)
+          return PageRouteBuilder(pageBuilder: (_, __, ___) => FocusScreen());
+        return null;
       },
     );
   }
