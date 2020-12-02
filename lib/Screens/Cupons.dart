@@ -6,11 +6,19 @@ class Cupons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue[900],
         title: Text("My Cupons"),
       ),
       body: Container(
+        margin: EdgeInsets.all(20),
         child: Column(
-          children: [SingleCupon(), SingleCupon(), SingleCupon()],
+          children: [
+            Text(
+              'My Cupons',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            SingleCupon()
+          ],
         ),
       ),
     );
