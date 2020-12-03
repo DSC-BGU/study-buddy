@@ -1,5 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import './Cupon.dart';
+
+enum Category {
+  food,
+  groceries,
+}
 
 class Store {
   @required
@@ -10,16 +16,30 @@ class Store {
   String adress;
   String imageURL;
   String description;
-  //Cupon <Cupon>[];
+  //<Cupon>[] cupons;
   Category category;
+  // List infoList;
 
-  Store(
-      {this.id,
-      this.name,
-      this.adress,
-      this.imageURL,
-      this.description,
-      this.category});
+  Store({
+    this.id,
+    this.name,
+    this.adress,
+    this.imageURL,
+    this.description,
+    this.category,
+    //infoList=[adress, category, description],
+  });
+
+  String get categoryText {
+    switch (this.category) {
+      case Category.food:
+        return 'food';
+        break;
+      case Category.groceries:
+        return 'groceries';
+        break;
+      default:
+        return 'Other';
+    }
+  }
 }
-
-enum Category { food, groceries }
