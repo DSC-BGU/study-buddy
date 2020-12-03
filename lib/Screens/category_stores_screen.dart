@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import '../widgets/store_item.dart';
 import '../models/store.dart';
 
-class CategoryMealsScreen extends StatefulWidget {
+class CategoryStoresScreen extends StatefulWidget {
   static const routName = '/category-stores';
 
-  // final List<Meal> availableMeals;
+  final List<Store> relevantStores;
 
-  // CategoryMealsScreen(this.availableMeals);
+  CategoryStoresScreen(this.relevantStores);
 
   @override
-  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+  _CategoryStoresScreenState createState() => _CategoryStoresScreenState();
 }
 
-class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
   String categoryTitle;
-  // List<Meal> displayedMeals;
+  List<Store> relevantStores;
   var _loadedInitData = false;
 
   @override
@@ -38,12 +38,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     super.didChangeDependencies();
   }
 
-  // void _removeMeal(String mealId) {
-  //   setState(() {
-  //     displayedMeals.removeWhere((meal) => meal.id == mealId);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,15 +47,16 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return StoreItem(
-            id: displayedMeals[index].id,
-            title: displayedMeals[index].title,
-            imageUrl: displayedMeals[index].imageUrl,
-            duration: displayedMeals[index].duration,
-            complexity: displayedMeals[index].complexity,
-            affordability: displayedMeals[index].affordability,
+            id: relevantStores[index].id,
+            name: relevantStores[index].name,
+            adress: relevantStores[index].adress,
+            imageURL: relevantStores[index].imageUrl,
+            description: relevantStores[index].description,
+            cupons: relevantStores[index].cupons,
+            categories: relevantStores[index].categories,
           );
         },
-        itemCount: displayedMeals.length,
+        itemCount: relevantStores.length,
       ),
     );
   }

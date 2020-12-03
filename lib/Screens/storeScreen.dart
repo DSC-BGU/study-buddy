@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/widgets/dummy_data.dart';
-import 'package:study_buddy/widgets/SingleCupon.dart';
+import '../dummy_data.dart';
+import '../widgets/SingleCupon.dart';
 
 class StoreScreen extends StatelessWidget {
+  static const routName = '/store-detail';
   StoreScreen();
-
-  static const routhName = "/store";
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -48,7 +47,7 @@ class StoreScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                selectedStore.imageURL,
+                selectedStore.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -94,7 +93,8 @@ class StoreScreen extends StatelessWidget {
                           vertical: 5,
                           horizontal: 10,
                         ),
-                        child: Text('Category: ${selectedStore.categoryText}'),
+                        // TODO
+                        child: Text('Category: ${selectedStore.categories}'),
                       ),
                     ),
                   ),

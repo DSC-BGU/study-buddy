@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import './Screens/MainScreen/MainScreen.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import './Screens/MainScreen/MainScreen.dart';
+import './Screens/categories_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,8 +37,10 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
+      initialRoute: CategoriesScreen.routName, //'/',
       routes: {
-        '/': (ctx) => MainScreen(),
+        // '/': (ctx) => MainScreen(),
+        CategoriesScreen.routName: (ctx) => CategoriesScreen(),
       },
     );
   }
