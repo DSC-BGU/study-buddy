@@ -53,7 +53,7 @@ class StoreScreen extends StatelessWidget {
               ),
             ),
             buildSectionTitle(context, 'Information'),
-            buildContainer(Container(
+            Container(
               color: Colors.white38,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,24 +100,17 @@ class StoreScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )),
+            ),
             buildSectionTitle(context, 'Cupons'),
-            buildContainer(
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 8),
-                      child: Text(
-                        'My Cupons',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SingleCupon('Hamburger', '1+1 on all Hamburgers'),
-                    SingleCupon('Beer', '20% of all beers'),
-                  ],
-                ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 8),
+                  ),
+                  SingleCupon('Hamburger', '1+1 on all Hamburgers'),
+                  SingleCupon('Beer', '20% of all beers'),
+                ],
               ),
             ),
           ],
