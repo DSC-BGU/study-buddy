@@ -3,7 +3,6 @@ import './Screens/MainScreen/MainScreen.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       routes: {
-        '/': (ctx)=>MainScreen(),
+        '/': (ctx) => MainScreen(),
       },
     );
   }

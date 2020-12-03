@@ -8,11 +8,12 @@ class Cupon {
   final String phoneNumber;
   final int points;
 
-  Cupon(
-      {@required this.cuponId,
-      @required this.storeId,
-      @required this.storeName,
-      @required this.storeDescription,
-      @required this.phoneNumber,
-      @required this.points});
+  Cupon({
+    @required this.cuponId,
+    @required this.storeId,
+    @required this.storeName,
+    @required this.storeDescription,
+    @required this.phoneNumber,
+    @required this.points,
+  });
 }
