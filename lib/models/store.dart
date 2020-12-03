@@ -16,9 +16,8 @@ class Store {
   String adress;
   String imageURL;
   String description;
-  //<Cupon>[] cupons;
+  List<Cupon> cupons;
   Category category;
-  // List infoList;
 
   Store({
     this.id,
@@ -27,7 +26,7 @@ class Store {
     this.imageURL,
     this.description,
     this.category,
-    //infoList=[adress, category, description],
+    this.cupons,
   });
 
   String get categoryText {
