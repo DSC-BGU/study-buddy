@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/widgets/dummy_data.dart';
+import 'package:study_buddy/widgets/SingleCupon.dart';
 
 class StoreScreen extends StatelessWidget {
   StoreScreen();
@@ -52,7 +53,7 @@ class StoreScreen extends StatelessWidget {
               ),
             ),
             buildSectionTitle(context, 'Information'),
-            buildContainer(Container(
+            Container(
               color: Colors.white38,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,8 +100,19 @@ class StoreScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )),
+            ),
             buildSectionTitle(context, 'Cupons'),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 8),
+                  ),
+                  SingleCupon('Hamburger', '1+1 on all Hamburgers'),
+                  SingleCupon('Beer', '20% of all beers'),
+                ],
+              ),
+            ),
           ],
         ),
       ),
