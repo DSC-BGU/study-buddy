@@ -1,82 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_slider/flutter_circular_slider.dart';
+import 'package:study_buddy/widgets/FocusCircleSlider.dart';
+import 'package:study_buddy/widgets/FocusTimer.dart';
 import 'package:study_buddy/widgets/MainScreen/PointsStatus.dart';
 import 'package:study_buddy/widgets/MainScreen/StartButton.dart';
-import '../../utils/TimeFunctions.dart';
+import 'dart:async';
 
-class FocusScreen extends StatelessWidget {
+class FocusScreen extends StatefulWidget {
   const FocusScreen({Key key}) : super(key: key);
 
   static const String routeName = "/focus";
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Flex(
-          direction: Axis.vertical,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Flexible(child: Hero(tag: 'pointStatus', child: PointsStatus())),
-            Flexible(
-              child: FocusCircleSlider(),
-            ),
-            Flexible(
-              child: Hero(
-                tag: 'StartButton',
-                child: StartButton(onClick: () => {}),
-              ),
-            ),
-          ],
-        ),
+  _FocusScreenState createState() => _FocusScreenState();
+}
+
+class _FocusScreenState extends State<FocusScreen> {
+  Duration _remainTime = Duration(minutes: 60);
+  Timer _timer;
+  bool _focus = false;
+
+  void onSetTime(newDuration) {
+    setState(() {
+      _remainTime = newDuration;
+    });
+  }
+
+  void onFocus() {
+    const oneMinutes = const Duration(minutes: 1);
+    _timer = new Timer.periodic(
+      oneMinutes,
+      (Timer timer) => setState(
+        () {
+          if (_remainTime.inMinutes < 1) {
+            timer.cancel();
+          } else {
+            _remainTime = Duration(minutes: _remainTime.inMinutes - 1);
+          }
+        },
       ),
     );
-  }
-}
-
-class FocusCircleSlider extends StatefulWidget {
-  final int maxMinutes;
-  final int defaultStart;
-  const FocusCircleSlider({
-    this.maxMinutes = 90,
-    this.defaultStart = 60,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _FocusCircleSliderState createState() => _FocusCircleSliderState();
-}
-
-class _FocusCircleSliderState extends State<FocusCircleSlider> {
-  Duration _currentDuration;
-
-  @override
-  void initState() {
-    _currentDuration =
-        _currentDuration = Duration(minutes: this.widget.defaultStart);
-    super.initState();
-  }
-
-  void onTimeChange(int init, int end, int laps) {
     setState(() {
-      _currentDuration = Duration(minutes: end);
+      _focus = true;
+    });
+  }
+
+  void onOutOfFoucus() {
+    _timer.cancel();
+    setState(() {
+      _focus = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final setTime = printDuration(_currentDuration);
-    return Container(
-      child: SingleCircularSlider(
-        this.widget.maxMinutes,
-        _currentDuration.inMinutes,
-        baseColor: Theme.of(context).accentColor,
-        handlerColor: Theme.of(context).primaryColor,
-        child: Center(
-          child: Text(setTime),
+    print(_focus);
+    topWidget() => _focus
+        ? Text('You can do that!')
+        : Hero(
+            tag: 'pointStatus',
+            child: PointsStatus(),
+          );
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        width: double.infinity,
+        child: Flex(
+          direction: Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              child: topWidget(),
+            ),
+            Flexible(
+              child: FocusCircleSlider(
+                currentTime: _remainTime,
+                onSetTime: onSetTime,
+              ),
+            ),
+            Flexible(
+              child: Hero(
+                tag: 'StartButton',
+                child: FocusTimer(
+                  child: StartButton(onClick: () {}),
+                  onStartFocus: onFocus,
+                  onOutFocus: onOutOfFoucus,
+                ),
+              ),
+            ),
+          ],
         ),
-        onSelectionChange: onTimeChange,
       ),
     );
   }

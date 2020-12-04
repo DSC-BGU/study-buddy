@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:screen_state/screen_state.dart';
+import 'package:study_buddy/widgets/MainScreen/StartButton.dart';
 
 import '../app_localizations.dart';
 
 class FocusTimer extends StatefulWidget {
-  FocusTimer({Key key, this.onOutFocus, this.onStartFocus}) : super(key: key);
+  FocusTimer({Key key, this.child, this.onOutFocus, this.onStartFocus})
+      : super(key: key);
   final void Function() onStartFocus;
   final void Function() onOutFocus;
+  Widget child;
   @override
   _FocusTimerState createState() => _FocusTimerState();
 }
@@ -19,7 +22,6 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   bool _screenTurnedOff = false;
   StreamSubscription<ScreenStateEvent> _subscription;
   bool started = false;
-
 
   @override
   void initState() {
@@ -33,20 +35,20 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   }
 
   void onData(ScreenStateEvent event) {
-    if (event == ScreenStateEvent.SCREEN_OFF){
+    if (event == ScreenStateEvent.SCREEN_OFF) {
       setState(() {
-        _screenTurnedOff=true;
+        _screenTurnedOff = true;
       });
     }
   }
+
   void startListening() {
     try {
       _subscription = _screen.screenStateStream.listen(onData);
       setState(() => started = true);
-    } on ScreenStateException catch (exception) {
-      print(exception);
-    }
+    } on ScreenStateException catch (exception) {}
   }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -57,22 +59,26 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    print(state);
-    if (state == AppLifecycleState.resumed && _screenTurnedOff == false){
-      if (widget.onOutFocus != null){
-        widget.onOutFocus();
-      }
-      setState(() {
-        _focus=false;
-      });
+    if (state == AppLifecycleState.resumed && _screenTurnedOff == false) {
+      this.outOfFocus();
     }
     setState(() {
       _screenTurnedOff = false;
     });
   }
 
+  void outOfFocus() {
+    if (widget.onOutFocus != null) {
+      widget.onOutFocus();
+    }
+    setState(() {
+      _focus = false;
+    });
+  }
+
   void startFocus() {
-    if (widget.onStartFocus != null){
+    if (widget.onStartFocus != null) {
+      print('start - inside');
       widget.onStartFocus();
     }
     this.setState(() {
@@ -83,15 +89,17 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(_focus ? t('You are in focus') : t('you are not in focus 😢'), style: TextStyle(fontSize: 30),),
-        RaisedButton(
-          onPressed: this.startFocus,
-          child: Text('Start Focus'),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        height: constraints.maxHeight,
+        child: RaisedButton(
+          shape: new CircleBorder(),
+          elevation: 2,
+          child: Text(_focus ? t('Stop') : t('Start')),
+          onPressed: _focus ? outOfFocus : startFocus,
+          color: Theme.of(context).primaryColor,
         ),
-      ],
-    );
+      );
+    });
   }
 }

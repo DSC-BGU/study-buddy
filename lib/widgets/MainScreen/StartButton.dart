@@ -14,12 +14,12 @@ class StartButton extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         height: constraints.maxHeight,
-        child: RawMaterialButton(
+        child: RaisedButton(
           shape: new CircleBorder(),
           elevation: 2,
           child: Text(t('Start')),
           onPressed: onClick,
-          fillColor: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor,
         ),
       );
     });
