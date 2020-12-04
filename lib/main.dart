@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:study_buddy/dummy_data.dart';
 
 import './Screens/MainScreen/MainScreen.dart';
 import './Screens/categories_screen.dart';
+import './Screens/category_cupons_screen.dart';
+import './Screens/category_stores_screen.dart';
+import './Screens/storeScreen.dart';
+
+import './models/my_coupon.dart';
+import './models/store.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  List<MyCoupon> _availableCoupons = DUMMY_COUPONS;
+  List<Store> _availableStores = DUMMY_STORES;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,10 +47,14 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      initialRoute: CategoriesScreen.routName, //'/',
       routes: {
-        // '/': (ctx) => MainScreen(),
+        '/': (ctx) => MainScreen(),
         CategoriesScreen.routName: (ctx) => CategoriesScreen(),
+        CategoryCuponsScreen.routName: (ctx) =>
+            CategoryCuponsScreen(_availableCoupons),
+        CategoryStoresScreen.routName: (ctx) =>
+            CategoryStoresScreen(_availableStores),
+        StoreScreen.routName: (ctx) => StoreScreen(),
       },
     );
   }

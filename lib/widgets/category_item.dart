@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 class CategoryItem extends StatelessWidget {
   final String id;
   final String title;
-  final Color color;
+  // final Color color;
 
-  CategoryItem(this.id, this.title, this.color);
+  CategoryItem(
+    this.id,
+    this.title,
+    /* this.color*/
+  );
 
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
-      '/category-cupones',
+      '/category-stores',
+      // '/category-coupones',
       arguments: {'id': id, 'title': title},
     );
   }
@@ -19,23 +24,26 @@ class CategoryItem extends StatelessWidget {
     return InkWell(
       onTap: () => selectCategory(context),
       splashColor: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.circular(15),
+      // borderRadius: BorderRadius.circular(10),
       child: Container(
-        padding: const EdgeInsets.all(15),
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.title,
+        child: Center(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.title,
+          ),
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              color.withOpacity(0.7),
-              color,
+              Theme.of(context).primaryColor.withOpacity(0.8),
+              Theme.of(context).primaryColor.withOpacity(0.7),
+              // color.withOpacity(0.7),
+              // color,
             ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            // begin: Alignment.center,
+            // end: Alignment.center,
           ),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );

@@ -5,9 +5,9 @@ import '../models/store.dart';
 class CategoryStoresScreen extends StatefulWidget {
   static const routName = '/category-stores';
 
-  final List<Store> relevantStores;
+  final List<Store> availableStores;
 
-  CategoryStoresScreen(this.relevantStores);
+  CategoryStoresScreen(this.availableStores);
 
   @override
   _CategoryStoresScreenState createState() => _CategoryStoresScreenState();
@@ -15,7 +15,7 @@ class CategoryStoresScreen extends StatefulWidget {
 
 class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
   String categoryTitle;
-  List<Store> relevantStores;
+  List<Store> displayedStores;
   var _loadedInitData = false;
 
   @override
@@ -30,9 +30,9 @@ class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
           ModalRoute.of(context).settings.arguments as Map<String, String>;
       categoryTitle = routeArgs['title'];
       final categoryId = routeArgs['id'];
-      // displayedMeals = widget.availableMeals.where((meal) {
-      //   return meal.categories.contains(categoryId);
-      // }).toList();
+      displayedStores = widget.availableStores.where((store) {
+        return store.categories.contains(categoryId);
+      }).toList();
       _loadedInitData = true;
     }
     super.didChangeDependencies();
@@ -47,16 +47,16 @@ class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return StoreItem(
-            id: relevantStores[index].id,
-            name: relevantStores[index].name,
-            adress: relevantStores[index].adress,
-            imageURL: relevantStores[index].imageUrl,
-            description: relevantStores[index].description,
-            cupons: relevantStores[index].cupons,
-            categories: relevantStores[index].categories,
+            id: displayedStores[index].id,
+            name: displayedStores[index].name,
+            adress: displayedStores[index].adress,
+            imageURL: displayedStores[index].imageUrl,
+            description: displayedStores[index].description,
+            cupons: displayedStores[index].cupons,
+            categories: displayedStores[index].categories,
           );
         },
-        itemCount: relevantStores.length,
+        itemCount: displayedStores.length,
       ),
     );
   }

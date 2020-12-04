@@ -1,44 +1,43 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import '../screens/storeScreen.dart';
 
-class StoreItem extends StatelessWidget {
+class CouponItem extends StatelessWidget {
   final String id;
-  final String name;
-  final String adress;
-  final String imageURL;
+  final String title;
+  final String storeId;
   final String description;
-  final List<String> cupons;
+  final String imageUrl;
+  final int points;
   final List<String> categories;
 
-  StoreItem({
+  CouponItem({
     @required this.id,
-    @required this.name,
-    @required this.adress,
-    @required this.imageURL,
+    @required this.title,
+    @required this.storeId,
     @required this.description,
-    @required this.cupons,
+    @required this.imageUrl,
+    @required this.points,
     @required this.categories,
   });
 
-  void selectStore(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(
-      StoreScreen.routName,
-      arguments: id,
-    )
-        .then((result) {
-      if (result != null) {
-        // removeItem(result);
-      }
-    });
-  }
+  // void selectCoupon(BuildContext context) {
+  //   Navigator.of(context)
+  //       .pushNamed(
+  //     MealDetailScreen.routName,
+  //     arguments: id,
+  //   )
+  //       .then((result) {
+  //     if (result != null) {
+  //       // removeItem(result);
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectStore(context),
+      // onTap: () => selectCoupon(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -55,7 +54,7 @@ class StoreItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    imageURL,
+                    imageUrl,
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -72,7 +71,7 @@ class StoreItem extends StatelessWidget {
                       horizontal: 20,
                     ),
                     child: Text(
-                      name,
+                      title,
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -88,29 +87,7 @@ class StoreItem extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.location_pin),
-                      SizedBox(width: 6),
-                      Text(adress),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.work),
-                      SizedBox(width: 6),
-                      // Text(complexityText),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.attach_money),
-                      SizedBox(width: 6),
-                      // Text(affordabilityText),
-                    ],
-                  ),
-                ],
+                children: [],
               ),
             ),
           ],

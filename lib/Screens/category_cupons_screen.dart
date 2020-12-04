@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/my_cupon.dart';
-import '../widgets/my_cupon_item.dart';
-import '../models/my_cupon.dart';
+import '../widgets/my_coupon_item.dart';
+import '../models/my_coupon.dart';
 
-class CategoryMealsScreen extends StatefulWidget {
-  static const routName = '/category-cupones';
+class CategoryCuponsScreen extends StatefulWidget {
+  static const routName = '/category-coupones';
 
-  final List<MyCupon> relevantCupons;
+  final List<MyCoupon> availableCoupons;
 
-  CategoryMealsScreen(this.relevantCupons);
+  CategoryCuponsScreen(this.availableCoupons);
 
   @override
-  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+  _CategoryCuponsScreenState createState() => _CategoryCuponsScreenState();
 }
 
-class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+class _CategoryCuponsScreenState extends State<CategoryCuponsScreen> {
   String categoryTitle;
-  List<MyCupon> relevantCupons;
+  List<MyCoupon> displayedCoupons;
   var _loadedInitData = false;
 
   @override
@@ -31,6 +30,9 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
           ModalRoute.of(context).settings.arguments as Map<String, String>;
       categoryTitle = routeArgs['title'];
       final categoryId = routeArgs['id'];
+      displayedCoupons = widget.availableCoupons.where((coupon) {
+        return coupon.categories.contains(categoryId);
+      }).toList();
       _loadedInitData = true;
     }
     super.didChangeDependencies();
@@ -44,17 +46,17 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return CuponItem(
-            id: relevantCupons[index].id,
-            title: relevantCupons[index].title,
-            storeId: relevantCupons[index].storeId,
-            description: relevantCupons[index].description,
-            imageUrl: relevantCupons[index].imageUrl,
-            points: relevantCupons[index].points,
-            categories: relevantCupons[index].categories,
+          return CouponItem(
+            id: displayedCoupons[index].id,
+            title: displayedCoupons[index].title,
+            storeId: displayedCoupons[index].storeId,
+            description: displayedCoupons[index].description,
+            imageUrl: displayedCoupons[index].imageUrl,
+            points: displayedCoupons[index].points,
+            categories: displayedCoupons[index].categories,
           );
         },
-        itemCount: relevantCupons.length,
+        itemCount: displayedCoupons.length,
       ),
     );
   }

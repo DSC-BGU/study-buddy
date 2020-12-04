@@ -2,63 +2,63 @@ import 'package:flutter/material.dart';
 
 import './models/category.dart';
 import './models/store.dart';
-import './models/my_cupon.dart';
+import './models/my_coupon.dart';
 
 const DUMMY_CATEGORIES = const [
   Category(
     id: 'c1',
     title: 'Restaurants',
-    color: Colors.purple,
+    // color: Colors.purple,
   ),
   Category(
     id: 'c2',
     title: 'Bars',
-    color: Colors.red,
+    // color: Colors.red,
   ),
   Category(
     id: 'c3',
     title: 'Grocery',
-    color: Colors.orange,
+    // color: Colors.orange,
   ),
   Category(
     id: 'c4',
     title: 'Take Away',
-    color: Colors.amber,
+    // color: Colors.amber,
   ),
   Category(
     id: 'c5',
     title: 'Office Supplies',
-    color: Colors.blue,
+    // color: Colors.blue,
   ),
   Category(
     id: 'c6',
     title: 'Clothes',
-    color: Colors.green,
+    // color: Colors.green,
   ),
   Category(
     id: 'c7',
     title: 'Attractions',
-    color: Colors.lightBlue,
+    // color: Colors.lightBlue,
   ),
   Category(
     id: 'c8',
     title: 'Sport',
-    color: Colors.lightGreen,
+    // color: Colors.lightGreen,
   ),
   Category(
     id: 'c9',
     title: 'Mobile',
-    color: Colors.pink,
+    // color: Colors.pink,
   ),
   Category(
     id: 'c10',
     title: 'Pets',
-    color: Colors.brown,
+    // color: Colors.brown,
   ),
   Category(
     id: 'c11',
     title: 'Department Store',
-    color: Colors.cyan,
+    // color: Colors.cyan,
   ),
 ];
 
@@ -242,8 +242,8 @@ const DUMMY_STORES = const [
   ),
 ];
 
-const DUMMY_CUPONS = const [
-  MyCupon(
+const DUMMY_COUPONS = const [
+  MyCoupon(
     id: 'p1',
     title: '1+1 on all Hamburgers',
     storeId: 's1',
@@ -256,7 +256,7 @@ const DUMMY_CUPONS = const [
       'c2',
     ],
   ),
-  MyCupon(
+  MyCoupon(
     id: 'p2',
     title: '20% of all beers',
     storeId: 's4',
@@ -269,7 +269,7 @@ const DUMMY_CUPONS = const [
       'c2',
     ],
   ),
-  MyCupon(
+  MyCoupon(
     id: 'p3',
     title: '10% On 10 trainings',
     storeId: 's14',
@@ -281,7 +281,7 @@ const DUMMY_CUPONS = const [
       'c8',
     ],
   ),
-  MyCupon(
+  MyCoupon(
     id: 'p4',
     title: '20% of all beers',
     storeId: 's5',
@@ -294,7 +294,7 @@ const DUMMY_CUPONS = const [
       'c2',
     ],
   ),
-  MyCupon(
+  MyCoupon(
     id: 'p5',
     title: '30% on Disney movies',
     storeId: 's12',
