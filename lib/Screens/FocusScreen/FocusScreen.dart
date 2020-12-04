@@ -53,7 +53,6 @@ class _FocusScreenState extends State<FocusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_focus);
     topWidget() => _focus
         ? Text('You can do that!')
         : Hero(

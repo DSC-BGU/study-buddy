@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:screen_state/screen_state.dart';
-import 'package:study_buddy/widgets/MainScreen/StartButton.dart';
 
 import '../app_localizations.dart';
 
@@ -11,7 +10,7 @@ class FocusTimer extends StatefulWidget {
       : super(key: key);
   final void Function() onStartFocus;
   final void Function() onOutFocus;
-  Widget child;
+  final Widget child;
   @override
   _FocusTimerState createState() => _FocusTimerState();
 }
@@ -46,7 +45,9 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     try {
       _subscription = _screen.screenStateStream.listen(onData);
       setState(() => started = true);
-    } on ScreenStateException catch (exception) {}
+    } on ScreenStateException catch (exception) {
+      print(exception);
+    }
   }
 
   @override
@@ -78,7 +79,6 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
 
   void startFocus() {
     if (widget.onStartFocus != null) {
-      print('start - inside');
       widget.onStartFocus();
     }
     this.setState(() {
