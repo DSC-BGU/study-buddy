@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
               CategoryCuponsScreen(_availableCoupons),
           CategoryStoresScreen.routeName: (ctx) =>
               CategoryStoresScreen(_availableStores),
+          StoreScreen.routeName: (ctx) => StoreScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == FocusScreen.routeName)
