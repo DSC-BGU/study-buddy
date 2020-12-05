@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/FocusScreen/FocusScreen.dart';
-import './Screens/MainScreen/MainScreen.dart';
+import 'package:study_buddy/Screens/TabsScreen.dart';
+import 'Screens/MainScreen/Dashboard.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -38,8 +39,9 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       routes: {
-        '/': (ctx) => MainScreen(),
-        FocusScreen.routeName: (ctx) => FocusScreen()
+        '/': (ctx) => TabsScreen(),
+        FocusScreen.routeName: (ctx) => FocusScreen(),
+        Dashboard.routeName: (ctx) => Dashboard(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == FocusScreen.routeName)
