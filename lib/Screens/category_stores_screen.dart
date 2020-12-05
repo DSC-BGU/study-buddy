@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/app_localizations.dart';
 import '../widgets/store_item.dart';
 import '../models/store.dart';
 
@@ -40,24 +41,27 @@ class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryTitle),
-      ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return StoreItem(
-            id: displayedStores[index].id,
-            name: displayedStores[index].name,
-            adress: displayedStores[index].adress,
-            imageURL: displayedStores[index].imageUrl,
-            description: displayedStores[index].description,
-            cupons: displayedStores[index].cupons,
-            categories: displayedStores[index].categories,
-          );
-        },
-        itemCount: displayedStores.length,
-      ),
+    String t(String text) => AppLocalizations.of(context).translate(text);
+    return
+        // Scaffold(
+        //   appBar: AppBar(
+        //     title: Text(categoryTitle),
+        //   ),
+        //   body:
+        ListView.builder(
+      itemBuilder: (ctx, index) {
+        return StoreItem(
+          id: displayedStores[index].id,
+          name: displayedStores[index].name,
+          adress: displayedStores[index].adress,
+          imageURL: displayedStores[index].imageUrl,
+          description: displayedStores[index].description,
+          cupons: displayedStores[index].cupons,
+          categories: displayedStores[index].categories,
+        );
+      },
+      itemCount: displayedStores.length,
+      // ),
     );
   }
 }

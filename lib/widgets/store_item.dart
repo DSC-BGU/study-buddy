@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:study_buddy/app_localizations.dart';
 import '../screens/storeScreen.dart';
 
 class StoreItem extends StatelessWidget {
@@ -37,6 +38,7 @@ class StoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return InkWell(
       onTap: () => selectStore(context),
       child: Card(

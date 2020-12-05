@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:study_buddy/app_localizations.dart';
 
 class CouponItem extends StatelessWidget {
   final String id;
@@ -36,6 +37,7 @@ class CouponItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return InkWell(
       // onTap: () => selectCoupon(context),
       child: Card(

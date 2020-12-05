@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/app_localizations.dart';
 import '../widgets/my_coupon_item.dart';
 import '../models/my_coupon.dart';
 
@@ -40,6 +41,7 @@ class _CategoryCuponsScreenState extends State<CategoryCuponsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle),
