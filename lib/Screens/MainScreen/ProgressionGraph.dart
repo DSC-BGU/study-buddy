@@ -1,5 +1,7 @@
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 import 'package:study_buddy/models/PointsHistory.dart';
+import 'package:study_buddy/providers/points.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ class ProgressionGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Points pointsProvider = Provider.of<Points>(context, listen: false);
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         child: Row(
@@ -30,34 +33,7 @@ class ProgressionGraph extends StatelessWidget {
                 ),
                 series: <SplineAreaSeries<PointsHistory, DateTime>>[
                   SplineAreaSeries<PointsHistory, DateTime>(
-                      dataSource: <PointsHistory>[
-                        PointsHistory(DateTime.now(), 35),
-                        PointsHistory(
-                            DateTime.now().subtract(
-                              Duration(days: 1),
-                            ),
-                            10),
-                        PointsHistory(
-                            DateTime.now().subtract(
-                              Duration(days: 2),
-                            ),
-                            30),
-                        PointsHistory(
-                            DateTime.now().subtract(
-                              Duration(days: 3),
-                            ),
-                            17),
-                        PointsHistory(
-                            DateTime.now().subtract(
-                              Duration(days: 4),
-                            ),
-                            17),
-                      ],
-                      // gradient: LinearGradient(
-                      //   colors: [Colors.amber, Colors.transparent],
-                      //   begin: Alignment.topCenter,
-                      //   end: Alignment.bottomCenter,
-                      // ),
+                      dataSource: pointsProvider.history,
                       color: Colors.amber,
                       xValueMapper: (PointsHistory historyMark, _) =>
                           historyMark.date,

@@ -52,9 +52,11 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _subscription.cancel();
-    super.dispose();
+    try {
+      WidgetsBinding.instance.removeObserver(this);
+      _subscription.cancel();
+      super.dispose();
+    } catch (err) {}
   }
 
   @override
