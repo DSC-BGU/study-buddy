@@ -5,7 +5,7 @@ import '../widgets/category_item.dart';
 import '../widgets/advertising.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  static const routName = '/categories';
+  static const routeName = '/categories';
 
   @override
   Widget build(BuildContext context) {
