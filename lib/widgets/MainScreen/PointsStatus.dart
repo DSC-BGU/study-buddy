@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:study_buddy/providers/points.dart';
 import '../../app_localizations.dart';
 
 class PointsStatus extends StatelessWidget {
@@ -14,8 +16,8 @@ class PointsStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    Points pointsProvider = Provider.of<Points>(context);
     final date = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    final int points = 500;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
@@ -35,7 +37,7 @@ class PointsStatus extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               Text(
-                points.toString() + t('Points'),
+                pointsProvider.currentPoints.toString() + t('Points'),
                 style: Theme.of(context).textTheme.headline4,
               ),
             ],

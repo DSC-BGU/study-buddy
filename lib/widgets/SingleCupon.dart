@@ -1,43 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/Screens/PopUpQR.dart';
 
 class SingleCupon extends StatelessWidget {
-  SingleCupon();
+  final String cuponTitle;
+  final String cuponDescription;
+  SingleCupon(this.cuponTitle, this.cuponDescription);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            contentPadding: EdgeInsets.all(15),
-            leading: Icon(Icons.article_rounded),
-            trailing: Column(
+    return Container(
+      padding: EdgeInsets.all(4),
+      height: 125,
+      child: Card(
+        color: Colors.grey,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Navigate',
+                  '$cuponTitle',
+                  style: TextStyle(fontSize: 36),
                 ),
-                Text('Phone Number')
-              ],
-            ),
-            title: Text(
-              'Store Name',
-              style: TextStyle(fontSize: 25),
-            ),
-            subtitle: Text(
-              'Store Description',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                child: const Text('Use Cupon'),
-                onPressed: () {/* ... */},
+                Text(
+                  '$cuponDescription',
+                  style: TextStyle(fontSize: 22),
+                )
+              ]),
+          SizedBox(
+            height: 85,
+            width: 85,
+            child: ElevatedButton.icon(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.black)),
+              icon: Icon(Icons.qr_code),
+              label: Text(
+                'QR',
+                style: TextStyle(fontSize: 18),
               ),
-            ],
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (ctx) => PopUpQR(ctx, cuponTitle));
+              },
+            ),
           ),
-        ],
+        ]),
       ),
     );
   }
