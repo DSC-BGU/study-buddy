@@ -28,6 +28,9 @@ dependencies:
   screen_state: ^1.0.1
   syncfusion_flutter_charts: ^18.3.51
   percent_indicator: ^2.1.8
+  flutter_circular_slider: ^2.5.0
+  flutter_vector_icons: ^0.2.1
+  provider: ^4.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

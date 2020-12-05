@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/app_localizations.dart';
+import 'package:provider/provider.dart';
+import './providers/points.dart';
+import './app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:study_buddy/dummy_data.dart';
+import './dummy_data.dart';
 
-import './Screens/MainScreen/MainScreen.dart';
 import './Screens/categories_screen.dart';
 import './Screens/category_cupons_screen.dart';
 import './Screens/category_stores_screen.dart';
 import './Screens/storeScreen.dart';
+import './Screens/FocusScreen/FocusScreen.dart';
+import './Screens/TabsScreen.dart';
+import './Screens/MainScreen/Dashboard.dart';
 
 import './models/my_coupon.dart';
 import './models/store.dart';
@@ -23,39 +27,51 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('he', 'IL'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Points()),
       ],
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale.languageCode &&
-              supportedLocale.countryCode == locale.countryCode) {
-            return supportedLocale;
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          accentColor: Colors.orange,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('he', 'IL'),
+        ],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
           }
-        }
-        return supportedLocales.first;
-      },
-      routes: {
-        '/': (ctx) => MainScreen(),
-        CategoriesScreen.routName: (ctx) => CategoriesScreen(),
-        CategoryCuponsScreen.routName: (ctx) =>
-            CategoryCuponsScreen(_availableCoupons),
-        CategoryStoresScreen.routName: (ctx) =>
-            CategoryStoresScreen(_availableStores),
-        StoreScreen.routName: (ctx) => StoreScreen(),
-      },
+          return supportedLocales.first;
+        },
+        routes: {
+          '/': (ctx) => TabsScreen(),
+          FocusScreen.routeName: (ctx) => FocusScreen(),
+          Dashboard.routeName: (ctx) => Dashboard(),
+          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+          CategoryCuponsScreen.routeName: (ctx) =>
+              CategoryCuponsScreen(_availableCoupons),
+          CategoryStoresScreen.routeName: (ctx) =>
+              CategoryStoresScreen(_availableStores),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == FocusScreen.routeName)
+            return PageRouteBuilder(pageBuilder: (_, __, ___) => FocusScreen());
+          return null;
+        },
+      ),
     );
   }
 }

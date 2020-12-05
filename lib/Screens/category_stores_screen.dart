@@ -3,7 +3,7 @@ import '../widgets/store_item.dart';
 import '../models/store.dart';
 
 class CategoryStoresScreen extends StatefulWidget {
-  static const routName = '/category-stores';
+  static const routeName = '/category-stores';
 
   final List<Store> availableStores;
 

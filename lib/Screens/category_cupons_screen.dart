@@ -3,7 +3,7 @@ import '../widgets/my_coupon_item.dart';
 import '../models/my_coupon.dart';
 
 class CategoryCuponsScreen extends StatefulWidget {
-  static const routName = '/category-coupones';
+  static const routeName = '/category-coupones';
 
   final List<MyCoupon> availableCoupons;
 

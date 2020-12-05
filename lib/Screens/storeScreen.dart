@@ -3,7 +3,7 @@ import '../dummy_data.dart';
 import '../widgets/SingleCupon.dart';
 
 class StoreScreen extends StatelessWidget {
-  static const routName = '/store-detail';
+  static const routeName = '/store-detail';
   StoreScreen();
 
   Widget buildSectionTitle(BuildContext context, String text) {
