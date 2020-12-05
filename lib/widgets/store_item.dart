@@ -26,7 +26,7 @@ class StoreItem extends StatelessWidget {
   void selectStore(BuildContext context) {
     Navigator.of(context)
         .pushNamed(
-      StoreScreen.routName,
+      StoreScreen.routeName,
       arguments: id,
     )
         .then((result) {
