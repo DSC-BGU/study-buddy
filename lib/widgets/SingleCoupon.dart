@@ -38,6 +38,7 @@ class SingleCoupon extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
+        margin: EdgeInsets.only(bottom: 8),
         height: constraints.maxWidth * 0.30,
         child: Stack(children: [
           Image.network(
