@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Screens/category_cupons_screen.dart';
+import '../Screens/category_stores_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
@@ -14,7 +15,8 @@ class CategoryItem extends StatelessWidget {
 
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
-      CategoryCuponsScreen.routeName,
+      // CategoryCuponsScreen.routeName,
+      CategoryStoresScreen.routeName,
       // '/category-coupons',
       // '/category-coupones',
       arguments: {'id': id, 'title': title},
