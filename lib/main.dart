@@ -8,6 +8,7 @@ import './dummy_data.dart';
 import './Screens/categories_screen.dart';
 import './Screens/category_cupons_screen.dart';
 import './Screens/category_stores_screen.dart';
+import './Screens/mall_screen.dart';
 import './Screens/storeScreen.dart';
 import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/TabsScreen.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
           CategoryStoresScreen.routeName: (ctx) =>
               CategoryStoresScreen(_availableStores),
           StoreScreen.routeName: (ctx) => StoreScreen(),
+          MallScreen.routeName: (ctx) => MallScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == FocusScreen.routeName)

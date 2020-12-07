@@ -18,21 +18,9 @@ class Advertising extends StatelessWidget {
         return Container(
           width: constraints.maxWidth * 0.93,
           height: this.height,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Theme.of(context).primaryColor.withOpacity(0.6)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Advertising',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
+          child: Text(
+            t('Advertising'),
+            style: Theme.of(context).textTheme.headline4,
           ),
         );
       },

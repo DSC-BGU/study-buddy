@@ -5,7 +5,7 @@ import '../widgets/store_item.dart';
 import '../models/store.dart';
 
 class MallScreen extends StatefulWidget {
-  static const routeName = '/category-stores';
+  static const routeName = '/all-stores';
   List<Store> availableStores = DUMMY_STORES;
 
   @override
