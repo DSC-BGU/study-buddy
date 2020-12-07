@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
+import 'package:study_buddy/models/Coupon.dart';
 import '../screens/storeScreen.dart';
 
 class StoreItem extends StatelessWidget {
@@ -10,7 +11,7 @@ class StoreItem extends StatelessWidget {
   final String adress;
   final String imageURL;
   final String description;
-  final List<String> cupons;
+  final List<Coupon> cupons;
   final List<String> categories;
 
   StoreItem({

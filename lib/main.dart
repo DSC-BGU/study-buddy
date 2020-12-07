@@ -15,6 +15,7 @@ import './Screens/MainScreen/Dashboard.dart';
 
 import 'models/Coupon.dart';
 import './models/store.dart';
+import 'providers/Coupon_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Points()),
+        ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
