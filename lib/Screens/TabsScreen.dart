@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:study_buddy/Screens/Cupons.dart';
+import './MainScreen/Dashboard.dart';
+import './mall_screen.dart';
+import './categories_screen.dart';
 import 'package:study_buddy/Screens/MainScreen/Dashboard.dart';
-import 'package:study_buddy/Screens/storeScreen.dart';
 
 import '../app_localizations.dart';
 
@@ -26,10 +27,10 @@ class TabsScreen extends StatelessWidget {
       initialIndex: _intialIndex,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(t("Hi user")),
+          title: Text(t('Hi user')),
         ),
         body: TabBarView(
-          children: <Widget>[StoreScreen(), Dashboard(), Cupons()],
+          children: <Widget>[MallScreen(), Dashboard(), CategoriesScreen()],
         ),
         bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,

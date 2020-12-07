@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/Screens/FocusScreen/FocusScreen.dart';
-import 'package:study_buddy/Screens/TabsScreen.dart';
-import 'Screens/MainScreen/Dashboard.dart';
-import 'package:study_buddy/providers/points.dart';
-import 'package:study_buddy/app_localizations.dart';
+import './providers/points.dart';
+import './app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import './dummy_data.dart';
+
+import './Screens/categories_screen.dart';
+import './Screens/category_cupons_screen.dart';
+import './Screens/category_stores_screen.dart';
+import './Screens/mall_screen.dart';
+import './Screens/storeScreen.dart';
+import './Screens/FocusScreen/FocusScreen.dart';
+import './Screens/TabsScreen.dart';
+import './Screens/MainScreen/Dashboard.dart';
+
+import './models/my_coupon.dart';
+import './models/store.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  List<MyCoupon> _availableCoupons = DUMMY_COUPONS;
+  List<Store> _availableStores = DUMMY_STORES;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -48,6 +61,13 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => TabsScreen(),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           Dashboard.routeName: (ctx) => Dashboard(),
+          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+          CategoryCuponsScreen.routeName: (ctx) =>
+              CategoryCuponsScreen(_availableCoupons),
+          CategoryStoresScreen.routeName: (ctx) =>
+              CategoryStoresScreen(_availableStores),
+          StoreScreen.routeName: (ctx) => StoreScreen(),
+          MallScreen.routeName: (ctx) => MallScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == FocusScreen.routeName)

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/widgets/dummy_data.dart';
-import 'package:study_buddy/widgets/SingleCupon.dart';
+import '../dummy_data.dart';
+import '../widgets/SingleCupon.dart';
 
 class StoreScreen extends StatelessWidget {
+  static const routeName = '/store-detail';
   StoreScreen();
-
-  static const routhName = "/store";
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -17,7 +16,7 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
-  Widget buildContainer(Widget child) {
+  Widget buildContainer({Widget child}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -35,8 +34,8 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final storeId = ModalRoute.of(context).settings.arguments as String;
-    final selectedStore = DUMMY_STORES[0];
-    //.firstWhere((store) => store.id == storeId);
+    final selectedStore =
+        DUMMY_STORES.firstWhere((store) => store.id == storeId); //[0];
     return Scaffold(
       appBar: AppBar(
         title: Text('${selectedStore.name}'),
@@ -48,7 +47,7 @@ class StoreScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                selectedStore.imageURL,
+                selectedStore.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -67,7 +66,7 @@ class StoreScreen extends StatelessWidget {
                           vertical: 5,
                           horizontal: 10,
                         ),
-                        child: Text('Adress:  ${selectedStore.adress}'),
+                        child: Text('Adress: ${selectedStore.adress}'),
                       ),
                     ),
                   ),
@@ -85,19 +84,38 @@ class StoreScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 300,
-                    child: Card(
-                      color: Theme.of(context).accentColor,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
-                        ),
-                        child: Text('Category: ${selectedStore.categoryText}'),
-                      ),
-                    ),
-                  ),
+                  // // SizedBox(
+                  // //   width: 300,
+                  // //   child: Card(
+                  // //     color: Theme.of(context).accentColor,
+                  // //     child: Padding(
+                  // //       padding: EdgeInsets.symmetric(
+                  // //         vertical: 5,
+                  // //         horizontal: 10,
+                  // //       ),
+                  // //       // TODO
+                  // //       child: Text('Category: ${selectedStore.categories}'),
+                  // //     ),
+                  // //   ),
+                  // // ),
+                  // buildContainer(
+                  //   child: ListView.builder(
+                  //     itemCount: selectedStore.categories.length,
+                  //     itemBuilder: (ctx, index) => Column(
+                  //       children: [
+                  //         ListTile(
+                  //           leading: CircleAvatar(
+                  //             child: Text('# ${(index + 1)}'),
+                  //           ),
+                  //           title: Text(
+                  //             selectedStore.categories[index],
+                  //           ),
+                  //         ),
+                  //         Divider(),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
