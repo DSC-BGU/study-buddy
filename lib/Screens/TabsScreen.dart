@@ -3,6 +3,8 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import './MainScreen/Dashboard.dart';
 import './mall_screen.dart';
 import './categories_screen.dart';
+import 'package:study_buddy/Screens/MainScreen/Dashboard.dart';
+
 import '../app_localizations.dart';
 
 class TabsScreenArguments {
