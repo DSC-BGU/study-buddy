@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
-import '../widgets/my_coupon_item.dart';
+import 'package:study_buddy/widgets/SingleCoupon.dart';
 import '../models/Coupon.dart';
 
 class CategoryCuponsScreen extends StatefulWidget {
@@ -48,7 +48,7 @@ class _CategoryCuponsScreenState extends State<CategoryCuponsScreen> {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return CouponItem(
+          return SingleCoupon(
             id: displayedCoupons[index].id,
             title: displayedCoupons[index].title,
             storeId: displayedCoupons[index].storeId,

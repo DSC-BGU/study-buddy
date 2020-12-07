@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/Screens/MyCoupons.dart';
-import 'package:study_buddy/widgets/MainScreen/MainScreenNavigationRow.dart';
-import 'package:study_buddy/widgets/SingleCoupon.dart';
-import 'package:study_buddy/widgets/my_coupon_item.dart';
+
 import './providers/points.dart';
 import './app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
