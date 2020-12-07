@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Points()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Study Buddy',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
           accentColor: Colors.orange,
@@ -64,11 +64,6 @@ class MyApp extends StatelessWidget {
           CategoryStoresScreen.routeName: (ctx) =>
               CategoryStoresScreen(_availableStores),
           StoreScreen.routeName: (ctx) => StoreScreen(),
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == FocusScreen.routeName)
-            return PageRouteBuilder(pageBuilder: (_, __, ___) => FocusScreen());
-          return null;
         },
       ),
     );
