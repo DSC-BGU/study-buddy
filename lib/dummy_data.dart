@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './models/category.dart';
 import './models/store.dart';
-import './models/my_coupon.dart';
+import 'models/Coupon.dart';
 
 const DUMMY_CATEGORIES = const [
   Category(
@@ -243,7 +243,7 @@ const DUMMY_STORES = const [
 ];
 
 const DUMMY_COUPONS = const [
-  MyCoupon(
+  Coupon(
     id: 'p1',
     title: '1+1 on all Hamburgers',
     storeId: 's1',
@@ -256,7 +256,7 @@ const DUMMY_COUPONS = const [
       'c2',
     ],
   ),
-  MyCoupon(
+  Coupon(
     id: 'p2',
     title: '20% of all beers',
     storeId: 's4',
@@ -269,7 +269,7 @@ const DUMMY_COUPONS = const [
       'c2',
     ],
   ),
-  MyCoupon(
+  Coupon(
     id: 'p3',
     title: '10% On 10 trainings',
     storeId: 's14',
@@ -281,7 +281,7 @@ const DUMMY_COUPONS = const [
       'c8',
     ],
   ),
-  MyCoupon(
+  Coupon(
     id: 'p4',
     title: '20% of all beers',
     storeId: 's5',
@@ -294,7 +294,7 @@ const DUMMY_COUPONS = const [
       'c2',
     ],
   ),
-  MyCoupon(
+  Coupon(
     id: 'p5',
     title: '30% on Disney movies',
     storeId: 's12',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyCoupon {
+class Coupon {
   final String id;
   final String title;
   final String storeId;
@@ -9,7 +9,7 @@ class MyCoupon {
   final int points;
   final List<String> categories;
 
-  const MyCoupon({
+  const Coupon({
     @required this.id,
     @required this.title,
     @required this.storeId,
