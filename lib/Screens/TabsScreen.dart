@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:study_buddy/Screens/MyCoupons.dart';
 import './MainScreen/Dashboard.dart';
-import './mall_screen.dart';
 import './categories_screen.dart';
 import 'package:study_buddy/Screens/MainScreen/Dashboard.dart';
 
