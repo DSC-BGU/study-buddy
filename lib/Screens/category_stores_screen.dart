@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
+import 'package:study_buddy/models/Coupon.dart';
 import '../widgets/store_item.dart';
 import '../models/store.dart';
 
@@ -54,7 +55,7 @@ class _CategoryStoresScreenState extends State<CategoryStoresScreen> {
             adress: displayedStores[index].adress,
             imageURL: displayedStores[index].imageUrl,
             description: displayedStores[index].description,
-            cupons: displayedStores[index].cupons,
+            cupons: List<Coupon>(), //TODO
             categories: displayedStores[index].categories,
           );
         },
