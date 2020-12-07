@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import './providers/points.dart';
 import './app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,7 +14,7 @@ import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/TabsScreen.dart';
 import './Screens/MainScreen/Dashboard.dart';
 
-import './models/my_coupon.dart';
+import 'models/Coupon.dart';
 import './models/store.dart';
 
 void main() {
@@ -21,7 +22,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  List<MyCoupon> _availableCoupons = DUMMY_COUPONS;
+  List<Coupon> _availableCoupons = DUMMY_COUPONS;
   List<Store> _availableStores = DUMMY_STORES;
 
   // This widget is the root of your application.

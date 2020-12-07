@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
-import '../widgets/SingleCupon.dart';
+import '../widgets/SingleCoupon.dart';
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
@@ -126,8 +126,6 @@ class StoreScreen extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 10, 0, 8),
                   ),
-                  SingleCupon('Hamburger', '1+1 on all Hamburgers'),
-                  SingleCupon('Beer', '20% of all beers'),
                 ],
               ),
             ),
