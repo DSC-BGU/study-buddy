@@ -24,7 +24,7 @@ class CouponStatus extends StatelessWidget {
                   builder: (ctx) => PopUpQR(ctx, coupons[index].title));
             }
           },
-          child: StoreCoupon(coupon: coupons[index]),
+          child: SingleCoupon(coupon: coupons[index]),
         );
       },
       itemCount: coupons.length,

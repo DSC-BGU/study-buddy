@@ -1,136 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_buddy/models/Coupon.dart';
+import 'package:study_buddy/providers/Coupon_provider.dart';
+import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
+import 'package:study_buddy/widgets/SingleCoupon.dart';
 import '../dummy_data.dart';
+<<<<<<< HEAD
+=======
+import 'package:study_buddy/models/store.dart';
+//import 'package:study_buddy/widgets/SingleCoupon.dart';
+>>>>>>> 754b73ae9631e794b5db0b5b3de904902164735e
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
+
   StoreScreen();
 
-  Widget buildSectionTitle(BuildContext context, String text) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.title,
-      ),
-    );
-  }
-
-  Widget buildContainer({Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      height: 150,
-      width: 300,
-      child: child,
-    );
-  }
+  List<Coupon> displayeCoupons = DUMMY_COUPONS;
 
   @override
   Widget build(BuildContext context) {
+    List<StoreCoupon> list = [];
+
     final storeId = ModalRoute.of(context).settings.arguments as String;
+    Coupon_provider coupon_provider = Provider.of(context);
+    List<Coupon> couponList = coupon_provider.storesCoupons(storeId);
+
+    for (Coupon c in couponList) {
+      list.add(new StoreCoupon(
+           coupon: c));
+    }
+    ;
+
     final selectedStore =
-        DUMMY_STORES.firstWhere((store) => store.id == storeId); //[0];
+        DUMMY_STORES.firstWhere((store) => store.id == storeId);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${selectedStore.name}'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                selectedStore.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-            buildSectionTitle(context, 'Information'),
-            Container(
-              color: Colors.white38,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    width: 300,
-                    child: Card(
-                      color: Theme.of(context).accentColor,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
-                        ),
-                        child: Text('Adress: ${selectedStore.adress}'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 300,
-                    child: Card(
-                      color: Theme.of(context).accentColor,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
-                        ),
-                        child:
-                            Text('Description: ${selectedStore.description}'),
-                      ),
-                    ),
-                  ),
-                  // // SizedBox(
-                  // //   width: 300,
-                  // //   child: Card(
-                  // //     color: Theme.of(context).accentColor,
-                  // //     child: Padding(
-                  // //       padding: EdgeInsets.symmetric(
-                  // //         vertical: 5,
-                  // //         horizontal: 10,
-                  // //       ),
-                  // //       // TODO
-                  // //       child: Text('Category: ${selectedStore.categories}'),
-                  // //     ),
-                  // //   ),
-                  // // ),
-                  // buildContainer(
-                  //   child: ListView.builder(
-                  //     itemCount: selectedStore.categories.length,
-                  //     itemBuilder: (ctx, index) => Column(
-                  //       children: [
-                  //         ListTile(
-                  //           leading: CircleAvatar(
-                  //             child: Text('# ${(index + 1)}'),
-                  //           ),
-                  //           title: Text(
-                  //             selectedStore.categories[index],
-                  //           ),
-                  //         ),
-                  //         Divider(),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-            buildSectionTitle(context, 'Cupons'),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 0, 8),
-                  ),
-                ],
-              ),
-            ),
-          ],
+        body: CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          title: Text(
+            '${selectedStore.name}',
+          ),
+          backgroundColor: Colors.black,
+          expandedHeight: 200.0,
+          flexibleSpace: FlexibleSpaceBar(
+            background:
+                Image.network(selectedStore.imageUrl, fit: BoxFit.cover),
+          ),
         ),
-      ),
-    );
+        SliverFixedExtentList(
+          itemExtent: 150.0,
+          delegate: SliverChildListDelegate(
+            list,
+          ),
+        ),
+      ],
+    ));
   }
 }

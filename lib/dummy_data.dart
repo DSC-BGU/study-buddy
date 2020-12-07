@@ -6,57 +6,57 @@ import 'models/Coupon.dart';
 
 const DUMMY_CATEGORIES = const [
   Category(
-    id: 'c1',
+    id: 'QfKaJIZzvvEA7FtPbLed',
     title: 'Restaurants',
     // color: Colors.purple,
   ),
   Category(
-    id: 'c2',
+    id: 'QfKaJIZzvvEA7FtPbLed',
     title: 'Bars',
     // color: Colors.red,
   ),
   Category(
-    id: 'c3',
+    id: 'YK72WiEOIDhbbJQmispM',
     title: 'Grocery',
     // color: Colors.orange,
   ),
   Category(
-    id: 'c4',
+    id: 'oZDsZAGLJxTqRIhZaWI6',
     title: 'Take Away',
     // color: Colors.amber,
   ),
   Category(
-    id: 'c5',
+    id: '6yLqkuvhTxGUNRuW0oND',
     title: 'Office Supplies',
     // color: Colors.blue,
   ),
   Category(
-    id: 'c6',
+    id: 'sEDvgxZAXidrIo5httC0',
     title: 'Clothes',
     // color: Colors.green,
   ),
   Category(
-    id: 'c7',
+    id: 'LYp19oDEtAEmFeRdKbPM',
     title: 'Attractions',
     // color: Colors.lightBlue,
   ),
   Category(
-    id: 'c8',
+    id: 'PNZFxWytJSkzgM9MFv36',
     title: 'Sport',
     // color: Colors.lightGreen,
   ),
   Category(
-    id: 'c9',
+    id: 'U0Bz7t1d0Ci07GY593yT',
     title: 'Mobile',
     // color: Colors.pink,
   ),
   Category(
-    id: 'c10',
+    id: 'XJQikGUXjok9ZHULYPWs',
     title: 'Pets',
     // color: Colors.brown,
   ),
   Category(
-    id: 'c11',
+    id: 'wkBTHUo0wm2yNe7oH8cF',
     title: 'Department Store',
     // color: Colors.cyan,
   ),
@@ -70,12 +70,10 @@ const DUMMY_STORES = const [
     imageUrl:
         'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
     description: 'Agadir resturant. Fast Food',
-    cupons: [
-      '',
-    ],
+    cupons: [],
     categories: [
-      'c1',
-      'c4',
+      'QfKaJIZzvvEA7FtPbLed',
+      'oZDsZAGLJxTqRIhZaWI6',
     ],
   ),
   Store(
@@ -86,7 +84,7 @@ const DUMMY_STORES = const [
     description: 'Mini Market. Open 24/7',
     cupons: [],
     categories: [
-      'c3',
+      'YK72WiEOIDhbbJQmispM',
     ],
   ),
   Store(
@@ -97,8 +95,8 @@ const DUMMY_STORES = const [
     description: 'Department store',
     cupons: [],
     categories: [
-      'c11',
-      'c5',
+      'QfKaJIZzvvEA7FtPbLed1',
+      '6yLqkuvhTxGUNRuW0oND',
     ],
   ),
   Store(
@@ -109,8 +107,8 @@ const DUMMY_STORES = const [
     description: '',
     cupons: [],
     categories: [
-      'c1',
-      'c2',
+      'QfKaJIZzvvEA7FtPbLed',
+      'QfKaJIZzvvEA7FtPbLed',
     ],
   ),
   Store(
@@ -122,8 +120,8 @@ const DUMMY_STORES = const [
     description: '',
     cupons: [],
     categories: [
-      'c1',
-      'c2',
+      'QfKaJIZzvvEA7FtPbLed',
+      'QfKaJIZzvvEA7FtPbLed',
     ],
   ),
   Store(
@@ -134,7 +132,7 @@ const DUMMY_STORES = const [
     description: 'Fruits & Vegetables',
     cupons: [],
     categories: [
-      'c3',
+      'YK72WiEOIDhbbJQmispM',
     ],
   ),
   Store(
@@ -145,7 +143,7 @@ const DUMMY_STORES = const [
     description: 'Everything for your furry friend',
     cupons: [],
     categories: [
-      'c10',
+      'QfKaJIZzvvEA7FtPbLed0',
     ],
   ),
   Store(
@@ -157,7 +155,7 @@ const DUMMY_STORES = const [
     description: 'Clothes for Childrens',
     cupons: [],
     categories: [
-      'c6',
+      'sEDvgxZAXidrIo5httC0',
     ],
   ),
   Store(
@@ -179,8 +177,8 @@ const DUMMY_STORES = const [
     description: 'Buy equipment',
     cupons: [],
     categories: [
-      'c6',
-      'c8',
+      'sEDvgxZAXidrIo5httC0',
+      'PNZFxWytJSkzgM9MFv36',
     ],
   ),
   Store(
@@ -192,7 +190,7 @@ const DUMMY_STORES = const [
     description: 'Pew pew!',
     cupons: [],
     categories: [
-      'c7',
+      'LYp19oDEtAEmFeRdKbPM',
     ],
   ),
   Store(
@@ -203,7 +201,7 @@ const DUMMY_STORES = const [
     description: 'Cinema',
     cupons: [],
     categories: [
-      'c7',
+      'LYp19oDEtAEmFeRdKbPM',
     ],
   ),
   Store(
@@ -214,8 +212,8 @@ const DUMMY_STORES = const [
     description: '',
     cupons: [],
     categories: [
-      'c5',
-      'c11',
+      '6yLqkuvhTxGUNRuW0oND',
+      'QfKaJIZzvvEA7FtPbLed1',
     ],
   ),
   Store(
@@ -226,7 +224,7 @@ const DUMMY_STORES = const [
     description: '',
     cupons: [],
     categories: [
-      'c8',
+      'PNZFxWytJSkzgM9MFv36',
     ],
   ),
   Store(
@@ -252,8 +250,8 @@ const DUMMY_COUPONS = const [
         'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
     points: 70,
     categories: [
-      'c1',
-      'c2',
+      'QfKaJIZzvvEA7FtPbLed',
+      'QfKaJIZzvvEA7FtPbLed',
     ],
   ),
   Coupon(
@@ -265,8 +263,8 @@ const DUMMY_COUPONS = const [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHirzyvm--Vo6ejQ6ImeIYryCtglW8t5pnZg&usqp=CAU',
     points: 30,
     categories: [
-      'c1',
-      'c2',
+      'QfKaJIZzvvEA7FtPbLed',
+      'QfKaJIZzvvEA7FtPbLed',
     ],
   ),
   Coupon(
@@ -278,7 +276,7 @@ const DUMMY_COUPONS = const [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFWSVHw_DzO9BVOOHOOMnbralpg1561yN_hQ&usqp=CAU',
     points: 40,
     categories: [
-      'c8',
+      'PNZFxWytJSkzgM9MFv36',
     ],
   ),
   Coupon(
@@ -290,8 +288,8 @@ const DUMMY_COUPONS = const [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEadsPmF6WnoFMun4Gfy-TGGlzHwwW98mBzA&usqp=CAU',
     points: 30,
     categories: [
-      'c1',
-      'c2',
+      'QfKaJIZzvvEA7FtPbLed',
+      'QfKaJIZzvvEA7FtPbLed',
     ],
   ),
   Coupon(
@@ -303,7 +301,7 @@ const DUMMY_COUPONS = const [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE40RUns5KIvAOBag57Nd6Dz2oferHxB_kbg&usqp=CAU',
     points: 30,
     categories: [
-      'c7',
+      'LYp19oDEtAEmFeRdKbPM',
     ],
   ),
 ];
