@@ -19,17 +19,14 @@ class MyCoupons extends StatelessWidget {
                 context: context,
                 builder: (ctx) => PopUpQR(ctx, myCoupons[index].title));
           },
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 5.0),
-            child: SingleCoupon(
-              id: myCoupons[index].id,
-              title: myCoupons[index].title,
-              storeId: myCoupons[index].storeId,
-              description: myCoupons[index].description,
-              imageUrl: myCoupons[index].imageUrl,
-              points: myCoupons[index].points,
-              categories: myCoupons[index].categories,
-            ),
+          child: SingleCoupon(
+            id: myCoupons[index].id,
+            title: myCoupons[index].title,
+            storeId: myCoupons[index].storeId,
+            description: myCoupons[index].description,
+            imageUrl: myCoupons[index].imageUrl,
+            points: myCoupons[index].points,
+            categories: myCoupons[index].categories,
           ),
         );
       },
