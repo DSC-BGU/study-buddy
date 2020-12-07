@@ -1,25 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:study_buddy/models/Coupon.dart';
 
 class SingleCoupon extends StatelessWidget {
-  final String id;
-  final String title;
-  final String storeId;
-  final String description;
-  final String imageUrl;
-  final int points;
-  final List<String> categories;
+  final Coupon coupon;
 
-  SingleCoupon({
-    @required this.id,
-    @required this.title,
-    @required this.storeId,
-    @required this.description,
-    @required this.imageUrl,
-    @required this.points,
-    @required this.categories,
-  });
+  SingleCoupon({@required this.coupon});
 
   // void selectCoupon(BuildContext context) {
   //   Navigator.of(context)
@@ -42,7 +29,7 @@ class SingleCoupon extends StatelessWidget {
         height: constraints.maxWidth * 0.30,
         child: Stack(children: [
           Image.network(
-            imageUrl,
+            this.coupon.imageUrl,
             width: double.infinity,
             fit: BoxFit.fitWidth,
           ),
@@ -51,7 +38,7 @@ class SingleCoupon extends StatelessWidget {
                 width: double.infinity,
                 color: Colors.black38,
                 child: Text(
-                  this.description,
+                  this.coupon.description,
                   style: TextStyle(color: Colors.white, fontSize: 26),
                 )),
           ])

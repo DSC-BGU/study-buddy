@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
-import '../widgets/SingleCoupon.dart';
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';

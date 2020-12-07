@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:study_buddy/models/PurchasedCoupon.dart';
 
 import './models/category.dart';
 import './models/store.dart';
@@ -306,4 +306,48 @@ const DUMMY_COUPONS = const [
       'c7',
     ],
   ),
+];
+
+// ignore: non_constant_identifier_names
+final DUMMY_PURCHASED_COUPONS = [
+  PurchasedCoupon(
+      id: 'dpc1',
+      couponId: 'p1',
+      userId: 'u1',
+      used: true,
+      price: 150,
+      datePurhcased: null,
+      coupon: DUMMY_COUPONS[0]),
+  PurchasedCoupon(
+      id: 'dpc2',
+      couponId: 'p2',
+      userId: 'u1',
+      used: false,
+      price: 30,
+      datePurhcased: null,
+      coupon: DUMMY_COUPONS[1]),
+  PurchasedCoupon(
+      id: 'dpc3',
+      couponId: 'p3',
+      userId: 'u1',
+      used: false,
+      price: 50,
+      datePurhcased: null,
+      coupon: DUMMY_COUPONS[2]),
+  PurchasedCoupon(
+      id: 'dpc4',
+      couponId: 'p4',
+      userId: 'u1',
+      used: true,
+      price: 120,
+      datePurhcased: null,
+      coupon: DUMMY_COUPONS[3]),
+  PurchasedCoupon(
+      id: 'dpc5',
+      couponId: 'p5',
+      userId: 'u1',
+      used: false,
+      price: 300,
+      datePurhcased: null,
+      coupon: DUMMY_COUPONS[4]),
 ];
