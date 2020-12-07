@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:study_buddy/Screens/MyCoupons.dart';
 import './MainScreen/Dashboard.dart';
 import './mall_screen.dart';
 import './categories_screen.dart';
@@ -30,7 +31,7 @@ class TabsScreen extends StatelessWidget {
           title: Text(t('Hi user')),
         ),
         body: TabBarView(
-          children: <Widget>[MallScreen(), Dashboard(), CategoriesScreen()],
+          children: <Widget>[MyCoupons(), Dashboard(), CategoriesScreen()],
         ),
         bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,
@@ -38,16 +39,16 @@ class TabsScreen extends StatelessWidget {
             // controller: _tabController,
             tabs: [
               Tab(
-                icon: Icon(MaterialCommunityIcons.store),
-                text: t('Store'),
+                icon: Icon(MaterialCommunityIcons.wallet),
+                text: t('Wallet'),
               ),
               Tab(
                 icon: Icon(MaterialCommunityIcons.clock_outline),
                 text: t('Home'),
               ),
               Tab(
-                icon: Icon(MaterialCommunityIcons.wallet),
-                text: t('Coupons'),
+                icon: Icon(MaterialCommunityIcons.format_list_bulleted),
+                text: t('Categories'),
               )
             ],
             indicatorSize: TabBarIndicatorSize.label,

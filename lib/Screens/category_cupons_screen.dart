@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
 import '../widgets/my_coupon_item.dart';
-import '../models/my_coupon.dart';
+import '../models/Coupon.dart';
 
 class CategoryCuponsScreen extends StatefulWidget {
   static const routeName = '/category-coupones';
 
-  final List<MyCoupon> availableCoupons;
+  final List<Coupon> availableCoupons;
 
   CategoryCuponsScreen(this.availableCoupons);
 
@@ -16,7 +16,7 @@ class CategoryCuponsScreen extends StatefulWidget {
 
 class _CategoryCuponsScreenState extends State<CategoryCuponsScreen> {
   String categoryTitle;
-  List<MyCoupon> displayedCoupons;
+  List<Coupon> displayedCoupons;
   var _loadedInitData = false;
 
   @override
