@@ -17,6 +17,7 @@ import './Screens/MainScreen/Dashboard.dart';
 
 import 'models/Coupon.dart';
 import './models/store.dart';
+import 'providers/Coupon_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Points()),
+        ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',

@@ -70,9 +70,7 @@ const DUMMY_STORES = const [
     imageUrl:
         'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
     description: 'Agadir resturant. Fast Food',
-    cupons: [
-      '',
-    ],
+    cupons: [],
     categories: [
       'QfKaJIZzvvEA7FtPbLed',
       'oZDsZAGLJxTqRIhZaWI6',
