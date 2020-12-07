@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +18,9 @@ import './Screens/MainScreen/Dashboard.dart';
 import 'models/Coupon.dart';
 import './models/store.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Points()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Study Buddy',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
           accentColor: Colors.orange,
@@ -64,11 +68,6 @@ class MyApp extends StatelessWidget {
           CategoryStoresScreen.routeName: (ctx) =>
               CategoryStoresScreen(_availableStores),
           StoreScreen.routeName: (ctx) => StoreScreen(),
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == FocusScreen.routeName)
-            return PageRouteBuilder(pageBuilder: (_, __, ___) => FocusScreen());
-          return null;
         },
       ),
     );
