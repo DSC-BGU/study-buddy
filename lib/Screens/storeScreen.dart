@@ -3,13 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:study_buddy/models/Coupon.dart';
 import 'package:study_buddy/providers/Coupon_provider.dart';
 import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
-import 'package:study_buddy/widgets/SingleCoupon.dart';
 import '../dummy_data.dart';
-<<<<<<< HEAD
-=======
-import 'package:study_buddy/models/store.dart';
+
 //import 'package:study_buddy/widgets/SingleCoupon.dart';
->>>>>>> 754b73ae9631e794b5db0b5b3de904902164735e
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
@@ -27,8 +23,7 @@ class StoreScreen extends StatelessWidget {
     List<Coupon> couponList = coupon_provider.storesCoupons(storeId);
 
     for (Coupon c in couponList) {
-      list.add(new StoreCoupon(
-           coupon: c));
+      list.add(new StoreCoupon(coupon: c));
     }
     ;
 
