@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/dummy_data.dart';
 import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/models/PurchasedCoupon.dart';
 import 'package:study_buddy/providers/user.dart';
 import 'package:study_buddy/widgets/Coupons/CouponStatus.dart';
 
 class MyCoupons extends StatelessWidget {
-  final List<PurchasedCoupon> myCoupons = DUMMY_PURCHASED_COUPONS;
-  final List<Coupon> dummyCoupons = DUMMY_COUPONS;
   MyCoupons();
 
   @override

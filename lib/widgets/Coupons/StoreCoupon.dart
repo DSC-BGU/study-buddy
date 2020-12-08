@@ -52,7 +52,10 @@ class StoreCoupon extends StatelessWidget {
           onTap: () {
             showDialog(
                 context: context,
-                builder: (ctx) => PopUpBuy(ctx, coupon.title));
+                builder: (ctx) => PopUpBuy(
+                      ctx,
+                      coupon,
+                    ));
           });
     });
   }

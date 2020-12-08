@@ -12,8 +12,6 @@ class StoreScreen extends StatelessWidget {
 
   StoreScreen();
 
-  List<Coupon> displayeCoupons = DUMMY_COUPONS;
-
   @override
   Widget build(BuildContext context) {
     List<StoreCoupon> list = [];
@@ -25,7 +23,6 @@ class StoreScreen extends StatelessWidget {
     for (Coupon c in couponList) {
       list.add(new StoreCoupon(coupon: c));
     }
-    ;
 
     final selectedStore =
         DUMMY_STORES.firstWhere((store) => store.id == storeId);
