@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/providers/user.dart';
 
 import './providers/points.dart';
 import './app_localizations.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Points()),
+        ChangeNotifierProvider(create: (context) => User()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
       child: MaterialApp(

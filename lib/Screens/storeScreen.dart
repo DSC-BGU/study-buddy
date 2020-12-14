@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/models/Coupon.dart';
 import 'package:study_buddy/providers/Coupon_provider.dart';
-import 'package:study_buddy/widgets/SingleCoupon.dart';
+import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
 import '../dummy_data.dart';
-import 'package:study_buddy/models/store.dart';
+
 //import 'package:study_buddy/widgets/SingleCoupon.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -12,27 +12,17 @@ class StoreScreen extends StatelessWidget {
 
   StoreScreen();
 
-  List<Coupon> displayeCoupons = DUMMY_COUPONS;
-
   @override
   Widget build(BuildContext context) {
-    List<SingleCoupon> list = [];
+    List<StoreCoupon> list = [];
 
     final storeId = ModalRoute.of(context).settings.arguments as String;
     Coupon_provider coupon_provider = Provider.of(context);
     List<Coupon> couponList = coupon_provider.storesCoupons(storeId);
 
     for (Coupon c in couponList) {
-      list.add(new SingleCoupon(
-          id: c.id,
-          title: c.title,
-          storeId: c.storeId,
-          description: c.description,
-          imageUrl: c.imageUrl,
-          points: c.points,
-          categories: c.categories));
+      list.add(new StoreCoupon(coupon: c));
     }
-    ;
 
     final selectedStore =
         DUMMY_STORES.firstWhere((store) => store.id == storeId);
