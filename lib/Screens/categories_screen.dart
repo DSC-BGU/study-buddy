@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
 
 import '../dummy_data.dart';
-import '../widgets/category_item.dart';
-import '../widgets/advertising.dart';
+import '../widgets/CategoryScreen/category_item.dart';
+import '../widgets/CategoryScreen/advertising.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories';
@@ -11,42 +11,45 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return
-        // Scaffold(
-        //   appBar: AppBar(),
-        //   body:
-        Container(
-      child: Flex(
-        direction: Axis.vertical,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Flexible(
-            child: Advertising(),
-          ),
-          Flexible(
-            child: GridView(
-              padding: const EdgeInsets.all(15),
-              children: DUMMY_CATEGORIES
-                  .map(
-                    (catData) => CategoryItem(
-                      catData.id,
-                      catData.title,
-                      // Theme.of(context).primaryColor.withOpacity(0.6)),
-                      // catData.color,
-                    ),
-                  )
-                  .toList(),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverGrid(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
+                maxCrossAxisExtent: 200.0,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
                 childAspectRatio: 3 / 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Advertising();
+                },
+                childCount: 1,
               ),
             ),
-          ),
-        ],
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200.0,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 3 / 2,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return CategoryItem(
+                    DUMMY_CATEGORIES[index].id,
+                    DUMMY_CATEGORIES[index].title,
+                  );
+                },
+                childCount: DUMMY_CATEGORIES.length,
+              ),
+            ),
+          ],
+        ),
       ),
-      // ),
     );
   }
 }
