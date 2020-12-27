@@ -17,7 +17,6 @@ class PointsStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    Points pointsProvider = Provider.of<Points>(context);
     User user = Provider.of<User>(context);
     final date = DateFormat('dd/MM/yyyy').format(DateTime.now());
     return Padding(
