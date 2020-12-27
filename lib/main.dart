@@ -1,24 +1,27 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/providers/user.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './providers/points.dart';
-import './app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import './dummy_data.dart';
+import './providers/Coupon_provider.dart';
+import './providers/user.dart' as Student;
 
+import './Screens/TabsScreen.dart';
+import './Screens/auth_screen.dart';
 import './Screens/categories_screen.dart';
 import './Screens/category_stores_screen.dart';
 import './Screens/storeScreen.dart';
 import './Screens/FocusScreen/FocusScreen.dart';
-import './Screens/TabsScreen.dart';
 import './Screens/MainScreen/Dashboard.dart';
 
-import 'models/Coupon.dart';
+import './models/Coupon.dart';
 import './models/store.dart';
-import 'providers/Coupon_provider.dart';
+
+import './app_localizations.dart';
+import './dummy_data.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,8 +38,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => Student.User()),
         ChangeNotifierProvider(create: (context) => Points()),
-        ChangeNotifierProvider(create: (context) => User()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
       child: MaterialApp(
@@ -64,8 +67,17 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
+        // initialRoute: '/',
         routes: {
-          '/': (ctx) => TabsScreen(),
+          '/': (ctx) => StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (ctx, userSnapshot) {
+                  if (userSnapshot.hasData) {
+                    return TabsScreen();
+                  }
+                  return AuthScreen();
+                },
+              ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           Dashboard.routeName: (ctx) => Dashboard(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
