@@ -54,7 +54,9 @@ class _FocusScreenState extends State<FocusScreen> {
   }
 
   void onOutOfFoucus() {
-    _timer.cancel();
+    if (_timer != null) {
+      _timer.cancel();
+    }
     setState(() {
       _focus = false;
     });

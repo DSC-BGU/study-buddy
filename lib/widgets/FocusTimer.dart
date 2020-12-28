@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:screen_state/screen_state.dart';
-
+import 'package:is_lock_screen/is_lock_screen.dart';
+import 'package:wakelock/wakelock.dart';
 import '../app_localizations.dart';
 
 class FocusTimer extends StatefulWidget {
@@ -17,57 +15,33 @@ class FocusTimer extends StatefulWidget {
 
 class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   bool _focus = false;
-  Screen _screen = Screen();
-  bool _screenTurnedOff = false;
-  StreamSubscription<ScreenStateEvent> _subscription;
   bool started = false;
+  bool _screenTurnedOff = false;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
     WidgetsBinding.instance.addObserver(this);
   }
 
-  Future<void> initPlatformState() async {
-    startListening();
-  }
-
-  void onData(ScreenStateEvent event) {
-    if (event == ScreenStateEvent.SCREEN_OFF) {
-      setState(() {
-        _screenTurnedOff = true;
-      });
-    }
-  }
-
-  void startListening() {
-    try {
-      _subscription = _screen.screenStateStream.listen(onData);
-      setState(() => started = true);
-    } on ScreenStateException catch (exception) {
-      print(exception);
-    }
-  }
 
   @override
   void dispose() {
     try {
       WidgetsBinding.instance.removeObserver(this);
-      _subscription.cancel();
       super.dispose();
     } catch (err) {}
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed && _screenTurnedOff == false) {
+    if (state == AppLifecycleState.inactive && await isLockScreen()) {
+      _screenTurnedOff = true;
+    }
+    if (state == AppLifecycleState.resumed && !_screenTurnedOff) {
       this.outOfFocus();
     }
-    setState(() {
-      _screenTurnedOff = false;
-    });
   }
 
   void outOfFocus() {
@@ -76,7 +50,9 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     }
     setState(() {
       _focus = false;
+      // Wakelock.toggle(enable: false);
     });
+    print("out of focus!");
   }
 
   void startFocus() {
@@ -85,6 +61,7 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     }
     this.setState(() {
       _focus = true;
+      // Wakelock.toggle(enable: true);
       _screenTurnedOff = false;
     });
   }
