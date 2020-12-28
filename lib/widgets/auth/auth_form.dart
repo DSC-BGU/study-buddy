@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/TabsScreen.dart';
+import '../../Screens/TabsScreen.dart';
 import '../../app_localizations.dart';
 
 class AuthForm extends StatefulWidget {
@@ -45,8 +45,7 @@ class _AuthFormState extends State<AuthForm> {
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser =
-        await _googleSignIn.signIn(); // GoogleSignIn().signIn();
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
@@ -123,14 +122,14 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                   InkWell(
                     child: Container(
-                        width: 240,
-                        height: 40,
-                        margin: EdgeInsets.only(top: 25),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.black),
-                        child: Center(
-                            child: Row(
+                      width: 240,
+                      height: 40,
+                      margin: EdgeInsets.only(top: 25),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).primaryColor),
+                      child: Center(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Container(
@@ -153,16 +152,12 @@ class _AuthFormState extends State<AuthForm> {
                                   color: Colors.white),
                             ),
                           ],
-                        ))),
+                        ),
+                      ),
+                    ),
                     onTap: () async {
                       signInWithGoogle().whenComplete(() {
-                        Navigator.of(context)
-                            .pushNamed(TabsScreen.routeName)
-                            .then((result) {
-                          if (result != null) {
-                            null;
-                          }
-                        });
+                        Navigator.of(context).pushNamed(TabsScreen.routeName);
                       });
                     },
                   ),
@@ -180,9 +175,11 @@ class _AuthFormState extends State<AuthForm> {
                           ? t('Create new account')
                           : t('I already have an account')),
                       onPressed: () {
-                        setState(() {
-                          _isLogin = !_isLogin;
-                        });
+                        setState(
+                          () {
+                            _isLogin = !_isLogin;
+                          },
+                        );
                       },
                     ),
                 ],

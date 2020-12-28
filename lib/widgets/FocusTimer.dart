@@ -24,7 +24,6 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
 
-
   @override
   void dispose() {
     try {
@@ -40,7 +39,8 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
       _screenTurnedOff = true;
     }
     if (state == AppLifecycleState.resumed && !_screenTurnedOff) {
-      FocusProvider focusProvider = Provider.of<FocusProvider>(context,listen: false);
+      FocusProvider focusProvider =
+          Provider.of<FocusProvider>(context, listen: false);
       focusProvider.outOfFocus();
       _screenTurnedOff = false;
     }
@@ -56,7 +56,13 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
           shape: new CircleBorder(),
           elevation: 2,
           child: Text(focusProvider.focusStatus ? t('Stop') : t('Start')),
-          onPressed: focusProvider.focusStatus ? (){focusProvider.outOfFocus();} : (){focusProvider.onFocus(context);},
+          onPressed: focusProvider.focusStatus
+              ? () {
+                  focusProvider.outOfFocus();
+                }
+              : () {
+                  focusProvider.onFocus(context);
+                },
           color: Theme.of(context).primaryColor,
         ),
       );

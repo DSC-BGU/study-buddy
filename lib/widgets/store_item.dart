@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:study_buddy/app_localizations.dart';
-import 'package:study_buddy/models/Coupon.dart';
+import '../models/Coupon.dart';
 import '../screens/storeScreen.dart';
+import '../app_localizations.dart';
 
 class StoreItem extends StatelessWidget {
   final String id;
@@ -75,7 +74,7 @@ class StoreItem extends StatelessWidget {
                       horizontal: 20,
                     ),
                     child: Text(
-                      name,
+                      t(name),
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -96,7 +95,7 @@ class StoreItem extends StatelessWidget {
                     children: [
                       Icon(Icons.location_pin),
                       SizedBox(width: 6),
-                      Text(adress),
+                      Text(t(adress)),
                     ],
                   ),
                   Row(
