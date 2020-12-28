@@ -3,7 +3,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import './Coupons/MyCoupons.dart';
 import './MainScreen/Dashboard.dart';
 import './categories_screen.dart';
-import '../widgets/logout.dart';
+import '../widgets/auth/logout.dart';
 
 import '../app_localizations.dart';
 

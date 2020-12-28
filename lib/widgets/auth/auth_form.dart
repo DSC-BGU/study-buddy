@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:flutter/material.dart';
+import 'package:study_buddy/Screens/TabsScreen.dart';
 import '../../app_localizations.dart';
 
 class AuthForm extends StatefulWidget {
@@ -26,6 +24,8 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   final _formKey = GlobalKey<FormState>();
   var _isLogin = true;
   var _userEmail = '';
@@ -43,10 +43,10 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
-/********************************************/
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount googleUser =
+        await _googleSignIn.signIn(); // GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
@@ -61,7 +61,6 @@ class _AuthFormState extends State<AuthForm> {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-/********************************************/
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +80,13 @@ class _AuthFormState extends State<AuthForm> {
                     key: ValueKey('email'),
                     validator: (value) {
                       if (value.isEmpty || !value.contains('@')) {
-                        return 'Please enter a valid email address.';
+                        return t('Please enter a valid email address.');
                       }
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      labelText: 'Email address',
+                      labelText: t('Email address'),
                     ),
                     onSaved: (value) {
                       _userEmail = value;
@@ -98,11 +97,11 @@ class _AuthFormState extends State<AuthForm> {
                       key: ValueKey('username'),
                       validator: (value) {
                         if (value.isEmpty || value.length < 4) {
-                          return 'Please enter at least 4 characters';
+                          return t('Please enter at least 4 characters');
                         }
                         return null;
                       },
-                      decoration: InputDecoration(labelText: 'Username'),
+                      decoration: InputDecoration(labelText: t('Username')),
                       onSaved: (value) {
                         _userName = value;
                       },
@@ -111,29 +110,75 @@ class _AuthFormState extends State<AuthForm> {
                     key: ValueKey('password'),
                     validator: (value) {
                       if (value.isEmpty || value.length < 7) {
-                        return 'Password must be at least 7 characters long.';
+                        return t(
+                            'Password must be at least 7 characters long.');
                       }
                       return null;
                     },
-                    decoration: InputDecoration(labelText: 'Password'),
+                    decoration: InputDecoration(labelText: t('Password')),
                     obscureText: true,
                     onSaved: (value) {
                       _userPassword = value;
+                    },
+                  ),
+                  InkWell(
+                    child: Container(
+                        width: 240,
+                        height: 40,
+                        margin: EdgeInsets.only(top: 25),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.black),
+                        child: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              height: 30.0,
+                              width: 30.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('./assets/google.jpg'),
+                                    fit: BoxFit.cover),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Text(
+                              _isLogin
+                                  ? t('Login with Google')
+                                  : t('Sign in with Google'),
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ))),
+                    onTap: () async {
+                      signInWithGoogle().whenComplete(() {
+                        Navigator.of(context)
+                            .pushNamed(TabsScreen.routeName)
+                            .then((result) {
+                          if (result != null) {
+                            null;
+                          }
+                        });
+                      });
                     },
                   ),
                   SizedBox(height: 12),
                   if (widget.isLoading) CircularProgressIndicator(),
                   if (!widget.isLoading)
                     RaisedButton(
-                      child: Text(_isLogin ? 'Login' : 'Signup'),
+                      child: Text(_isLogin ? t('Login') : t('Signup')),
                       onPressed: _trySubmit,
                     ),
                   if (!widget.isLoading)
                     FlatButton(
                       textColor: Theme.of(context).primaryColor,
                       child: Text(_isLogin
-                          ? 'Create new account'
-                          : 'I already have an account'),
+                          ? t('Create new account')
+                          : t('I already have an account')),
                       onPressed: () {
                         setState(() {
                           _isLogin = !_isLogin;

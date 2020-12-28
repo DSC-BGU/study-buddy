@@ -1,29 +1,27 @@
-import 'dart:async';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:study_buddy/models/User.dart';
 import 'package:study_buddy/services/DB.dart';
 
 import './providers/points.dart';
-import './providers/Coupon_provider.dart';
-// import './providers/user.dart' as Student;
+import './app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import './dummy_data.dart';
 
-import './Screens/TabsScreen.dart';
-import './Screens/auth_screen.dart';
 import './Screens/categories_screen.dart';
 import './Screens/category_stores_screen.dart';
 import './Screens/storeScreen.dart';
 import './Screens/FocusScreen/FocusScreen.dart';
+import './Screens/TabsScreen.dart';
 import './Screens/MainScreen/Dashboard.dart';
+import './Screens/auth_screen.dart';
 
-import './models/Coupon.dart';
-import './models/store.dart';
-
-import './app_localizations.dart';
-import './dummy_data.dart';
+import 'models/Coupon.dart';
+import 'models/store.dart';
+import 'models/User.dart' as Student;
+import 'providers/Coupon_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +39,7 @@ class MyApp extends StatelessWidget {
     final db = DatabaseService();
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(create: (context) => Student.User()),
-        StreamProvider<User>.value(value: db.streamUser('test')),
+        StreamProvider<Student.User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
