@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/models/User.dart';
+import 'package:study_buddy/providers/FocusProvider.dart';
 import 'package:study_buddy/services/DB.dart';
 
 import './providers/points.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         StreamProvider<User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
+        ChangeNotifierProvider(create: (context) => FocusProvider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',
