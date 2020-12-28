@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/providers/user.dart';
+import 'package:study_buddy/models/User.dart';
+import 'package:study_buddy/services/DB.dart';
 
 import './providers/points.dart';
 import './app_localizations.dart';
@@ -33,10 +34,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final db = DatabaseService();
     return MultiProvider(
       providers: [
+        StreamProvider<User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
-        ChangeNotifierProvider(create: (context) => User()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
       child: MaterialApp(
