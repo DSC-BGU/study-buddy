@@ -48,7 +48,6 @@ class User {
 
   void addUserPoints(int points) {
     final db = DatabaseService();
-    print(this.id);
     db.updateUserPoints(this.id, this.points + points);
   }
   void subtractUserPoints(int points) {
