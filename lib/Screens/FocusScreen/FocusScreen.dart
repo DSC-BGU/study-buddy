@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/models/User.dart';
 import 'package:study_buddy/providers/points.dart';
 import 'package:study_buddy/widgets/FocusCircleSlider.dart';
 import 'package:study_buddy/widgets/FocusTimer.dart';
@@ -37,8 +38,8 @@ class _FocusScreenState extends State<FocusScreen> {
         () {
           if (_remainTime.inMinutes < 1) {
             timer.cancel();
-            Points points = Provider.of<Points>(context, listen: false);
-            points.focusSuccesss(_targetTime.inMinutes);
+            User user = Provider.of<User>(context, listen: false);
+            user.addUserPoints(_targetTime.inMinutes);
             setState(() {
               _focus = false;
             });

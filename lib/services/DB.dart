@@ -11,7 +11,7 @@ class DatabaseService {
         .collection('users')
         .doc(id)
         .snapshots()
-        .map((snap) => User.fromMap(snap.data()));
+        .map((snap) => User.fromFirestore(snap));
   }
 
   Stream storesByCategory(String categoryName) {
@@ -24,6 +24,6 @@ class DatabaseService {
 
   /// Write data
   Future<void> updateUserPoints(String id, int points) {
-    return _db.collection('users').doc(id).set({"points": points});
+    return _db.collection('users').doc(id).update({"points": points});
   }
 }
