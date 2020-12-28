@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_circular_slider/flutter_circular_slider.dart';
 import 'package:study_buddy/utils/TimeFunctions.dart';
 
-class FocusCircleSlider extends StatefulWidget {
+import 'MainScreen/circular_slider.dart';
+
+class FocusCircleSlider extends StatelessWidget {
   final int maxMinutes;
   final Duration currentTime;
   final void Function(Duration newDuration) onSetTime;
@@ -13,34 +14,25 @@ class FocusCircleSlider extends StatefulWidget {
     Key key,
   }) : super(key: key);
 
-  @override
-  _FocusCircleSliderState createState() => _FocusCircleSliderState();
-}
-
-class _FocusCircleSliderState extends State<FocusCircleSlider> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   void onTimeChange(int init, int end, int laps) {
-    setState(() {
-      this.widget.onSetTime(Duration(minutes: end));
-    });
+      onSetTime(Duration(minutes: end));
   }
 
   void onEndChange(int init, int end, int laps) {
-    if (this.widget.onSetTime != null)
-      this.widget.onSetTime(Duration(minutes: end));
+    if (this.onSetTime != null)
+      this.onSetTime(Duration(minutes: end));
   }
 
   @override
   Widget build(BuildContext context) {
-    final setTime = printDuration(widget.currentTime);
+    final setTime = printDuration(this.currentTime);
+    print(setTime);
+    int minutesLeft = this.currentTime.inMinutes;
     return Container(
       child: SingleCircularSlider(
-        this.widget.maxMinutes,
-        widget.currentTime.inMinutes,
+        this.maxMinutes,
+        minutesLeft,
         baseColor: Theme.of(context).accentColor,
         handlerColor: Theme.of(context).primaryColor,
         child: Center(
