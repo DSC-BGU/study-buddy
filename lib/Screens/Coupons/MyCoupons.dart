@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/providers/user.dart';
+import 'package:study_buddy/models/User.dart';
 import 'package:study_buddy/widgets/Coupons/CouponStatus.dart';
 
 class MyCoupons extends StatelessWidget {
@@ -9,9 +9,9 @@ class MyCoupons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User userProvider = Provider.of<User>(context);
-    List<Coupon> usedCoupons = userProvider.usedCoupons();
-    List<Coupon> availableCoupons = userProvider.availableCoupons();
+    User user = Provider.of<User>(context);
+    List<Coupon> usedCoupons = user.usedCoupons();
+    List<Coupon> availableCoupons = user.availableCoupons();
     return DefaultTabController(
       length: 2,
       child: Scaffold(

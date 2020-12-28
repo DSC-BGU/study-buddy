@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:study_buddy/models/User.dart';
+import 'package:study_buddy/services/DB.dart';
 
 import './providers/points.dart';
 import './providers/Coupon_provider.dart';
-import './providers/user.dart' as Student;
+// import './providers/user.dart' as Student;
 
 import './Screens/TabsScreen.dart';
 import './Screens/auth_screen.dart';
@@ -36,9 +38,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final db = DatabaseService();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => Student.User()),
+        // ChangeNotifierProvider(create: (context) => Student.User()),
+        StreamProvider<User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
       ],
