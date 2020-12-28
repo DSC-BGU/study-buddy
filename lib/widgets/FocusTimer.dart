@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:is_lock_screen/is_lock_screen.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:provider/provider.dart';
+import 'package:study_buddy/providers/FocusProvider.dart';
+// import 'package:wakelock/wakelock.dart';
 import '../app_localizations.dart';
 
 class FocusTimer extends StatefulWidget {
@@ -14,8 +16,6 @@ class FocusTimer extends StatefulWidget {
 }
 
 class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
-  bool _focus = false;
-  bool started = false;
   bool _screenTurnedOff = false;
 
   @override
@@ -40,42 +40,23 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
       _screenTurnedOff = true;
     }
     if (state == AppLifecycleState.resumed && !_screenTurnedOff) {
-      this.outOfFocus();
-    }
-  }
-
-  void outOfFocus() {
-    if (widget.onOutFocus != null) {
-      widget.onOutFocus();
-    }
-    setState(() {
-      _focus = false;
-      // Wakelock.toggle(enable: false);
-    });
-    print("out of focus!");
-  }
-
-  void startFocus() {
-    if (widget.onStartFocus != null) {
-      widget.onStartFocus();
-    }
-    this.setState(() {
-      _focus = true;
-      // Wakelock.toggle(enable: true);
+      FocusProvider focusProvider = Provider.of<FocusProvider>(context,listen: false);
+      focusProvider.outOfFocus();
       _screenTurnedOff = false;
-    });
+    }
   }
 
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    FocusProvider focusProvider = Provider.of<FocusProvider>(context);
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         height: constraints.maxHeight,
         child: RaisedButton(
           shape: new CircleBorder(),
           elevation: 2,
-          child: Text(_focus ? t('Stop') : t('Start')),
-          onPressed: _focus ? outOfFocus : startFocus,
+          child: Text(focusProvider.focusStatus ? t('Stop') : t('Start')),
+          onPressed: focusProvider.focusStatus ? (){focusProvider.outOfFocus();} : (){focusProvider.onFocus(context);},
           color: Theme.of(context).primaryColor,
         ),
       );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/models/User.dart';
+import 'package:study_buddy/providers/FocusProvider.dart';
 import 'package:study_buddy/providers/points.dart';
 import 'package:study_buddy/widgets/FocusCircleSlider.dart';
 import 'package:study_buddy/widgets/FocusTimer.dart';
@@ -18,67 +19,17 @@ class FocusScreen extends StatefulWidget {
 }
 
 class _FocusScreenState extends State<FocusScreen> {
-  Duration _remainTime = Duration(minutes: 60);
-  Duration _targetTime = Duration(minutes: 60);
-  Timer _timer;
-  bool _focus = false;
-
-  void onSetTime(newDuration) {
-    setState(() {
-      _remainTime = newDuration;
-      _targetTime = newDuration;
-    });
-  }
-
-  void onFocus(context) {
-    const oneMinutes = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneMinutes,
-      (Timer timer) => setState(
-        () {
-          if (_remainTime.inMinutes < 1) {
-            timer.cancel();
-            User user = Provider.of<User>(context, listen: false);
-            user.addUserPoints(_targetTime.inMinutes);
-            setState(() {
-              _focus = false;
-            });
-          } else {
-            _remainTime = Duration(minutes: _remainTime.inMinutes - 1);
-          }
-        },
-      ),
-    );
-    setState(() {
-      _focus = true;
-    });
-  }
-
-  void onOutOfFoucus() {
-    if (_timer != null) {
-      _timer.cancel();
-    }
-    setState(() {
-      _focus = false;
-    });
-  }
-
-  @override
-  void dispose() {
-    if (_timer != null) {
-      _timer.cancel();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    topWidget() => _focus
+    FocusProvider focusProvider = Provider.of<FocusProvider>(context);
+    topWidget() => focusProvider.focusStatus
         ? Text('You can do that!')
         : Hero(
             tag: 'pointStatus',
             child: PointsStatus(),
           );
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -92,20 +43,13 @@ class _FocusScreenState extends State<FocusScreen> {
               child: topWidget(),
             ),
             Flexible(
-              child: FocusCircleSlider(
-                currentTime: _remainTime,
-                onSetTime: onSetTime,
-              ),
+              child: FocusCircleSlider(),
             ),
             Flexible(
               child: Hero(
                 tag: 'StartButton',
                 child: FocusTimer(
                   child: StartButton(onClick: () {}),
-                  onStartFocus: () {
-                    onFocus(context);
-                  },
-                  onOutFocus: onOutOfFoucus,
                 ),
               ),
             ),
