@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
+import 'package:study_buddy/models/Category.dart' as cat;
 
-import '../dummy_data.dart';
 import '../widgets/category_item.dart';
 import '../widgets/advertising.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories';
+  final List<cat.Category> categoriesList;
+
+  CategoriesScreen(this.categoriesList);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +29,9 @@ class CategoriesScreen extends StatelessWidget {
           Flexible(
             child: GridView(
               padding: const EdgeInsets.all(15),
-              children: DUMMY_CATEGORIES
+              children: categoriesList
                   .map(
-                    (catData) => CategoryItem(
-                      catData.id,
-                      catData.title,
-                      // Theme.of(context).primaryColor.withOpacity(0.6)),
-                      // catData.color,
-                    ),
+                    (c) => CategoryItem(c),
                   )
                   .toList(),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

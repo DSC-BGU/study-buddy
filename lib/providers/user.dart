@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:study_buddy/dummy_data.dart';
 import 'package:study_buddy/models/Coupon.dart';
 import 'package:study_buddy/models/PurchasedCoupon.dart';
 
 class User with ChangeNotifier {
   final String _id = null;
   final String _name = null;
-  final List<PurchasedCoupon> _myCoupons = DUMMY_PURCHASED_COUPONS;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final List<PurchasedCoupon> _myCoupons = [];
 
   String get id {
     String s = _id;

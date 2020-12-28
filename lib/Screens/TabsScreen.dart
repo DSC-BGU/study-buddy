@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:study_buddy/Screens/Coupons/MyCoupons.dart';
+import 'package:study_buddy/models/Category.dart' as cat;
+import 'package:study_buddy/models/store.dart';
+import 'package:study_buddy/providers/StoreProvider.dart';
 import './MainScreen/Dashboard.dart';
 import './categories_screen.dart';
 import 'package:study_buddy/Screens/MainScreen/Dashboard.dart';
@@ -16,8 +20,13 @@ class TabsScreenArguments {
 
 class TabsScreen extends StatelessWidget {
   static const String routeName = '/';
+  TabsScreen();
+
   @override
   Widget build(BuildContext context) {
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    List<cat.Category> categoryList = storeProvider.categories;
+
     String t(String text) => AppLocalizations.of(context).translate(text);
     final TabsScreenArguments args = ModalRoute.of(context).settings.arguments;
     int _intialIndex = args?.selectedTab != null ? args.selectedTab : 1;
@@ -30,7 +39,11 @@ class TabsScreen extends StatelessWidget {
           title: Text("Let's focus"),
         ),
         body: TabBarView(
-          children: <Widget>[MyCoupons(), Dashboard(), CategoriesScreen()],
+          children: <Widget>[
+            MyCoupons(),
+            Dashboard(),
+            CategoriesScreen(categoryList)
+          ],
         ),
         bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,
