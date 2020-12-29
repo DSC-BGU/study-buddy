@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
-import 'package:study_buddy/models/User.dart';
-import 'package:study_buddy/providers/user_provider.dart';
+import './user_provider.dart';
 
 class FocusProvider with ChangeNotifier {
   Duration _remainTime = Duration(minutes: 60);
@@ -36,7 +35,7 @@ class FocusProvider with ChangeNotifier {
         timer.cancel();
         UserProvider userProvider =
             Provider.of<UserProvider>(context, listen: false);
-        // userProvider.addUserPoints(_targetTime.inMinutes);
+        userProvider.addUserPoints(_targetTime.inMinutes);
         _focus = false;
       } else {
         _remainTime = Duration(minutes: _remainTime.inMinutes - 1);

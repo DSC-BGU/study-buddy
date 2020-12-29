@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Coupon.dart';
+import '../../models/Coupon.dart';
 
 class PopUpBuy extends StatelessWidget {
   final BuildContext contex;

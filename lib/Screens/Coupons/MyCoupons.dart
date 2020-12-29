@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/PurchasedCoupon.dart';
 import '../../models/Coupon.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/Coupons/CouponStatus.dart';

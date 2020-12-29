@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:is_lock_screen/is_lock_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/providers/FocusProvider.dart';
+import '../providers/FocusProvider.dart';
 // import 'package:wakelock/wakelock.dart';
 import '../app_localizations.dart';
 

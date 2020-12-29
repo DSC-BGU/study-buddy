@@ -11,11 +11,8 @@ class StoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments;
     Store store = routeArgs;
-    List<StoreCoupon> list = store.coupons
-        .map((e) => StoreCoupon(
-              coupon: e,
-            ))
-        .toList();
+    List<StoreCoupon> list =
+        store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
     final selectedStore = store;
     return Scaffold(
         body: CustomScrollView(

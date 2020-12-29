@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Coupon.dart';
+import '../../models/Coupon.dart';
 
 class SingleCoupon extends StatelessWidget {
   final Coupon coupon;
@@ -35,12 +35,13 @@ class SingleCoupon extends StatelessWidget {
           ),
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Container(
-                width: double.infinity,
-                color: Colors.black38,
-                child: Text(
-                  this.coupon.description,
-                  style: TextStyle(color: Colors.white, fontSize: 26),
-                )),
+              width: double.infinity,
+              color: Colors.black38,
+              child: Text(
+                this.coupon.description,
+                style: TextStyle(color: Colors.white, fontSize: 26),
+              ),
+            ),
           ])
         ]),
       );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/Coupons/PopUpQR.dart';
-import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
-import 'SingleCoupon.dart';
+import '../../Screens/Coupons/PopUpQR.dart';
+import '../../models/Coupon.dart';
+import './SingleCoupon.dart';
 
 class CouponStatus extends StatelessWidget {
   final List<Coupon> coupons;

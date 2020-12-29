@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/FocusScreen/FocusScreen.dart';
-import 'package:study_buddy/widgets/MainScreen/PointsStatus.dart';
-import 'package:study_buddy/widgets/utils/MyCustomRoute.dart';
-import '../../widgets/MainScreen/MainScreenNavigationRow.dart';
+import './ProgressionGraph.dart';
+import '../FocusScreen/FocusScreen.dart';
+import '../../widgets/utils/MyCustomRoute.dart';
 import '../../widgets/MainScreen/StartButton.dart';
-import 'ProgressionGraph.dart';
+import '../../widgets/MainScreen/PointsStatus.dart';
+import '../../widgets/MainScreen/MainScreenNavigationRow.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key key}) : super(key: key);

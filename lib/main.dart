@@ -21,6 +21,9 @@ import './providers/points.dart';
 import './providers/StoreProvider.dart';
 import './providers/Coupon_provider.dart';
 
+// import './services/DB.dart';
+// import './models/User.dart' as Student;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,8 +34,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final db = DatabaseService();
     return MultiProvider(
       providers: [
+        // StreamProvider<Student.User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
@@ -63,36 +68,19 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
-        // home: auth.isAuth
-        //     ? TabsScreen()
-        //     : FutureBuilder(
-        //         builder: (ctx, authResultSnapshot) =>
-        //             authResultSnapshot.connectionState ==
-        //                     ConnectionState.waiting
-        //                 ? SplashScreen()
-        //                 : AuthScreen(),
-        //       ),
         routes: {
-          '/': (ctx) => TabsScreen(),
-          //   '/': (ctx) =>
-          //   appSnapshot.connectionState != ConnectionState.done ? SplashScreen() : StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, userSnapshot) {
-          //   if (userSnapshot.connectionState == ConnectionState.waiting) {
-          //     return SplashScreen();
-          //   }
-          //   if (userSnapshot.hasData) {
-          //     return TabsScreen();
-          //   }
-          //   return AuthScreen();
-          // }),
-          // StreamBuilder(
-          //       stream: FirebaseAuth.instance.authStateChanges(),
-          //       builder: (ctx, userSnapshot) {
-          //         if (userSnapshot.hasData) {
-          //           return TabsScreen();
-          //         }
-          //         return AuthScreen();
-          //       },
-          //     ),
+          '/': (ctx) => StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (ctx, userSnapshot) {
+                  // if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  //   return SplashScreen();
+                  // }
+                  if (userSnapshot.hasData) {
+                    return TabsScreen();
+                  }
+                  return AuthScreen();
+                },
+              ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           Dashboard.routeName: (ctx) => Dashboard(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),

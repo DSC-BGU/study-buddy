@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/models/User.dart';
-import 'package:study_buddy/providers/FocusProvider.dart';
-import 'package:study_buddy/providers/points.dart';
-import 'package:study_buddy/widgets/FocusCircleSlider.dart';
-import 'package:study_buddy/widgets/FocusTimer.dart';
-import 'package:study_buddy/widgets/MainScreen/PointsStatus.dart';
-import 'package:study_buddy/widgets/MainScreen/StartButton.dart';
-import 'dart:async';
+import '../../providers/FocusProvider.dart';
+import '../../widgets/FocusCircleSlider.dart';
+import '../../widgets/FocusTimer.dart';
+import '../../widgets/MainScreen/PointsStatus.dart';
+import '../../widgets/MainScreen/StartButton.dart';
 
 class FocusScreen extends StatefulWidget {
   const FocusScreen({Key key}) : super(key: key);
 
-  static const String routeName = "/focus";
+  static const String routeName = '/focus';
 
   @override
   _FocusScreenState createState() => _FocusScreenState();
 }
 
 class _FocusScreenState extends State<FocusScreen> {
-
   @override
   Widget build(BuildContext context) {
     FocusProvider focusProvider = Provider.of<FocusProvider>(context);

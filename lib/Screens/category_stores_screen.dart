@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_localizations.dart';
-import '../models/Category.dart';
+import '../models/Category.dart' as Cat;
 import '../providers/StoreProvider.dart';
 import '../widgets/CategoryScreen/store_item.dart';
 import '../models/Store.dart';
@@ -68,7 +68,7 @@ class CategoryStoresScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as Category;
+    final routeArgs = ModalRoute.of(context).settings.arguments as Cat.Category;
     String categoryTitle = routeArgs.title;
     String categoryId = routeArgs.id;
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
