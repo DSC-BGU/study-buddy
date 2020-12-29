@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import './app_localizations.dart';
 import './services/DB.dart';
-import './dummy_data.dart';
 
 import './Screens/TabsScreen.dart';
 import './Screens/storeScreen.dart';
@@ -18,12 +17,9 @@ import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/Authentication/auth_screen.dart';
 import './Screens/Authentication/splash_screen.dart';
 
-import './models/Coupon.dart';
-import './models/store.dart';
-import './models/User.dart' as Student;
-
+import './providers/User.dart' as Student;
 import './providers/points.dart';
-import './providers/FocusProvider.dart';
+import './providers/StoreProvider.dart';
 import './providers/Coupon_provider.dart';
 
 Future<void> main() async {
@@ -33,20 +29,18 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  List<Coupon> _availableCoupons = DUMMY_COUPONS;
-  List<Store> _availableStores = DUMMY_STORES;
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final db = DatabaseService();
     final user = FirebaseAuth.instance.currentUser;
+    StoreProvider storeProvider = StoreProvider();
     return MultiProvider(
       providers: [
-        StreamProvider<Student.User>.value(value: db.streamUser(user.uid)),
+        StreamProvider<Student.User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
-        ChangeNotifierProvider(create: (context) => FocusProvider()),
+        ChangeNotifierProvider(create: (context) => storeProvider),
       ],
       child: Consumer(
         builder: (ctx, auth, _) => MaterialApp(
@@ -106,8 +100,7 @@ class MyApp extends StatelessWidget {
             FocusScreen.routeName: (ctx) => FocusScreen(),
             Dashboard.routeName: (ctx) => Dashboard(),
             CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
-            CategoryStoresScreen.routeName: (ctx) =>
-                CategoryStoresScreen(_availableStores),
+            CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
             StoreScreen.routeName: (ctx) => StoreScreen(),
           },
         ),

@@ -16,6 +16,8 @@ class TabsScreenArguments {
 
 class TabsScreen extends StatelessWidget {
   static const String routeName = '/';
+  TabsScreen();
+
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);

@@ -28,7 +28,7 @@ class PopUpBuy extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('temporary title',
+            Text('${this.coupon.title}',
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.07,

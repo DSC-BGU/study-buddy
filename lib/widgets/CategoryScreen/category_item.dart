@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../Screens/category_stores_screen.dart';
+import 'package:study_buddy/models/Category.dart' as cat;
 
 class CategoryItem extends StatelessWidget {
-  final String id;
-  final String title;
-  // final Color color;
+  final cat.Category category;
 
-  CategoryItem(
-    this.id,
-    this.title,
-    /* this.color*/
-  );
+  CategoryItem(this.category);
 
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       CategoryStoresScreen.routeName,
-      arguments: {'id': id, 'title': title},
+      arguments: this.category,
     );
   }
 
@@ -28,7 +23,7 @@ class CategoryItem extends StatelessWidget {
       child: Container(
         child: Center(
           child: Text(
-            title,
+            this.category.title,
             style: Theme.of(context).textTheme.title,
           ),
         ),

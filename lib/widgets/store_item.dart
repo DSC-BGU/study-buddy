@@ -1,34 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../models/Coupon.dart';
+import '../models/Store.dart';
 import '../screens/storeScreen.dart';
 import '../app_localizations.dart';
 
 class StoreItem extends StatelessWidget {
-  final String id;
-  final String name;
-  final String adress;
-  final String imageURL;
-  final String description;
-  final List<Coupon> cupons;
-  final List<String> categories;
+  final Store store;
 
-  StoreItem({
-    @required this.id,
-    @required this.name,
-    @required this.adress,
-    @required this.imageURL,
-    @required this.description,
-    @required this.cupons,
-    @required this.categories,
-  });
+  StoreItem({@required this.store});
 
   void selectStore(BuildContext context) {
     Navigator.of(context)
-        .pushNamed(
-      StoreScreen.routeName,
-      arguments: id,
-    )
+        .pushNamed(StoreScreen.routeName, arguments: this.store)
         .then((result) {
       if (result != null) {
         // removeItem(result);
@@ -57,7 +40,7 @@ class StoreItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    imageURL,
+                    store.imageUrl,
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -74,7 +57,7 @@ class StoreItem extends StatelessWidget {
                       horizontal: 20,
                     ),
                     child: Text(
-                      t(name),
+                      t(store.name),
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -95,7 +78,7 @@ class StoreItem extends StatelessWidget {
                     children: [
                       Icon(Icons.location_pin),
                       SizedBox(width: 6),
-                      Text(t(adress)),
+                      Text(t(store.address)),
                     ],
                   ),
                   Row(
