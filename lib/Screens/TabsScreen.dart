@@ -29,7 +29,7 @@ class TabsScreen extends StatelessWidget {
       initialIndex: _intialIndex,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Let's focus"),
+          title: Text(t('Let\'s focus')),
           actions: [Logout()],
         ),
         body: TabBarView(

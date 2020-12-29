@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import '../models/Store.dart';
+import '../models/Store.dart' as St;
 import '../widgets/Coupons/StoreCoupon.dart';
+
+class StoreScreenArguments {
+  StoreScreenArguments();
+}
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
-
   StoreScreen();
 
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments;
-    Store store = routeArgs;
+    St.Store store = routeArgs;
     List<StoreCoupon> list =
         store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
     final selectedStore = store;
