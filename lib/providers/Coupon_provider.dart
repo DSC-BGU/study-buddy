@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Coupon.dart';
+import '../models/Coupon.dart';
 
-class Coupon_provider with ChangeNotifier {
+class CouponProvider with ChangeNotifier {
   List<Coupon> couponsList = [];
 
   List<Coupon> get coupons {

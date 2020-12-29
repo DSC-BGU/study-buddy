@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Category.dart' as cat;
-import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/models/Store.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/Category.dart';
+import '../models/Coupon.dart';
+import '../models/Store.dart';
 
 class StoreProvider with ChangeNotifier {
   final databaseReference = FirebaseFirestore.instance;
   List<Store> availableStores = [];
   List<Coupon> availableCoupons = [];
-  List<cat.Category> availableCategories = [];
+  List<Category> availableCategories = [];
 
   StoreProvider() {
     getCategoryList();
@@ -18,16 +18,16 @@ class StoreProvider with ChangeNotifier {
 
   void getCategoryList() {
     databaseReference.collection('categories').snapshots().listen((event) {
-      List<cat.Category> categorylst = [];
+      List<Category> categorylst = [];
       event.docs.forEach((element) {
-        categorylst.add(cat.Category(id: element.id, title: element['name']));
+        categorylst.add(Category(id: element.id, title: element['name']));
       });
       this.availableCategories = categorylst;
       notifyListeners();
     });
   }
 
-  List<cat.Category> get categories {
+  List<Category> get categories {
     return [...availableCategories];
   }
 
@@ -70,9 +70,9 @@ class StoreProvider with ChangeNotifier {
     });
   }
 
-  List<cat.Category> createCategoryList(List<dynamic> categoryIDs) {
-    List<cat.Category> categories = [];
-    List<cat.Category> allCategories = this.categories;
+  List<Category> createCategoryList(List<dynamic> categoryIDs) {
+    List<Category> categories = [];
+    List<Category> allCategories = this.categories;
     allCategories.forEach((allCat) {
       categoryIDs.contains(allCat.id) ? categories.add(allCat) : null;
     });

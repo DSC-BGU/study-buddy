@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_localizations.dart';
-import '../models/Category.dart' as cat;
+import '../models/Category.dart';
 import '../providers/StoreProvider.dart';
 import '../widgets/CategoryScreen/store_item.dart';
 import '../models/Store.dart';
@@ -63,19 +63,17 @@ import '../models/Store.dart';
 
 class CategoryStoresScreen extends StatelessWidget {
   static const routeName = '/category-stores';
-  String categoryTitle;
-  String categoryId;
-  List<Store> availableStores;
 
   CategoryStoresScreen();
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as cat.Category;
-    categoryTitle = routeArgs.title;
-    categoryId = routeArgs.id;
+    final routeArgs = ModalRoute.of(context).settings.arguments as Category;
+    String categoryTitle = routeArgs.title;
+    String categoryId = routeArgs.id;
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
-    availableStores = storeProvider.filterStoresByCategory(categoryId);
+    List<Store> availableStores =
+        storeProvider.filterStoresByCategory(categoryId);
     String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
       appBar: AppBar(

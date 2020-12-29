@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import './app_localizations.dart';
-import './services/DB.dart';
-import './models/User.dart';
 
 import './Screens/TabsScreen.dart';
 import './Screens/storeScreen.dart';
@@ -33,79 +31,74 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final db = DatabaseService();
-    // final user = FirebaseAuth.instance.currentUser;
     return MultiProvider(
       providers: [
-        // StreamProvider<UserProvider>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => Points()),
-        ChangeNotifierProvider(create: (context) => Coupon_provider()),
+        ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
       ],
-      child: Consumer(
-        builder: (ctx, auth, _) => MaterialApp(
-          title: 'Study Buddy',
-          theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
-            accentColor: Colors.orange,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('he', 'IL'),
-          ],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          localeResolutionCallback: (locale, supportedLocales) {
-            for (var supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode &&
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          // home: auth.isAuth
-          //     ? TabsScreen()
-          //     : FutureBuilder(
-          //         builder: (ctx, authResultSnapshot) =>
-          //             authResultSnapshot.connectionState ==
-          //                     ConnectionState.waiting
-          //                 ? SplashScreen()
-          //                 : AuthScreen(),
-          //       ),
-          routes: {
-            '/': (ctx) => TabsScreen(),
-            //   '/': (ctx) =>
-            //   appSnapshot.connectionState != ConnectionState.done ? SplashScreen() : StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, userSnapshot) {
-            //   if (userSnapshot.connectionState == ConnectionState.waiting) {
-            //     return SplashScreen();
-            //   }
-            //   if (userSnapshot.hasData) {
-            //     return TabsScreen();
-            //   }
-            //   return AuthScreen();
-            // }),
-            // StreamBuilder(
-            //       stream: FirebaseAuth.instance.authStateChanges(),
-            //       builder: (ctx, userSnapshot) {
-            //         if (userSnapshot.hasData) {
-            //           return TabsScreen();
-            //         }
-            //         return AuthScreen();
-            //       },
-            //     ),
-            FocusScreen.routeName: (ctx) => FocusScreen(),
-            Dashboard.routeName: (ctx) => Dashboard(),
-            CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
-            CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
-            StoreScreen.routeName: (ctx) => StoreScreen(),
-          },
+      child: MaterialApp(
+        title: 'Study Buddy',
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+          accentColor: Colors.orange,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('he', 'IL'),
+        ],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
+        // home: auth.isAuth
+        //     ? TabsScreen()
+        //     : FutureBuilder(
+        //         builder: (ctx, authResultSnapshot) =>
+        //             authResultSnapshot.connectionState ==
+        //                     ConnectionState.waiting
+        //                 ? SplashScreen()
+        //                 : AuthScreen(),
+        //       ),
+        routes: {
+          '/': (ctx) => TabsScreen(),
+          //   '/': (ctx) =>
+          //   appSnapshot.connectionState != ConnectionState.done ? SplashScreen() : StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, userSnapshot) {
+          //   if (userSnapshot.connectionState == ConnectionState.waiting) {
+          //     return SplashScreen();
+          //   }
+          //   if (userSnapshot.hasData) {
+          //     return TabsScreen();
+          //   }
+          //   return AuthScreen();
+          // }),
+          // StreamBuilder(
+          //       stream: FirebaseAuth.instance.authStateChanges(),
+          //       builder: (ctx, userSnapshot) {
+          //         if (userSnapshot.hasData) {
+          //           return TabsScreen();
+          //         }
+          //         return AuthScreen();
+          //       },
+          //     ),
+          FocusScreen.routeName: (ctx) => FocusScreen(),
+          Dashboard.routeName: (ctx) => Dashboard(),
+          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+          CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
+          StoreScreen.routeName: (ctx) => StoreScreen(),
+        },
       ),
     );
   }

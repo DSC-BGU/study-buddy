@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/models/PointsHistory.dart';
 
-// ignore: non_constant_identifier_names
 List<PointsHistory> DUMMY_HISTORY = [
   PointsHistory(DateTime.now(), 35),
   PointsHistory(
