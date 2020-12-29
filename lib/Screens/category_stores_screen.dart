@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:study_buddy/models/Category.dart' as cat;
+import 'package:study_buddy/providers/StoreProvider.dart';
 import '../widgets/store_item.dart';
 import '../models/Store.dart';
 
@@ -62,22 +64,18 @@ import '../models/Store.dart';
 class CategoryStoresScreen extends StatelessWidget {
   static const routeName = '/category-stores';
   String categoryTitle;
+  String categoryId;
   List<Store> availableStores;
-  CategoryStoresScreen(this.availableStores) {
-    List<Store> tmp = [];
-    this.availableStores.forEach((store) {
-      store.categories.forEach((category) {
-        category.title == categoryTitle ? tmp.add(store) : null;
-      });
-    });
-    print(tmp);
-    availableStores = tmp;
-  }
+
+  CategoryStoresScreen();
 
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments as cat.Category;
     categoryTitle = routeArgs.title;
+    categoryId = routeArgs.id;
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    availableStores = storeProvider.filterStoresByCategory(categoryId);
     String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
       appBar: AppBar(

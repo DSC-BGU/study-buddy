@@ -62,15 +62,44 @@ class StoreProvider with ChangeNotifier {
             address: doc['address'],
             imageUrl: doc['imageUrl'],
             description: doc['description'],
-            coupons: this.availableCoupons,
-            categories: this.availableCategories));
+            coupons: createCouponList(doc['coupons']),
+            categories: createCategoryList(doc['categories'])));
       });
       this.availableStores = templst;
       notifyListeners();
     });
   }
 
+  List<cat.Category> createCategoryList(List<dynamic> categoryIDs) {
+    List<cat.Category> categories = [];
+    List<cat.Category> allCategories = this.categories;
+    allCategories.forEach((allCat) {
+      categoryIDs.contains(allCat.id) ? categories.add(allCat) : null;
+    });
+    return categories;
+  }
+
+  List<Coupon> createCouponList(List<dynamic> couponIDs) {
+    List<Coupon> coupons = [];
+    List<Coupon> allCoupons = this.coupons;
+    allCoupons.forEach((allCoup) {
+      couponIDs.contains(allCoup.id) ? coupons.add(allCoup) : null;
+    });
+    return coupons;
+  }
+
   List<Store> get stores {
     return [...availableStores];
+  }
+
+  List<Store> filterStoresByCategory(String categoryId) {
+    List<Store> storeList = this.stores;
+    List<Store> filteredList = [];
+    storeList.forEach((store) {
+      store.categories.forEach((cat) {
+        cat.id == categoryId ? filteredList.add(store) : null;
+      });
+    });
+    return filteredList;
   }
 }

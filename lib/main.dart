@@ -24,12 +24,7 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     StoreProvider storeProvider = StoreProvider();
@@ -69,10 +64,8 @@ class _MyAppState extends State<MyApp> {
           '/': (ctx) => TabsScreen(),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           Dashboard.routeName: (ctx) => Dashboard(),
-          CategoriesScreen.routeName: (ctx) =>
-              CategoriesScreen(storeProvider.categories),
-          CategoryStoresScreen.routeName: (ctx) =>
-              CategoryStoresScreen(storeProvider.stores),
+          CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+          CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
         },
       ),

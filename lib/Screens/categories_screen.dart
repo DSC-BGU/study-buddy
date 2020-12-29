@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:study_buddy/app_localizations.dart';
 import 'package:study_buddy/models/Category.dart' as cat;
+import 'package:study_buddy/providers/StoreProvider.dart';
 
 import '../widgets/category_item.dart';
 import '../widgets/advertising.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories';
-  final List<cat.Category> categoriesList;
+  List<cat.Category> categoriesList;
 
-  CategoriesScreen(this.categoriesList);
+  CategoriesScreen();
 
   @override
   Widget build(BuildContext context) {
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    categoriesList = storeProvider.categories;
     String t(String text) => AppLocalizations.of(context).translate(text);
     return
         // Scaffold(

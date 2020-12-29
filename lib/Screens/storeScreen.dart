@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/store.dart';
+import 'package:study_buddy/models/Store.dart' as st;
 import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
-
-//import 'package:study_buddy/widgets/SingleCoupon.dart';
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
-  Store store;
+  st.Store store;
 
-  StoreScreen({this.store});
+  StoreScreen();
 
   @override
   Widget build(BuildContext context) {
-    List<StoreCoupon> list = store.coupons.map((e) => StoreCoupon(
-          coupon: e,
-        ));
+    final routeArgs = ModalRoute.of(context).settings.arguments;
+    this.store = routeArgs;
+    List<StoreCoupon> list = store.coupons
+        .map((e) => StoreCoupon(
+              coupon: e,
+            ))
+        .toList();
     final selectedStore = this.store;
     return Scaffold(
         body: CustomScrollView(

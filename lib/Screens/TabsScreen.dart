@@ -24,9 +24,6 @@ class TabsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
-    List<cat.Category> categoryList = storeProvider.categories;
-
     String t(String text) => AppLocalizations.of(context).translate(text);
     final TabsScreenArguments args = ModalRoute.of(context).settings.arguments;
     int _intialIndex = args?.selectedTab != null ? args.selectedTab : 1;
@@ -39,11 +36,7 @@ class TabsScreen extends StatelessWidget {
           title: Text("Let's focus"),
         ),
         body: TabBarView(
-          children: <Widget>[
-            MyCoupons(),
-            Dashboard(),
-            CategoriesScreen(categoryList)
-          ],
+          children: <Widget>[MyCoupons(), Dashboard(), CategoriesScreen()],
         ),
         bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,

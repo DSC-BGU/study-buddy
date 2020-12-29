@@ -12,7 +12,7 @@ class StoreItem extends StatelessWidget {
 
   void selectStore(BuildContext context) {
     Navigator.of(context)
-        .pushNamed(StoreScreen.routeName, arguments: store.id)
+        .pushNamed(StoreScreen.routeName, arguments: this.store)
         .then((result) {
       if (result != null) {
         // removeItem(result);
