@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:study_buddy/app_localizations.dart';
+import 'package:study_buddy/models/Category.dart' as cat;
+import 'package:study_buddy/providers/StoreProvider.dart';
 
-import '../dummy_data.dart';
 import '../widgets/category_item.dart';
 import '../widgets/advertising.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/categories';
+  List<cat.Category> categoriesList;
+
+  CategoriesScreen();
 
   @override
   Widget build(BuildContext context) {
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    categoriesList = storeProvider.categories;
     String t(String text) => AppLocalizations.of(context).translate(text);
     return
         // Scaffold(
@@ -26,14 +33,9 @@ class CategoriesScreen extends StatelessWidget {
           Flexible(
             child: GridView(
               padding: const EdgeInsets.all(15),
-              children: DUMMY_CATEGORIES
+              children: categoriesList
                   .map(
-                    (catData) => CategoryItem(
-                      catData.id,
-                      catData.title,
-                      // Theme.of(context).primaryColor.withOpacity(0.6)),
-                      // catData.color,
-                    ),
+                    (c) => CategoryItem(c),
                   )
                   .toList(),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

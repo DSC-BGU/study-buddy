@@ -2,34 +2,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:study_buddy/app_localizations.dart';
-import 'package:study_buddy/models/Coupon.dart';
+import 'package:study_buddy/models/Store.dart';
 import '../screens/storeScreen.dart';
 
 class StoreItem extends StatelessWidget {
-  final String id;
-  final String name;
-  final String adress;
-  final String imageURL;
-  final String description;
-  final List<Coupon> cupons;
-  final List<String> categories;
+  final Store store;
 
-  StoreItem({
-    @required this.id,
-    @required this.name,
-    @required this.adress,
-    @required this.imageURL,
-    @required this.description,
-    @required this.cupons,
-    @required this.categories,
-  });
+  StoreItem({@required this.store});
 
   void selectStore(BuildContext context) {
     Navigator.of(context)
-        .pushNamed(
-      StoreScreen.routeName,
-      arguments: id,
-    )
+        .pushNamed(StoreScreen.routeName, arguments: this.store)
         .then((result) {
       if (result != null) {
         // removeItem(result);
@@ -58,7 +41,7 @@ class StoreItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    imageURL,
+                    store.imageUrl,
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -75,7 +58,7 @@ class StoreItem extends StatelessWidget {
                       horizontal: 20,
                     ),
                     child: Text(
-                      name,
+                      store.name,
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -96,7 +79,7 @@ class StoreItem extends StatelessWidget {
                     children: [
                       Icon(Icons.location_pin),
                       SizedBox(width: 6),
-                      Text(adress),
+                      Text(store.address),
                     ],
                   ),
                   Row(

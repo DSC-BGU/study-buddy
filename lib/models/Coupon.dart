@@ -7,7 +7,6 @@ class Coupon {
   final String description;
   final String imageUrl;
   final int points;
-  final List<String> categories;
 
   const Coupon({
     @required this.id,
@@ -16,6 +15,5 @@ class Coupon {
     @required this.description,
     @required this.imageUrl,
     @required this.points,
-    @required this.categories,
   });
 }
