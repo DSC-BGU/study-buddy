@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
     StoreProvider storeProvider = StoreProvider();
     return MultiProvider(
       providers: [
+        StreamProvider<User>.value(value: db.streamUser('test')),
         ChangeNotifierProvider(create: (context) => Points()),
-        ChangeNotifierProvider(create: (context) => User()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
         ChangeNotifierProvider(create: (context) => storeProvider),
       ],
