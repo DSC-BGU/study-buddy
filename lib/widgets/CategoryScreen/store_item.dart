@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../models/Store.dart';
-import '../screens/storeScreen.dart';
-import '../app_localizations.dart';
+import '../../models/Store.dart';
+import '../../screens/storeScreen.dart';
+import '../../app_localizations.dart';
 
 class StoreItem extends StatelessWidget {
   final Store store;

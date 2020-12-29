@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import './app_localizations.dart';
 import './services/DB.dart';
+import './models/User.dart';
 
 import './Screens/TabsScreen.dart';
 import './Screens/storeScreen.dart';
@@ -17,7 +18,7 @@ import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/Authentication/auth_screen.dart';
 import './Screens/Authentication/splash_screen.dart';
 
-import './providers/User.dart' as Student;
+import './providers/user_provider.dart';
 import './providers/points.dart';
 import './providers/StoreProvider.dart';
 import './providers/Coupon_provider.dart';
@@ -33,14 +34,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final db = DatabaseService();
-    final user = FirebaseAuth.instance.currentUser;
-    StoreProvider storeProvider = StoreProvider();
+    // final user = FirebaseAuth.instance.currentUser;
     return MultiProvider(
       providers: [
-        StreamProvider<Student.User>.value(value: db.streamUser('test')),
+        // StreamProvider<UserProvider>.value(value: db.streamUser('test')),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => Coupon_provider()),
-        ChangeNotifierProvider(create: (context) => storeProvider),
+        ChangeNotifierProvider(create: (context) => StoreProvider()),
       ],
       child: Consumer(
         builder: (ctx, auth, _) => MaterialApp(
@@ -68,16 +69,17 @@ class MyApp extends StatelessWidget {
             }
             return supportedLocales.first;
           },
-          home: auth.isAuth
-              ? TabsScreen()
-              : FutureBuilder(
-                  builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
-                              ConnectionState.waiting
-                          ? SplashScreen()
-                          : AuthScreen(),
-                ),
+          // home: auth.isAuth
+          //     ? TabsScreen()
+          //     : FutureBuilder(
+          //         builder: (ctx, authResultSnapshot) =>
+          //             authResultSnapshot.connectionState ==
+          //                     ConnectionState.waiting
+          //                 ? SplashScreen()
+          //                 : AuthScreen(),
+          //       ),
           routes: {
+            '/': (ctx) => TabsScreen(),
             //   '/': (ctx) =>
             //   appSnapshot.connectionState != ConnectionState.done ? SplashScreen() : StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, userSnapshot) {
             //   if (userSnapshot.connectionState == ConnectionState.waiting) {

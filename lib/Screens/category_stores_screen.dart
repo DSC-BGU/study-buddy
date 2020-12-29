@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/app_localizations.dart';
-import 'package:study_buddy/models/Category.dart' as cat;
-import 'package:study_buddy/providers/StoreProvider.dart';
-import '../widgets/store_item.dart';
+import '../app_localizations.dart';
+import '../models/Category.dart' as cat;
+import '../providers/StoreProvider.dart';
+import '../widgets/CategoryScreen/store_item.dart';
 import '../models/Store.dart';
 
 // class CategoryStoresScreen extends StatefulWidget {

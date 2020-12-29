@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/PurchasedCoupon.dart';
 import '../models/Coupon.dart';
 import '../services/DB.dart';
-import '../dummy_data.dart';
 
 class User {
   String id;
@@ -18,7 +17,7 @@ class User {
         id: doc.id,
         name: data['name'] ?? '',
         points: data['points'] ?? 0,
-        myCoupons: DUMMY_PURCHASED_COUPONS);
+        myCoupons: []); //DUMMY_PURCHASED_COUPONS);
   }
 
   factory User.fromMap(Map data) {
@@ -27,7 +26,7 @@ class User {
         id: data['id'] ?? '',
         name: data['name'] ?? '',
         points: data['points'] ?? 0,
-        myCoupons: DUMMY_PURCHASED_COUPONS);
+        myCoupons: []); // DUMMY_PURCHASED_COUPONS);
   }
 
   List<Coupon> availableCoupons() {

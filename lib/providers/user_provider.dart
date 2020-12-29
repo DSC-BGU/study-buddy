@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:study_buddy/models/Coupon.dart';
 import 'package:study_buddy/models/PurchasedCoupon.dart';
 
-class User with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   final String _id = null;
   final String _name = null;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
