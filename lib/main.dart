@@ -16,11 +16,11 @@ import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/Authentication/auth_screen.dart';
 import './Screens/Authentication/splash_screen.dart';
 
-import './providers/user_provider.dart';
 import './providers/points.dart';
+import './providers/user_provider.dart';
 import './providers/StoreProvider.dart';
-import './providers/Coupon_provider.dart';
 import './providers/FocusProvider.dart';
+import './providers/Coupon_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,13 +34,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Provider<UserProvider>(
-        //   create: (_) => UserProvider(FirebaseAuth.instance),
-        // ),
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        StreamProvider(
-          create: (context) => context.read<UserProvider>().authState,
-        ),
+        // StreamProvider(
+        //   create: (context) => context.read<UserProvider>().authState,
+        // ),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),

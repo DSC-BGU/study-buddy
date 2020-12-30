@@ -5,10 +5,10 @@ import '../models/Coupon.dart';
 import '../models/PurchasedCoupon.dart';
 
 class UserProvider with ChangeNotifier {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  String _id = ''; //firebaseAuth.currentUser.uid;
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  String _id = FirebaseAuth.instance.currentUser.uid;
   String _name = '';
-  int _points = 0;
+  int _points = 500;
   List<Coupon> _usedCoupons = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
 
@@ -16,11 +16,11 @@ class UserProvider with ChangeNotifier {
     getUserData();
   }
 
-  //Using Stream to listen to Authentication State
-  Stream<User> get authState => firebaseAuth.idTokenChanges();
+  // //Using Stream to listen to Authentication State
+  // Stream<User> get authState => firebaseAuth.idTokenChanges();
 
   Future<void> getUserData() async {
-    this._id = firebaseAuth.currentUser.uid;
+    // this._id = firebaseAuth.currentUser.uid;
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(this._id)
@@ -33,39 +33,39 @@ class UserProvider with ChangeNotifier {
   }
 
   void addUserPoints(int points) {
-    // _points += points;
-    this._points = this._points + points;
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(this._id)
-        .set({'points': this._points});
-    // notifyListeners();
+    _points += points;
+    // this._points = this._points + points;
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(this._id)
+    //     .set({'points': this._points});
+    notifyListeners();
   }
 
   void buyCoupon(Coupon coupon) {
     _points = _points - coupon.points;
-    _purchasedCoupons.add(
-      PurchasedCoupon(
-        coupon: coupon,
-        datePurhcased: DateTime.now(),
-        userId: this._id,
-      ),
-    );
-    FirebaseFirestore.instance.collection('users').doc(this._id).set({
-      'points': this._points,
-      'purchased_coupons': this._purchasedCoupons,
-    });
-    // notifyListeners();
+    // _purchasedCoupons.add(
+    //   PurchasedCoupon(
+    //     coupon: coupon,
+    //     datePurhcased: DateTime.now(),
+    //     userId: this._id,
+    //   ),
+    // );
+    // FirebaseFirestore.instance.collection('users').doc(this._id).set({
+    //   'points': this._points,
+    //   'purchased_coupons': this._purchasedCoupons,
+    // });
+    notifyListeners();
   }
 
   void useCoupon(PurchasedCoupon coupon) {
     _usedCoupons.add(coupon.coupon);
     _purchasedCoupons.remove(coupon);
-    FirebaseFirestore.instance.collection('users').doc(this._id).set({
-      'used_coupons': this._usedCoupons,
-      'purchased_coupons': this._purchasedCoupons,
-    });
-    // notifyListeners();
+    // FirebaseFirestore.instance.collection('users').doc(this._id).set({
+    //   'used_coupons': this._usedCoupons,
+    //   'purchased_coupons': this._purchasedCoupons,
+    // });
+    notifyListeners();
   }
 
   String get id {
