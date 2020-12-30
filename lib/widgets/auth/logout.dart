@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../app_localizations.dart';
 
 class Logout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return DropdownButton(
       icon: Icon(
         Icons.more_vert,
@@ -16,7 +18,7 @@ class Logout extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.exit_to_app),
                 SizedBox(width: 8),
-                Text('Logout'),
+                Text(t('Logout')),
               ],
             ),
           ),

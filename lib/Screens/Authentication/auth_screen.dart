@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_buddy/models/Coupon.dart';
+import 'package:study_buddy/models/PurchasedCoupon.dart';
 
+import '../../app_localizations.dart';
 import '../../widgets/auth/auth_form.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -11,6 +14,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  String t(String text) => AppLocalizations.of(context).translate(text);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _isLoading = false;
 
@@ -38,12 +42,18 @@ class _AuthScreenState extends State<AuthScreen> {
           password: password,
         );
 
-        await Firestore.instance
+        List<Coupon> _usedCoupons = [];
+        List<PurchasedCoupon> _purchasedCoupons = [];
+
+        await FirebaseFirestore.instance
             .collection('users')
-            .document(authResult.user.uid)
-            .setData({
+            .doc(authResult.user.uid)
+            .set({
           'username': username,
           'email': email,
+          'points': 0,
+          'used_coupons': _usedCoupons,
+          'purchased_coupons': _purchasedCoupons,
         });
       }
     } on PlatformException catch (err) {
@@ -55,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
-          content: Text(message),
+          content: Text(t(message)),
           backgroundColor: Theme.of(ctx).errorColor,
         ),
       );

@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../models/Coupon.dart';
 
-class SingleCoupon extends StatelessWidget {
+class ActiveCoupon extends StatelessWidget {
   final Coupon coupon;
 
-  SingleCoupon({@required this.coupon});
+  ActiveCoupon({@required this.coupon});
 
   // void selectCoupon(BuildContext context) {
   //   Navigator.of(context)

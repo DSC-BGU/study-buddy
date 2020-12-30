@@ -19,6 +19,8 @@ class StoreItem extends StatelessWidget {
     });
   }
 
+  void showMore() {}
+
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
@@ -41,16 +43,16 @@ class StoreItem extends StatelessWidget {
                   ),
                   child: Image.network(
                     store.imageUrl,
-                    height: 250,
+                    height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 10,
                   right: 10,
                   child: Container(
-                    width: 300,
+                    width: 250,
                     color: Colors.black54,
                     padding: EdgeInsets.symmetric(
                       vertical: 5,
@@ -83,17 +85,20 @@ class StoreItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.work),
-                      SizedBox(width: 6),
-                      // Text(complexityText),
-                    ],
-                  ),
-                  Row(
-                    children: [
                       Icon(Icons.attach_money),
                       SizedBox(width: 6),
                       // Text(affordabilityText),
                     ],
+                  ),
+                  InkWell(
+                    onTap: showMore,
+                    child: Row(
+                      children: [
+                        Icon(Icons.keyboard_arrow_down_sharp),
+                        SizedBox(width: 6),
+                        // Text(affordabilityText),
+                      ],
+                    ),
                   ),
                 ],
               ),

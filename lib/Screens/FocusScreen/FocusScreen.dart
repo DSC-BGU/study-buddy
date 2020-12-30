@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../app_localizations.dart';
 import '../../providers/FocusProvider.dart';
 import '../../widgets/FocusCircleSlider.dart';
 import '../../widgets/FocusTimer.dart';
@@ -18,14 +19,14 @@ class FocusScreen extends StatefulWidget {
 class _FocusScreenState extends State<FocusScreen> {
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     FocusProvider focusProvider = Provider.of<FocusProvider>(context);
     topWidget() => focusProvider.focusStatus
-        ? Text('You can do that!')
+        ? Text(t('You can do that!'))
         : Hero(
             tag: 'pointStatus',
             child: PointsStatus(),
           );
-
     return Scaffold(
       appBar: AppBar(),
       body: Container(

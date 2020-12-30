@@ -20,9 +20,7 @@ import './providers/user_provider.dart';
 import './providers/points.dart';
 import './providers/StoreProvider.dart';
 import './providers/Coupon_provider.dart';
-
-// import './services/DB.dart';
-// import './models/User.dart' as Student;
+import './providers/FocusProvider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,14 +32,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // final db = DatabaseService();
     return MultiProvider(
       providers: [
-        // StreamProvider<Student.User>.value(value: db.streamUser('test')),
+        // Provider<UserProvider>(
+        //   create: (_) => UserProvider(FirebaseAuth.instance),
+        // ),
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        StreamProvider(
+          create: (context) => context.read<UserProvider>().authState,
+        ),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
+        ChangeNotifierProvider(create: (context) => FocusProvider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',
@@ -69,13 +72,14 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         routes: {
+          // '/': (ctx) => TabsScreen(),
           '/': (ctx) => StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
                   // if (userSnapshot.connectionState == ConnectionState.waiting) {
                   //   return SplashScreen();
                   // }
-                  if (userSnapshot.hasData) {
+                  if (userSnapshot.hasData /*context.watch<User>() != null*/) {
                     return TabsScreen();
                   }
                   return AuthScreen();

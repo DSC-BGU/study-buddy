@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/user_provider.dart';
+import '../../app_localizations.dart';
 import '../../models/Coupon.dart';
 
 class PopUpBuy extends StatelessWidget {
@@ -10,10 +13,18 @@ class PopUpBuy extends StatelessWidget {
     this.coupon,
   );
 
-  void buyCoupon(Coupon coupon) {}
+  void buyCoupon(BuildContext context, UserProvider userProvider) {
+    Navigator.pop(context);
+    if (userProvider.points >= coupon.points) {
+      userProvider.buyCoupon(coupon);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -22,7 +33,7 @@ class PopUpBuy extends StatelessWidget {
         insetPadding: EdgeInsets.fromLTRB(0, 200, 0, 200),
         title: Center(
             child: Text(
-          'You are buying Coupon',
+          t('You are buying Coupon'),
           style: TextStyle(color: Colors.white),
         )),
         content: Column(
@@ -34,17 +45,18 @@ class PopUpBuy extends StatelessWidget {
               height: constraints.maxHeight * 0.07,
               width: constraints.maxWidth * 0.48,
               child: TextButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)))),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor: MaterialStateProperty.all(Colors.grey)),
-                  onPressed: () => buyCoupon(coupon),
-                  child: Text(
-                    'Are you sure?',
-                    style: TextStyle(fontSize: 19),
-                  )),
-            )
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor: MaterialStateProperty.all(Colors.grey)),
+                child: Text(
+                  t('Are you sure?'),
+                  style: TextStyle(fontSize: 19),
+                ),
+                onPressed: () => buyCoupon(context, userProvider),
+              ),
+            ),
           ],
         ),
       );
