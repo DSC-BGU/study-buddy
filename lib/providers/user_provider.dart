@@ -35,36 +35,36 @@ class UserProvider with ChangeNotifier {
   void addUserPoints(int points) {
     _points += points;
     // this._points = this._points + points;
-    // FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(this._id)
-    //     .set({'points': this._points});
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(this._id)
+        .set({'points': this._points});
     notifyListeners();
   }
 
   void buyCoupon(Coupon coupon) {
     _points = _points - coupon.points;
-    // _purchasedCoupons.add(
-    //   PurchasedCoupon(
-    //     coupon: coupon,
-    //     datePurhcased: DateTime.now(),
-    //     userId: this._id,
-    //   ),
-    // );
-    // FirebaseFirestore.instance.collection('users').doc(this._id).set({
-    //   'points': this._points,
-    //   'purchased_coupons': this._purchasedCoupons,
-    // });
+    _purchasedCoupons.add(
+      PurchasedCoupon(
+        coupon: coupon,
+        datePurhcased: DateTime.now(),
+        userId: this._id,
+      ),
+    );
+    FirebaseFirestore.instance.collection('users').doc(this._id).set({
+      'points': this._points,
+      'purchased_coupons': this._purchasedCoupons,
+    });
     notifyListeners();
   }
 
   void useCoupon(PurchasedCoupon coupon) {
     _usedCoupons.add(coupon.coupon);
     _purchasedCoupons.remove(coupon);
-    // FirebaseFirestore.instance.collection('users').doc(this._id).set({
-    //   'used_coupons': this._usedCoupons,
-    //   'purchased_coupons': this._purchasedCoupons,
-    // });
+    FirebaseFirestore.instance.collection('users').doc(this._id).set({
+      'used_coupons': this._usedCoupons,
+      'purchased_coupons': this._purchasedCoupons,
+    });
     notifyListeners();
   }
 

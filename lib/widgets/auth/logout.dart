@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:study_buddy/providers/authentication_provider%20.dart';
 import '../../app_localizations.dart';
 
 class Logout extends StatelessWidget {
@@ -25,6 +26,9 @@ class Logout extends StatelessWidget {
           value: 'logout',
         ),
       ],
+      // onTap: () {
+      //     context.read<AuthenticationProvider>().signOut();
+      // },
       onChanged: (itemIdentifier) {
         if (itemIdentifier == 'logout') {
           FirebaseAuth.instance.signOut();

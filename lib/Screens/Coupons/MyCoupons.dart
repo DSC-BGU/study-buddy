@@ -32,8 +32,8 @@ class MyCoupons extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          UserAvailableCoupons(availableCoupons) ?? null,
-          UserUsedCoupon(usedCoupons) ?? null,
+          UserAvailableCoupons(availableCoupons), // ?? null,
+          UserUsedCoupon(usedCoupons), // ?? null,
         ]),
       ),
     );

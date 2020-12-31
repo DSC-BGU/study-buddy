@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/models/Coupon.dart';
 import '../models/Store.dart' as St;
 import '../widgets/Coupons/StoreCoupon.dart';
 
@@ -16,26 +17,30 @@ class StoreScreen extends StatelessWidget {
     St.Store store = routeArgs;
     List<StoreCoupon> list =
         store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
-    final selectedStore = store;
     return Scaffold(
         body: CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           title: Text(
-            '${selectedStore.name}',
+            '${store.name}',
           ),
           backgroundColor: Colors.black,
           expandedHeight: 200.0,
           flexibleSpace: FlexibleSpaceBar(
-            background:
-                Image.network(selectedStore.imageUrl, fit: BoxFit.cover),
+            background: Image.network(store.imageUrl, fit: BoxFit.cover),
           ),
         ),
         SliverFixedExtentList(
           itemExtent: 150.0,
-          delegate: SliverChildListDelegate(
-            list,
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return list[index];
+            },
+            childCount: list.length,
           ),
+          // delegate: SliverChildListDelegate(
+          //   list,
+          // ),
         ),
       ],
     ));

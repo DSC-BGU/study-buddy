@@ -34,7 +34,7 @@ class FocusProvider with ChangeNotifier {
       if (_remainTime.inMinutes < 1) {
         timer.cancel();
         UserProvider userProvider =
-            Provider.of<UserProvider>(context, listen: false);
+            Provider.of<UserProvider>(context /*, listen: false*/);
         userProvider.addUserPoints(_targetTime.inMinutes);
         _focus = false;
       } else {
