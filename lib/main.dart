@@ -35,9 +35,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        // StreamProvider(
-        //   create: (context) => context.read<UserProvider>().authState,
-        // ),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),

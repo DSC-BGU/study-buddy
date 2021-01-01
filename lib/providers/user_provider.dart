@@ -12,33 +12,33 @@ class UserProvider with ChangeNotifier {
   List<Coupon> _usedCoupons = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
 
-  UserProvider() {
-    getUserData();
+  UserProvider(){
+    FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
+      if (userSnapshot!= null){
+        this._id = userSnapshot.uid;
+        getUserData();
+      }
+    });
   }
 
-  // //Using Stream to listen to Authentication State
-  // Stream<User> get authState => firebaseAuth.idTokenChanges();
 
   Future<void> getUserData() async {
-    // this._id = firebaseAuth.currentUser.uid;
-    final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(this._id)
-        .get();
-    this._name = userData.data()['username'];
-    this._points = userData.data()['points'];
-    this._usedCoupons = userData.data()['used_coupons'];
-    this._purchasedCoupons = userData.data()['purchased_coupons'];
-    notifyListeners();
+    FirebaseFirestore.instance.collection('users').doc(this._id).snapshots().listen((event) {
+      final userData = event.data();
+      this._name = userData['username'];
+      this._points = userData['points'];
+      // this._usedCoupons = userData['used_coupons'];
+      // this._purchasedCoupons = userData['purchased_coupons'];
+      notifyListeners();
+    });
   }
 
   void addUserPoints(int points) {
-    _points += points;
-    // this._points = this._points + points;
+    this._points = this._points + points;
     FirebaseFirestore.instance
         .collection('users')
         .doc(this._id)
-        .set({'points': this._points});
+        .update({'points': this._points});
     notifyListeners();
   }
 
@@ -51,7 +51,7 @@ class UserProvider with ChangeNotifier {
         userId: this._id,
       ),
     );
-    FirebaseFirestore.instance.collection('users').doc(this._id).set({
+    FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'points': this._points,
       'purchased_coupons': this._purchasedCoupons,
     });
@@ -61,7 +61,7 @@ class UserProvider with ChangeNotifier {
   void useCoupon(PurchasedCoupon coupon) {
     _usedCoupons.add(coupon.coupon);
     _purchasedCoupons.remove(coupon);
-    FirebaseFirestore.instance.collection('users').doc(this._id).set({
+    FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'used_coupons': this._usedCoupons,
       'purchased_coupons': this._purchasedCoupons,
     });
