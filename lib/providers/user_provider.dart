@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,10 @@ class UserProvider with ChangeNotifier {
   int _points = 500;
   List<Coupon> _usedCoupons = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
+  StreamSubscription _subscription = null;
 
   UserProvider(){
-    FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
+     FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
       if (userSnapshot!= null){
         this._id = userSnapshot.uid;
         getUserData();
@@ -23,7 +26,7 @@ class UserProvider with ChangeNotifier {
 
 
   Future<void> getUserData() async {
-    FirebaseFirestore.instance.collection('users').doc(this._id).snapshots().listen((event) {
+    this._subscription = FirebaseFirestore.instance.collection('users').doc(this._id).snapshots().listen((event) {
       final userData = event.data();
       this._name = userData['username'];
       this._points = userData['points'];
@@ -31,6 +34,12 @@ class UserProvider with ChangeNotifier {
       // this._purchasedCoupons = userData['purchased_coupons'];
       notifyListeners();
     });
+  }
+
+  void logout () {
+  this._id = null;
+  this._subscription.cancel();
+  FirebaseAuth.instance.signOut();
   }
 
   void addUserPoints(int points) {
