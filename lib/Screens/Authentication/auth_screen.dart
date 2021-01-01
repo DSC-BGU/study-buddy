@@ -51,7 +51,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({
           'username': username,
           'email': email,
-          'points': 500,
+          'points':INITIAL_POINTS,
           'used_coupons': _usedCoupons,
           'purchased_coupons': _purchasedCoupons,
         });
