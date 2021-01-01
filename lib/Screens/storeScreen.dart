@@ -1,42 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Store.dart' as st;
-import 'package:study_buddy/widgets/Coupons/StoreCoupon.dart';
+import 'package:study_buddy/models/Coupon.dart';
+import '../models/Store.dart' as St;
+import '../widgets/Coupons/StoreCoupon.dart';
+
+class StoreScreenArguments {
+  StoreScreenArguments();
+}
 
 class StoreScreen extends StatelessWidget {
   static const routeName = '/store-detail';
-  st.Store store;
-
   StoreScreen();
 
   @override
   Widget build(BuildContext context) {
     final routeArgs = ModalRoute.of(context).settings.arguments;
-    this.store = routeArgs;
-    List<StoreCoupon> list = store.coupons
-        .map((e) => StoreCoupon(
-              coupon: e,
-            ))
-        .toList();
-    final selectedStore = this.store;
+    St.Store store = routeArgs;
+    List<StoreCoupon> list =
+        store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
     return Scaffold(
         body: CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           title: Text(
-            '${selectedStore.name}',
+            '${store.name}',
           ),
           backgroundColor: Colors.black,
           expandedHeight: 200.0,
           flexibleSpace: FlexibleSpaceBar(
-            background:
-                Image.network(selectedStore.imageUrl, fit: BoxFit.cover),
+            background: Image.network(store.imageUrl, fit: BoxFit.cover),
           ),
         ),
         SliverFixedExtentList(
           itemExtent: 150.0,
-          delegate: SliverChildListDelegate(
-            list,
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return list[index];
+            },
+            childCount: list.length,
           ),
+          // delegate: SliverChildListDelegate(
+          //   list,
+          // ),
         ),
       ],
     ));

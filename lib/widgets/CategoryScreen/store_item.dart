@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:study_buddy/app_localizations.dart';
-import 'package:study_buddy/models/Store.dart';
-import '../screens/storeScreen.dart';
+import '../../models/Store.dart';
+import '../../screens/storeScreen.dart';
+import '../../app_localizations.dart';
 
 class StoreItem extends StatelessWidget {
   final Store store;
@@ -19,6 +18,8 @@ class StoreItem extends StatelessWidget {
       }
     });
   }
+
+  void showMore() {}
 
   @override
   Widget build(BuildContext context) {
@@ -42,23 +43,23 @@ class StoreItem extends StatelessWidget {
                   ),
                   child: Image.network(
                     store.imageUrl,
-                    height: 250,
+                    height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 10,
                   right: 10,
                   child: Container(
-                    width: 300,
+                    width: 250,
                     color: Colors.black54,
                     padding: EdgeInsets.symmetric(
                       vertical: 5,
                       horizontal: 20,
                     ),
                     child: Text(
-                      store.name,
+                      t(store.name),
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -79,14 +80,7 @@ class StoreItem extends StatelessWidget {
                     children: [
                       Icon(Icons.location_pin),
                       SizedBox(width: 6),
-                      Text(store.address),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.work),
-                      SizedBox(width: 6),
-                      // Text(complexityText),
+                      Text(t(store.address)),
                     ],
                   ),
                   Row(
@@ -95,6 +89,16 @@ class StoreItem extends StatelessWidget {
                       SizedBox(width: 6),
                       // Text(affordabilityText),
                     ],
+                  ),
+                  InkWell(
+                    onTap: showMore,
+                    child: Row(
+                      children: [
+                        Icon(Icons.keyboard_arrow_down_sharp),
+                        SizedBox(width: 6),
+                        // Text(affordabilityText),
+                      ],
+                    ),
                   ),
                 ],
               ),

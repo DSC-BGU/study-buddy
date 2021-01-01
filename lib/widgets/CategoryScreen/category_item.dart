@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Category.dart' as cat;
-import '../Screens/category_stores_screen.dart';
+import '../../Screens/category_stores_screen.dart';
+import '../../models/Category.dart' as Cat;
 
 class CategoryItem extends StatelessWidget {
-  final cat.Category category;
+  final Cat.Category category;
 
   CategoryItem(this.category);
 

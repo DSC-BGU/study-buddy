@@ -1,29 +1,31 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_buddy/models/User.dart';
-import 'package:study_buddy/models/store.dart';
+// import 'dart:developer';
 
-class DatabaseService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:study_buddy/providers/user_provider.dart';
+// import '../models/User.dart';
 
-  /// Get a stream of a single document
-  Stream<User> streamUser(String id) {
-    return _db
-        .collection('users')
-        .doc(id)
-        .snapshots()
-        .map((snap) => User.fromFirestore(snap));
-  }
+// class DatabaseService {
+//   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream storesByCategory(String categoryName) {
-    return _db
-        .collection('stores')
-        .where('category', arrayContains: categoryName)
-        .orderBy('name')
-        .snapshots();
-  }
+//   /// Get a stream of a single document
+//   Stream<User> streamUser(String id) {
+//     return _db
+//         .collection('users')
+//         .doc(id)
+//         .snapshots()
+//         .map((snap) => User.fromFirestore(snap));
+//   }
 
-  /// Write data
-  Future<void> updateUserPoints(String id, int points) {
-    return _db.collection('users').doc(id).update({"points": points});
-  }
-}
+//   Stream storesByCategory(String categoryName) {
+//     return _db
+//         .collection('stores')
+//         .where('category', arrayContains: categoryName)
+//         .orderBy('name')
+//         .snapshots();
+//   }
+
+//   /// Write data
+//   Future<void> updateUserPoints(String id, int points) {
+//     return _db.collection('users').doc(id).update({'points': points});
+//   }
+// }

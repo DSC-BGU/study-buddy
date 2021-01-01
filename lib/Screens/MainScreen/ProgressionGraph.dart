@@ -1,7 +1,7 @@
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/models/PointsHistory.dart';
-import 'package:study_buddy/providers/points.dart';
+import '../../models/PointsHistory.dart';
+import '../../providers/points.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 

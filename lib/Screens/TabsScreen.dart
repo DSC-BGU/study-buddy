@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:provider/provider.dart';
-import 'package:study_buddy/Screens/Coupons/MyCoupons.dart';
-import 'package:study_buddy/models/Category.dart' as cat;
-import 'package:study_buddy/models/store.dart';
-import 'package:study_buddy/providers/StoreProvider.dart';
+import './Coupons/MyCoupons.dart';
 import './MainScreen/Dashboard.dart';
 import './categories_screen.dart';
-import 'package:study_buddy/Screens/MainScreen/Dashboard.dart';
+import '../widgets/auth/logout.dart';
 
 import '../app_localizations.dart';
 
@@ -33,10 +29,11 @@ class TabsScreen extends StatelessWidget {
       initialIndex: _intialIndex,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Let's focus"),
+          title: Text(t('Let\'s focus')),
+          actions: [Logout()],
         ),
         body: TabBarView(
-          children: <Widget>[MyCoupons(), Dashboard(), CategoriesScreen()],
+          children: [MyCoupons(), Dashboard(), CategoriesScreen()],
         ),
         bottomNavigationBar: Container(
           color: Theme.of(context).primaryColor,

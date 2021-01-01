@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/models/Category.dart';
+import './Coupon.dart';
+import './Category.dart';
 
 class Store {
   final String id;
