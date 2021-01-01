@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/providers/authentication_provider%20.dart';
+import './authentication_provider%20.dart';
 
 class LogInPage extends StatefulWidget {
   @override

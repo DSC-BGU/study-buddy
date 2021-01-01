@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:study_buddy/providers/authentication_provider%20.dart';
 import '../../app_localizations.dart';
 
 class Logout extends StatelessWidget {
