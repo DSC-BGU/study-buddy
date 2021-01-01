@@ -17,6 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
   String t(String text) => AppLocalizations.of(context).translate(text);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _isLoading = false;
+  var INITIAL_POINTS = 500;
 
   void _submitAuthForm(
     String email,
@@ -51,7 +52,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({
           'username': username,
           'email': email,
-          'points':INITIAL_POINTS,
+          'points': INITIAL_POINTS,
           'used_coupons': _usedCoupons,
           'purchased_coupons': _purchasedCoupons,
         });

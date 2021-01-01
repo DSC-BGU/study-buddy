@@ -1,15 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
-import '../../Screens/TabsScreen.dart';
 import '../../app_localizations.dart';
+import './login_with_google_bar.dart';
 
 class AuthForm extends StatefulWidget {
-  AuthForm(
-    this.submitFn,
-    this.isLoading,
-  );
-
   final bool isLoading;
   final void Function(
     String email,
@@ -19,13 +12,16 @@ class AuthForm extends StatefulWidget {
     BuildContext ctx,
   ) submitFn;
 
+  AuthForm(
+    this.submitFn,
+    this.isLoading,
+  );
+
   @override
   _AuthFormState createState() => _AuthFormState();
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-
   final _formKey = GlobalKey<FormState>();
   var _isLogin = true;
   var _userEmail = '';
@@ -41,24 +37,6 @@ class _AuthFormState extends State<AuthForm> {
       widget.submitFn(_userEmail.trim(), _userPassword.trim(), _userName.trim(),
           _isLogin, context);
     }
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    // Create a new credential
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -120,47 +98,7 @@ class _AuthFormState extends State<AuthForm> {
                       _userPassword = value;
                     },
                   ),
-                  InkWell(
-                    child: Container(
-                      width: 240,
-                      height: 40,
-                      margin: EdgeInsets.only(top: 25),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Theme.of(context).primaryColor),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Container(
-                              height: 30.0,
-                              width: 30.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('./assets/google.jpg'),
-                                    fit: BoxFit.cover),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            Text(
-                              _isLogin
-                                  ? t('Login with Google')
-                                  : t('Sign in with Google'),
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    onTap: () async {
-                      signInWithGoogle().whenComplete(() {
-                        Navigator.of(context).pushNamed(TabsScreen.routeName);
-                      });
-                    },
-                  ),
+                  LoginWithGoogle(_isLogin),
                   SizedBox(height: 12),
                   if (widget.isLoading) CircularProgressIndicator(),
                   if (!widget.isLoading)
