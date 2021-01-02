@@ -7,7 +7,6 @@ import '../models/Coupon.dart';
 import '../models/PurchasedCoupon.dart';
 
 class UserProvider with ChangeNotifier {
-  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String _id = FirebaseAuth.instance.currentUser.uid;
   String _name = '';
   int _points = 500;
@@ -15,18 +14,21 @@ class UserProvider with ChangeNotifier {
   List<PurchasedCoupon> _purchasedCoupons = [];
   StreamSubscription _subscription = null;
 
-  UserProvider(){
-     FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
-      if (userSnapshot!= null){
+  UserProvider() {
+    FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
+      if (userSnapshot != null) {
         this._id = userSnapshot.uid;
         getUserData();
       }
     });
   }
 
-
   Future<void> getUserData() async {
-    this._subscription = FirebaseFirestore.instance.collection('users').doc(this._id).snapshots().listen((event) {
+    this._subscription = FirebaseFirestore.instance
+        .collection('users')
+        .doc(this._id)
+        .snapshots()
+        .listen((event) {
       final userData = event.data();
       this._name = userData['username'];
       this._points = userData['points'];
@@ -36,10 +38,10 @@ class UserProvider with ChangeNotifier {
     });
   }
 
-  void logout () {
-  this._id = null;
-  this._subscription.cancel();
-  FirebaseAuth.instance.signOut();
+  void logout() {
+    this._id = null;
+    this._subscription.cancel();
+    FirebaseAuth.instance.signOut();
   }
 
   void addUserPoints(int points) {

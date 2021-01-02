@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:study_buddy/providers/user_provider.dart';
+import '../../providers/user_provider.dart';
 import '../../app_localizations.dart';
 
 class Logout extends StatelessWidget {
@@ -32,7 +31,8 @@ class Logout extends StatelessWidget {
       // },
       onChanged: (itemIdentifier) {
         if (itemIdentifier == 'logout') {
-          UserProvider userProvider = Provider.of<UserProvider>(context,listen: false);
+          UserProvider userProvider =
+              Provider.of<UserProvider>(context, listen: false);
           userProvider.logout();
         }
       },
