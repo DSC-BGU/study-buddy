@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/PurchasedCoupon.dart';
+import 'package:uuid/uuid.dart';
 import '../models/Coupon.dart';
 
 class UserProvider with ChangeNotifier {
@@ -64,6 +65,7 @@ class UserProvider with ChangeNotifier {
         coupon: coupon,
         datePurhcased: new DateTime.now(),
         userId: this._id,
+        purchasedCouponid: Uuid().v4(),
         used: true,
       ),
     );

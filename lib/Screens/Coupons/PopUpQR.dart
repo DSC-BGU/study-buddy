@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/models/PurchasedCoupon.dart';
 import 'package:study_buddy/providers/user_provider.dart';
-
+import 'package:qr_flutter/qr_flutter.dart';
 import '../../app_localizations.dart';
 
 class PopUpQR extends StatelessWidget {
@@ -41,9 +41,8 @@ class PopUpQR extends StatelessWidget {
               width: constraints.maxWidth * 0.42,
               child: Card(
                 child: Center(
-                  child: Text(
-                    'QR',
-                    style: TextStyle(fontSize: 40),
+                  child: QrImage(
+                    data: coupon.purchasedCouponid,
                   ),
                 ),
               ),

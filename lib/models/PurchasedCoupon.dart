@@ -7,22 +7,24 @@ class PurchasedCoupon {
   final DateTime datePurhcased;
   final Coupon coupon;
   bool used;
+  String purchasedCouponid;
 
   PurchasedCoupon({
-    // @required this.couponId,
+    this.used = false,
     @required this.userId,
     @required this.datePurhcased,
     @required this.coupon,
-    this.used = false,
+    @required this.purchasedCouponid,
   });
 
   factory PurchasedCoupon.fromJson(Map<String, dynamic> json) {
     return PurchasedCoupon(
-        // couponId = json['couponId'],
-        userId: json['userId'],
-        datePurhcased: json['datePurhcased'].toDate(),
-        coupon: Coupon.fromJson(json['coupon']),
-        used: json['used']);
+      used: json['used'],
+      userId: json['userId'],
+      datePurhcased: json['datePurhcased'].toDate(),
+      coupon: Coupon.fromJson(json['coupon']),
+      purchasedCouponid: json['purchasedCouponid'],
+    );
   }
 
   Map toJson() {
