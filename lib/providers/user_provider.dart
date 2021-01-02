@@ -1,14 +1,13 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../models/Coupon.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../models/PurchasedCoupon.dart';
 import 'package:uuid/uuid.dart';
+import '../models/Coupon.dart';
 
 class UserProvider with ChangeNotifier {
-  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String _id = FirebaseAuth.instance.currentUser.uid;
   String _name = '';
   int _points = 500;
@@ -32,10 +31,14 @@ class UserProvider with ChangeNotifier {
         .snapshots()
         .listen((event) {
       final userData = event.data();
+      List myUsedCoupons = userData['used_coupons'] as List;
+      List myPurchasedCoupons = userData['purchased_coupons'] as List;
+
       this._name = userData['username'];
       this._points = userData['points'];
-      // this._usedCoupons = userData['used_coupons'];
-      // this._purchasedCoupons = userData['purchased_coupons'];
+      this._usedCoupons = myUsedCoupons.map((c) => Coupon.fromJson(c)).toList();
+      this._purchasedCoupons =
+          myPurchasedCoupons.map((c) => PurchasedCoupon.fromJson(c)).toList();
       notifyListeners();
     });
   }
@@ -60,14 +63,16 @@ class UserProvider with ChangeNotifier {
     _purchasedCoupons.add(
       PurchasedCoupon(
         coupon: coupon,
-        datePurhcased: DateTime.now(),
+        datePurhcased: new DateTime.now(),
         userId: this._id,
         purchasedCouponid: Uuid().v4(),
+        used: true,
       ),
     );
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'points': this._points,
-      'purchased_coupons': this._purchasedCoupons,
+      'purchased_coupons':
+          this._purchasedCoupons.map((c) => c.toJson()).toList(),
     });
     notifyListeners();
   }
@@ -76,8 +81,9 @@ class UserProvider with ChangeNotifier {
     _usedCoupons.add(coupon.coupon);
     _purchasedCoupons.remove(coupon);
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
-      'used_coupons': this._usedCoupons,
-      'purchased_coupons': this._purchasedCoupons,
+      'used_coupons': this._usedCoupons.map((c) => c.toJson()).toList(),
+      'purchased_coupons':
+          this._purchasedCoupons.map((c) => c.toJson()).toList(),
     });
     notifyListeners();
   }
