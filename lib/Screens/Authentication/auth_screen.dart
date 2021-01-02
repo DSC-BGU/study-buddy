@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/models/PurchasedCoupon.dart';
+import '../../models/Coupon.dart';
+import '../../models/PurchasedCoupon.dart';
 
 import '../../app_localizations.dart';
 import '../../widgets/auth/auth_form.dart';
@@ -48,7 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(authResult.user.uid /*_auth.currentUser.uid*/)
+            .doc(authResult.user.uid)
             .set({
           'username': username,
           'email': email,

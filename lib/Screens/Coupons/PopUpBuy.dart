@@ -15,9 +15,9 @@ class PopUpBuy extends StatelessWidget {
 
   void buyCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
-    // if (userProvider.points >= coupon.points) {
-    userProvider.buyCoupon(coupon);
-    // }
+    if (userProvider.points >= coupon.points) {
+      userProvider.buyCoupon(coupon);
+    }
   }
 
   @override

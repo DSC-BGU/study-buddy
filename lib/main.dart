@@ -14,7 +14,6 @@ import './Screens/MainScreen/Dashboard.dart';
 import './Screens/category_stores_screen.dart';
 import './Screens/FocusScreen/FocusScreen.dart';
 import './Screens/Authentication/auth_screen.dart';
-import './Screens/Authentication/splash_screen.dart';
 
 import './providers/points.dart';
 import './providers/user_provider.dart';
@@ -35,9 +34,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        // StreamProvider(
-        //   create: (context) => context.read<UserProvider>().authState,
-        // ),
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
@@ -69,14 +65,10 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         routes: {
-          // '/': (ctx) => TabsScreen(),
           '/': (ctx) => StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
-                  // if (userSnapshot.connectionState == ConnectionState.waiting) {
-                  //   return SplashScreen();
-                  // }
-                  if (userSnapshot.hasData /*context.watch<User>() != null*/) {
+                  if (userSnapshot.hasData) {
                     return TabsScreen();
                   }
                   return AuthScreen();
