@@ -1,12 +1,29 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../models/PurchasedCoupon.dart';
 
 class NonActiveCoupon extends StatelessWidget {
-  final PurchasedCoupon usedCoupon;
+  final String usedCouponId;
+  String couponImageUrl;
+  String couponDescription;
 
-  NonActiveCoupon({@required this.usedCoupon});
+  NonActiveCoupon({
+    @required this.usedCouponId,
+    getCouponData(),
+  });
+
+  Future<void> getCouponData() async {
+    FirebaseFirestore.instance
+        .collection('coupons')
+        .doc(usedCouponId)
+        .snapshots()
+        .listen((event) {
+      final couponData = event.data();
+      this.couponImageUrl = couponData['imageUrl'];
+      this.couponDescription = couponData['description'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +33,7 @@ class NonActiveCoupon extends StatelessWidget {
         height: constraints.maxWidth * 0.30,
         child: Stack(children: [
           Image.network(
-            this.usedCoupon.coupon.imageUrl,
+            this.couponImageUrl,
             width: double.infinity,
             fit: BoxFit.fitWidth,
           ),
@@ -25,7 +42,7 @@ class NonActiveCoupon extends StatelessWidget {
               width: double.infinity,
               color: Colors.black38,
               child: Text(
-                this.usedCoupon.coupon.description,
+                this.couponDescription,
                 style: TextStyle(color: Colors.white, fontSize: 26),
               ),
             ),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../models/Coupon.dart';
 import './active_coupon.dart';
 
 class UserUsedCoupon extends StatelessWidget {
-  final List<Coupon> coupons;
+  final List<String> coupons;
 
   UserUsedCoupon(this.coupons);
 
@@ -15,7 +14,7 @@ class UserUsedCoupon extends StatelessWidget {
           onTap: () {
             return null;
           },
-          child: ActiveCoupon(coupon: coupons[index]),
+          child: ActiveCoupon(activeCouponId: coupons[index]),
         );
       },
       itemCount: coupons.length,

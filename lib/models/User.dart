@@ -1,10 +1,8 @@
-import '../models/PurchasedCoupon.dart';
-
 class User {
   String id;
   String name;
   int points;
-  List<PurchasedCoupon> myCoupons;
+  List<String> myCoupons;
 
   User({this.id, this.name, this.points, this.myCoupons});
 }

@@ -1,11 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../app_localizations.dart';
 import '../../widgets/Coupons/user_used_coupons.dart';
 import '../../widgets/Coupons/user_available_coupons.dart';
 import '../../providers/user_provider.dart';
-import '../../models/PurchasedCoupon.dart';
-import '../../models/Coupon.dart';
 
 class MyCoupons extends StatelessWidget {
   MyCoupons();
@@ -14,8 +13,8 @@ class MyCoupons extends StatelessWidget {
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    List<Coupon> usedCoupons = userProvider.myUsedCoupons;
-    List<PurchasedCoupon> availableCoupons = userProvider.myAvailableCoupons;
+    List<String> myAvailableCoupons = userProvider.getAvailableCoupons();
+    List<String> myUsedCoupons = userProvider.getUsedCoupons();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -32,8 +31,8 @@ class MyCoupons extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          UserAvailableCoupons(availableCoupons), // ?? null,
-          UserUsedCoupon(usedCoupons), // ?? null,
+          UserAvailableCoupons(myAvailableCoupons), // ?? null,
+          UserUsedCoupon(myUsedCoupons), // ?? null,
         ]),
       ),
     );

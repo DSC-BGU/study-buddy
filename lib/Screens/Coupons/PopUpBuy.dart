@@ -1,21 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/models/Coupon.dart';
 import '../../providers/user_provider.dart';
 import '../../app_localizations.dart';
-import '../../models/Coupon.dart';
 
 class PopUpBuy extends StatelessWidget {
   final BuildContext contex;
   final Coupon coupon;
+  // String couponTitle;
+  // int couponPoints;
 
   PopUpBuy(
     this.contex,
     this.coupon,
   );
+  // {
+  //   getCouponData();
+  // }
+
+  // Future<void> getCouponData() async {
+  //   FirebaseFirestore.instance
+  //       .collection('coupons')
+  //       .doc(coupon)
+  //       .snapshots()
+  //       .listen((event) {
+  //     final couponData = event.data();
+  //     this.couponTitle = couponData['title'];
+  //     this.couponPoints = couponData['points'];
+  //   });
+  // }
 
   void buyCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
-    if (userProvider.points >= coupon.points) {
+    if (userProvider.points >= coupon.points /*this.couponPoints*/) {
       userProvider.buyCoupon(coupon);
     }
   }
@@ -39,7 +57,7 @@ class PopUpBuy extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${this.coupon.title}',
+            Text(this.coupon.title, //couponTitle,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.07,

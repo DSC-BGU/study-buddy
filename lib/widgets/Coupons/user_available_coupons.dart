@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import './non_active_coupon.dart';
-import '../../models/PurchasedCoupon.dart';
 import '../../Screens/Coupons/PopUpQR.dart';
 
 class UserAvailableCoupons extends StatelessWidget {
-  final List<PurchasedCoupon> coupons;
+  final List<String> coupons;
 
   UserAvailableCoupons(this.coupons);
 
@@ -18,7 +17,7 @@ class UserAvailableCoupons extends StatelessWidget {
                 context: context,
                 builder: (ctx) => PopUpQR(ctx, coupons[index]));
           },
-          child: NonActiveCoupon(usedCoupon: coupons[index]),
+          child: NonActiveCoupon(usedCouponId: coupons[index]),
         );
       },
       itemCount: coupons.length,

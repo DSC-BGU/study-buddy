@@ -1,20 +1,37 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:study_buddy/models/PurchasedCoupon.dart';
-import 'package:study_buddy/providers/user_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 import '../../app_localizations.dart';
+import '../../providers/user_provider.dart';
 
 class PopUpQR extends StatelessWidget {
   final BuildContext ctx;
-  final PurchasedCoupon coupon;
-  PopUpQR(this.ctx, this.coupon);
+  final String purchasedCouponId;
+  String couponTitle;
+  PopUpQR(
+    this.ctx,
+    this.purchasedCouponId,
+  ) {
+    getCouponData();
+  }
+
+  Future<void> getCouponData() async {
+    FirebaseFirestore.instance
+        .collection('coupons')
+        .doc(purchasedCouponId)
+        .snapshots()
+        .listen((event) {
+      final couponData = event.data();
+      this.couponTitle = couponData['title'];
+    });
+  }
 
   void useCoupon(BuildContext context) {
     Navigator.pop(context);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
-    userProvider.useCoupon(coupon);
+    userProvider.useCoupon(purchasedCouponId);
   }
 
   @override
@@ -34,7 +51,7 @@ class PopUpQR extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${this.coupon.coupon.title}',
+            Text(couponTitle,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.27,
@@ -42,7 +59,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: coupon.purchasedCouponid,
+                    data: purchasedCouponId,
                   ),
                 ),
               ),
