@@ -5,12 +5,14 @@ class PurchasedCoupon {
   final String userId;
   final DateTime datePurhcased;
   final Coupon coupon;
-  // bool used;
+  bool used;
+  String purchasedCouponid;
 
-  const PurchasedCoupon({
+  PurchasedCoupon({
+    this.used = false,
     @required this.userId,
     @required this.datePurhcased,
     @required this.coupon,
-    // this.used = false,
+    @required this.purchasedCouponid,
   });
 }
