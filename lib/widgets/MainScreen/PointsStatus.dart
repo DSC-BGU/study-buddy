@@ -37,7 +37,11 @@ class PointsStatus extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               Text(
-                userProvider.points.toString() + t('Points'),
+                // For testing
+                userProvider.name +
+                    ': ' +
+                    userProvider.points.toString() +
+                    t(' Points'),
                 style: Theme.of(context).textTheme.headline4,
               ),
             ],

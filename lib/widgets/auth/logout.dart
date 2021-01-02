@@ -26,9 +26,6 @@ class Logout extends StatelessWidget {
           value: 'logout',
         ),
       ],
-      // onTap: () {
-      //     context.read<AuthenticationProvider>().signOut();
-      // },
       onChanged: (itemIdentifier) {
         if (itemIdentifier == 'logout') {
           UserProvider userProvider =
