@@ -22,7 +22,15 @@ class _FocusScreenState extends State<FocusScreen> {
     String t(String text) => AppLocalizations.of(context).translate(text);
     FocusProvider focusProvider = Provider.of<FocusProvider>(context);
     topWidget() => focusProvider.focusStatus
-        ? Text(t('You can do that!'))
+        ? Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text("You are in focus mode",style: Theme.of(context).textTheme.headline5,),
+          Text("Do not touch use you phone to get the points",style: Theme.of(context).textTheme.bodyText2,),
+        ],
+      ),
+      )
         : Hero(
             tag: 'pointStatus',
             child: PointsStatus(),
