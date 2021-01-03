@@ -2,41 +2,45 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:study_buddy/providers/Coupon_provider.dart';
 import '../../app_localizations.dart';
 import '../../providers/user_provider.dart';
 
 class PopUpQR extends StatelessWidget {
   final BuildContext ctx;
-  final String purchasedCouponId;
-  String couponTitle;
+  final String couponId;
+  // String couponTitle;
   PopUpQR(
     this.ctx,
-    this.purchasedCouponId,
-  ) {
-    getCouponData();
-  }
-
-  Future<void> getCouponData() async {
-    FirebaseFirestore.instance
-        .collection('coupons')
-        .doc(purchasedCouponId)
-        .snapshots()
-        .listen((event) {
-      final couponData = event.data();
-      this.couponTitle = couponData['title'];
-    });
-  }
+    this.couponId,
+  );
+  //  {
+  //   getCouponData();
+  // // }
+  // Future<void> getCouponData() async {
+  //   FirebaseFirestore.instance
+  //       .collection('coupons')
+  //       .doc(purchasedCouponId)
+  //       .snapshots()
+  //       .listen((event) {
+  //     final couponData = event.data();
+  //     this.couponTitle = couponData['title'];
+  //   });
+  // }
 
   void useCoupon(BuildContext context) {
     Navigator.pop(context);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
-    userProvider.useCoupon(purchasedCouponId);
+    userProvider.useCoupon(couponId);
   }
 
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    CouponProvider couponProvider = Provider.of<CouponProvider>(context);
+    couponProvider.getCouponData(this.couponId);
+    String couponTitle = couponProvider.imageUrl;
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -59,7 +63,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: purchasedCouponId,
+                    data: couponId,
                   ),
                 ),
               ),

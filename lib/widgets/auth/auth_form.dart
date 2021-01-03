@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../app_localizations.dart';
 import './login_with_google_bar.dart';
@@ -7,8 +9,10 @@ class AuthForm extends StatefulWidget {
   final void Function(
     String email,
     String password,
-    String userName,
+    String username,
     bool isLogin,
+    // List<String> purchasedCoupons,
+    // int points,
     BuildContext ctx,
   ) submitFn;
 
@@ -22,11 +26,13 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
+  // final int INITIAL_POINTS = 500;
   final _formKey = GlobalKey<FormState>();
   var _isLogin = true;
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
+  // var _purchasedCoupons = [];
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
@@ -34,8 +40,14 @@ class _AuthFormState extends State<AuthForm> {
 
     if (isValid) {
       _formKey.currentState.save();
-      widget.submitFn(_userEmail.trim(), _userPassword.trim(), _userName.trim(),
-          _isLogin, context);
+      widget.submitFn(
+          _userEmail.trim(),
+          _userPassword.trim(),
+          _userName.trim(),
+          _isLogin,
+          // _purchasedCoupons.map((c) => json.encode(c)).toList(),
+          // INITIAL_POINTS,
+          context);
     }
   }
 

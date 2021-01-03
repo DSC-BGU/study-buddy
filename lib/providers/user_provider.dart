@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_buddy/models/Coupon.dart';
-import 'package:study_buddy/models/PurchasedCoupon.dart';
+import '../models/Coupon.dart';
 
 class UserProvider with ChangeNotifier {
   String _id = FirebaseAuth.instance.currentUser.uid;
@@ -33,7 +33,7 @@ class UserProvider with ChangeNotifier {
       this._name = userData['username'];
       this._points = userData['points'];
       this._purchasedCouponsId = //userData['purchased_coupons'].toList();
-          myPurchasedCoupons.map((c) => c as String).toList();
+          myPurchasedCoupons.map((c) => json.encode(c)).toList();
       notifyListeners();
     });
   }
@@ -54,21 +54,20 @@ class UserProvider with ChangeNotifier {
   }
 
   void buyCoupon(Coupon coupon) {
-    String newPurchasedCouponId;
-    FirebaseFirestore.instance.collection('purchasedCoupons').add({
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('purchasedCoupons').doc();
+    docRef.set({
       'couponId': coupon.id,
       'userId': this._id,
       'datePurhcased': new DateTime.now(),
       'used': false,
-    }).then((data) {
-      newPurchasedCouponId = data.id;
     });
     this._points = this._points - coupon.points;
-    this._purchasedCouponsId.add(newPurchasedCouponId);
-    print(_purchasedCouponsId);
+    this._purchasedCouponsId.add(docRef.id);
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'points': this._points,
-      'purchased_coupons': this._purchasedCouponsId.toList(),
+      'purchased_coupons':
+          this._purchasedCouponsId, //.map((c) => json.decode(c)).toList(),
     });
     notifyListeners();
   }
@@ -81,43 +80,62 @@ class UserProvider with ChangeNotifier {
       'used': true,
     });
     // @TODO: update at user's list to!
-    // FirebaseFirestore.instance.collection('users').doc(this._id).update({
-    //   'purchased_coupons': this._purchasedCouponsID,
-    // });
+    FirebaseFirestore.instance.collection('users').doc(this._id).update({
+      'purchased_coupons': this._purchasedCouponsId,
+    });
     notifyListeners();
   }
 
   List<String> getAvailableCoupons() {
-    print('Hi!');
     List<String> output = [];
-    _purchasedCouponsId.map((c) => FirebaseFirestore.instance
-            .collection('purchasedCoupons')
-            .doc(c)
-            .snapshots()
-            .listen((event) {
-          final purchasedCouponData = event.data();
-          print('data: ' + purchasedCouponData.toString());
-          if (!purchasedCouponData['used']) {
-            output.add(purchasedCouponData['couponId'].toString());
-          }
-        }));
+    CollectionReference coupons =
+        FirebaseFirestore.instance.collection('purchasedCoupons');
+
+    coupons
+        .where('userId', isEqualTo: this._id)
+        .where('used', isEqualTo: false)
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        final data = doc.data();
+        output.add(data['couponId']);
+      });
+    });
     print(output);
     return output;
   }
 
   List<String> getUsedCoupons() {
     List<String> output = [];
-    _purchasedCouponsId.map((c) => FirebaseFirestore.instance
-            .collection('purchasedCoupons')
-            .doc(c)
-            .snapshots()
-            .listen((event) {
-          final purchasedCouponData = event.data();
-          if (purchasedCouponData['used']) {
-            output.add(purchasedCouponData['couponId']);
-          }
-        }));
+    CollectionReference coupons =
+        FirebaseFirestore.instance.collection('purchasedCoupons');
+
+    coupons
+        .where('userId', isEqualTo: this._id)
+        .where('used', isEqualTo: true)
+        .get()
+        .then((querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        final data = doc.data();
+        output.add(data['couponId']);
+      });
+    });
+    print(output);
     return output;
+    // List<String> output = [];
+    // _purchasedCouponsId.map((c) => FirebaseFirestore.instance
+    //         .collection('purchasedCoupons')
+    //         .doc(c)
+    //         .snapshots()
+    //         .listen((event) {
+    //       print('available data constructing');
+    //       var purchasedCouponData = event.data();
+    //       print(purchasedCouponData);
+    //       if (purchasedCouponData['used']) {
+    //         output.add(purchasedCouponData['couponId']);
+    //       }
+    //     }));
+    // return output;
   }
 
   String get id {

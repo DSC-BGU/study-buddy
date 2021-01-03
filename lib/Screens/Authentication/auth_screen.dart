@@ -24,6 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String username,
     bool isLogin,
+    // List<String> purchasedCoupons,
+    // int points,
     BuildContext ctx,
   ) async {
     UserCredential authResult;
@@ -44,14 +46,13 @@ class _AuthScreenState extends State<AuthScreen> {
         );
 
         List<String> _purchasedCoupons = [];
-
         await FirebaseFirestore.instance
             .collection('users')
             .doc(authResult.user.uid)
             .set({
           'username': username,
           'email': email,
-          'points': INITIAL_POINTS,
+          'points': INITIAL_POINTS, // points,
           'purchased_coupons': _purchasedCoupons,
         });
       }
