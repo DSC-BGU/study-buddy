@@ -40,7 +40,7 @@ class PopUpQR extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     CouponProvider couponProvider = Provider.of<CouponProvider>(context);
     couponProvider.getCouponData(this.couponId);
-    String couponTitle = couponProvider.imageUrl;
+    String couponTitle = couponProvider.title;
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
