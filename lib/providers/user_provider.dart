@@ -67,7 +67,7 @@ class UserProvider with ChangeNotifier {
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'points': this._points,
       'purchased_coupons':
-          this._purchasedCouponsId, //.map((c) => json.decode(c)).toList(),
+          this._purchasedCouponsId.map((c) => json.decode(c)).toList(),
     });
     notifyListeners();
   }
@@ -81,7 +81,8 @@ class UserProvider with ChangeNotifier {
     });
     // @TODO: update at user's list to!
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
-      'purchased_coupons': this._purchasedCouponsId,
+      'purchased_coupons':
+          this._purchasedCouponsId.map((c) => json.decode(c)).toList(),
     });
     notifyListeners();
   }
