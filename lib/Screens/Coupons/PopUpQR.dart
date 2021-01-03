@@ -42,7 +42,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: coupon.purchasedCouponid,
+                    data: coupon.coupon.id,
                   ),
                 ),
               ),
