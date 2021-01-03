@@ -18,8 +18,8 @@ class MyCoupons extends StatelessWidget {
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    List<String> myAvailableCoupons = userProvider.getAvailableCoupons();
-    List<String> myUsedCoupons = userProvider.getUsedCoupons();
+    List<String> myAvailableCoupons = userProvider.getAvailableCoupons(); // purchasedCoupon id's list
+    List<String> myUsedCoupons = userProvider.getUsedCoupons(); // Coupon id's list
     return DefaultTabController(
       length: 2,
       child: Scaffold(

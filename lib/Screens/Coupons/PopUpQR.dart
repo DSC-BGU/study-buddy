@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:study_buddy/providers/Coupon_provider.dart';
 import '../../app_localizations.dart';
 import '../../providers/user_provider.dart';
+import '../../providers/Coupon_provider.dart';
+import '../../providers/purchased_coupon_provider.dart';
 
 class PopUpQR extends StatelessWidget {
   final BuildContext ctx;
@@ -38,8 +39,11 @@ class PopUpQR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    PurchasedCouponProvider purchasedCouponProvider = Provider.of<PurchasedCouponProvider>(context);
+    purchasedCouponProvider.getCouponData(this.couponId);
+    String couponId = purchasedCouponProvider.couponId;
     CouponProvider couponProvider = Provider.of<CouponProvider>(context);
-    couponProvider.getCouponData(this.couponId);
+    couponProvider.getCouponData(couponId);
     String couponTitle = couponProvider.title;
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(

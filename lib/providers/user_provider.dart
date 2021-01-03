@@ -98,8 +98,8 @@ class UserProvider with ChangeNotifier {
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        final data = doc.data();
-        output.add(data['couponId']);
+        // final data = doc.data();
+        output.add(doc.id);
       });
     });
     print(output);

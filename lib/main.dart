@@ -20,6 +20,7 @@ import './providers/user_provider.dart';
 import './providers/StoreProvider.dart';
 import './providers/FocusProvider.dart';
 import './providers/Coupon_provider.dart';
+import './providers/purchased_coupon_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +36,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => Points()),
-        ChangeNotifierProvider(create: (context) => CouponProvider()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
         ChangeNotifierProvider(create: (context) => FocusProvider()),
+        ChangeNotifierProvider(create: (context) => CouponProvider()),
+        ChangeNotifierProvider(create: (context) => PurchasedCouponProvider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',
