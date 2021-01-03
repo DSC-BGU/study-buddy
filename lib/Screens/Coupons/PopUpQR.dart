@@ -39,11 +39,15 @@ class PopUpQR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    PurchasedCouponProvider purchasedCouponProvider = Provider.of<PurchasedCouponProvider>(context);
-    purchasedCouponProvider.getCouponData(this.couponId);
+    PurchasedCouponProvider purchasedCouponProvider =
+        PurchasedCouponProvider(this.couponId);
+    //   Provider.of<PurchasedCouponProvider>(context);
+    // purchasedCouponProvider.getCouponData(this.couponId);
     String couponId = purchasedCouponProvider.couponId;
-    CouponProvider couponProvider = Provider.of<CouponProvider>(context);
-    couponProvider.getCouponData(couponId);
+    print('couponId: ' + couponId);
+    CouponProvider couponProvider =
+        CouponProvider(couponId); // Provider.of<CouponProvider>(context);
+    // couponProvider.getCouponData(couponId);
     String couponTitle = couponProvider.title;
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
@@ -67,7 +71,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: couponId,
+                    data: this.couponId,
                   ),
                 ),
               ),

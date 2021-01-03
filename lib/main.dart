@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
         ChangeNotifierProvider(create: (context) => FocusProvider()),
-        ChangeNotifierProvider(create: (context) => CouponProvider()),
-        ChangeNotifierProvider(create: (context) => PurchasedCouponProvider()),
+        // ChangeNotifierProvider(create: (context) => CouponProvider()),
+        // ChangeNotifierProvider(create: (context) => PurchasedCouponProvider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',

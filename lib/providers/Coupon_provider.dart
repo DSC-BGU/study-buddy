@@ -2,22 +2,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CouponProvider with ChangeNotifier {
-  String _id = '';
+  final String _id; // = '';
   String _title = '';
   String _storeId = '';
   String _description = '';
   String _imageUrl = '';
   int _points = 0;
 
-  Future<void> getCouponData(String id) async {
+  CouponProvider(this._id) {
+    getCouponData(this._id);
+  }
+  Future<void> getCouponData(String id) {
     FirebaseFirestore.instance
         .collection('coupons')
         .doc(id)
         .snapshots()
         .listen((event) {
+      // this._id = id;
       final couponData = event.data();
+      print('coupon data: ' + couponData.toString());
       this._title = couponData['title'];
-      this._storeId = couponData['storeId'];
+      this._storeId = couponData['store'];
       this._description = couponData['description'];
       this._imageUrl = couponData['imageUrl'];
       this._points = couponData['points'];

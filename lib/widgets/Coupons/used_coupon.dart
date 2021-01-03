@@ -4,12 +4,12 @@ import 'dart:ui';
 
 import '../../providers/Coupon_provider.dart';
 
-class WalletCoupon extends StatelessWidget {
+class UsedCoupon extends StatelessWidget {
   final String couponId;
   // String couponImageUrl;
   // String couponDescription;
 
-  WalletCoupon({
+  UsedCoupon({
     @required this.couponId,
   });
   //  {
@@ -43,8 +43,9 @@ class WalletCoupon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CouponProvider couponProvider = Provider.of<CouponProvider>(context);
-    couponProvider.getCouponData(this.couponId);
+    CouponProvider couponProvider =
+        CouponProvider(this.couponId); // Provider.of<CouponProvider>(context);
+    // couponProvider.getCouponData(this.couponId);
     String couponImageUrl = couponProvider.imageUrl;
     String couponDescription = couponProvider.description;
 
