@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:study_buddy/Screens/FocusScreen/ResultScreen.dart';
 
 import './app_localizations.dart';
 
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
+          ResultScreen.routeName: (ctx) => ResultScreen(),
         },
       ),
     );
