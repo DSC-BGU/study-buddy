@@ -27,7 +27,7 @@ class _FocusScreenState extends State<FocusScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text("You are in focus mode",style: Theme.of(context).textTheme.headline5,),
-          Text("Do not touch use you phone to get the points",style: Theme.of(context).textTheme.bodyText2,),
+          Text("Do not touch or use your phone to get the points",style: Theme.of(context).textTheme.bodyText2,),
         ],
       ),
       )
