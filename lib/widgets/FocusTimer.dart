@@ -16,7 +16,6 @@ class FocusTimer extends StatefulWidget {
 }
 
 class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
-  bool _screenTurnedOff = false;
 
   @override
   void initState() {
@@ -33,17 +32,15 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.inactive && await isLockScreen()) {
-      _screenTurnedOff = true;
-    }
-    if (state == AppLifecycleState.resumed && !_screenTurnedOff) {
-      FocusProvider focusProvider =
-          Provider.of<FocusProvider>(context, listen: false);
-      focusProvider.outOfFocus(context);
-      _screenTurnedOff = false;
-    }
+    isLockScreen().then((screenTurnedOff) {
+      if (state == AppLifecycleState.resumed && !screenTurnedOff) {
+        FocusProvider focusProvider =
+        Provider.of<FocusProvider>(context, listen: false);
+        focusProvider.outOfFocus(context);
+      }
+    });
   }
 
   Widget build(BuildContext context) {
