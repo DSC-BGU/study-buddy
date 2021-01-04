@@ -1,19 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import '../../models/Coupon.dart';
+import '../../providers/StoreProvider.dart';
+import '../../models/PurchasedCoupon.dart';
 import '../../app_localizations.dart';
 import '../../providers/user_provider.dart';
-import '../../providers/Coupon_provider.dart';
-import '../../providers/purchased_coupon_provider.dart';
 
 class PopUpQR extends StatelessWidget {
   final BuildContext ctx;
-  final String couponId;
-  // String couponTitle;
+  final PurchasedCoupon purchasedCoupon;
   PopUpQR(
     this.ctx,
-    this.couponId,
+    this.purchasedCoupon,
   );
   //  {
   //   getCouponData();
@@ -33,22 +32,15 @@ class PopUpQR extends StatelessWidget {
     Navigator.pop(context);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
-    userProvider.useCoupon(couponId);
+    userProvider.useCoupon(purchasedCoupon.id);
   }
 
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    PurchasedCouponProvider purchasedCouponProvider =
-        PurchasedCouponProvider(this.couponId);
-    //   Provider.of<PurchasedCouponProvider>(context);
-    // purchasedCouponProvider.getCouponData(this.couponId);
-    String couponId = purchasedCouponProvider.couponId;
-    print('couponId: ' + couponId);
-    CouponProvider couponProvider =
-        CouponProvider(couponId); // Provider.of<CouponProvider>(context);
-    // couponProvider.getCouponData(couponId);
-    String couponTitle = couponProvider.title;
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    Coupon coupon = storeProvider.getCouponById(
+        this.purchasedCoupon.couponId); // attention: return value can be null
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -63,7 +55,7 @@ class PopUpQR extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(couponTitle,
+            Text(coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.27,
@@ -71,7 +63,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: this.couponId,
+                    data: coupon.id, //this.coupon,
                   ),
                 ),
               ),

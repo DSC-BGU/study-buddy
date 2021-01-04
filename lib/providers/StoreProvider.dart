@@ -102,4 +102,12 @@ class StoreProvider with ChangeNotifier {
     });
     return filteredList;
   }
+
+  Coupon getCouponById(String couponId) {
+    availableCoupons.map((coupon) {
+      if (coupon.id == couponId) {
+        return coupon;
+      }
+    });
+  }
 }
