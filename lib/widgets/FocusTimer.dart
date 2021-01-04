@@ -41,7 +41,7 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed && !_screenTurnedOff) {
       FocusProvider focusProvider =
           Provider.of<FocusProvider>(context, listen: false);
-      focusProvider.outOfFocus();
+      focusProvider.outOfFocus(context);
       _screenTurnedOff = false;
     }
   }
@@ -55,10 +55,10 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
         child: RaisedButton(
           shape: new CircleBorder(),
           elevation: 2,
-          child: Text(focusProvider.focusStatus ? t('Stop') : t('Start')),
+          child: Text(focusProvider.focusStatus ? t('Give up') : t('Start')),
           onPressed: focusProvider.focusStatus
               ? () {
-                  focusProvider.outOfFocus();
+                  focusProvider.outOfFocus(context);
                 }
               : () {
                   focusProvider.onFocus(context);
