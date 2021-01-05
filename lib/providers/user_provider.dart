@@ -161,38 +161,3 @@ class UserProvider with ChangeNotifier {
     return usedPurchasedCoupons;
   }
 }
-
-// // @TODO
-//   List<Coupon> getUsedCoupons() {
-//     List<String> output = [];
-//     CollectionReference coupons =
-//         FirebaseFirestore.instance.collection('purchasedCoupons');
-
-//     coupons
-//         .where('userId', isEqualTo: this._id)
-//         .where('used', isEqualTo: true)
-//         .get()
-//         .then((querySnapshot) {
-//       querySnapshot.docs.forEach((doc) {
-//         final data = doc.data();
-//         output.add(data['couponId']);
-//       });
-//     });
-//     print(output);
-//     return [];
-//    // _coupons;
-//     // List<String> output = [];
-//     // _purchasedCouponsId.map((c) => FirebaseFirestore.instance
-//     //         .collection('purchasedCoupons')
-//     //         .doc(c)
-//     //         .snapshots()
-//     //         .listen((event) {
-//     //       print('available data constructing');
-//     //       var purchasedCouponData = event.data();
-//     //       print(purchasedCouponData);
-//     //       if (purchasedCouponData['used']) {
-//     //         output.add(purchasedCouponData['couponId']);
-//     //       }
-//     //     }));
-//     // return output;
-//   }
