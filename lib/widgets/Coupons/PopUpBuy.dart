@@ -39,9 +39,9 @@ class PopUpBuy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
-    String t(String text) => AppLocalizations.of(context).translate(text);
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(

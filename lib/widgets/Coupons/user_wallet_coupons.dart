@@ -1,39 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../models/Coupon.dart';
 import '../../models/PurchasedCoupon.dart';
-import '../../providers/StoreProvider.dart';
-import '../../Screens/Coupons/PopUpQR.dart';
 import './wallet_coupon.dart';
+import './PopUpQR.dart';
 
 class UserWalletCoupons extends StatelessWidget {
-  final List<PurchasedCoupon> purchasedCouponsId;
+  final List<PurchasedCoupon> purchasedCoupons;
 
-  UserWalletCoupons(this.purchasedCouponsId);
+  UserWalletCoupons(this.purchasedCoupons);
 
   @override
   Widget build(BuildContext context) {
-    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
-
-    ListView.builder(
+    return ListView.builder(
       itemBuilder: (ctx, index) {
-        Coupon coupon = storeProvider.getCouponById(purchasedCouponsId[index]
-            .couponId); // attention: return value can be null
-        if (coupon != null) {
-          return GestureDetector(
-            onTap: () {
-              if (!purchasedCouponsId[index].used) {
-                showDialog(
-                  context: ctx,
-                  builder: (ctx) => PopUpQR(ctx, purchasedCouponsId[index]),
-                );
-              }
-            },
-            child: WalletCoupon(coupon: coupon),
-          );
-        }
+        //   return WalletCoupon(purchasedCoupon: purchasedCoupons[index]);
+        // },
+        return GestureDetector(
+          onTap: () {
+            if (!purchasedCoupons[index].used) {
+              showDialog(
+                context: ctx,
+                builder: (ctx) => PopUpQR(ctx, purchasedCoupons[index]),
+              );
+            }
+          },
+          child: WalletCoupon(purchasedCoupon: purchasedCoupons[index]),
+        );
       },
-      itemCount: purchasedCouponsId.length,
+      itemCount: purchasedCoupons.length,
     );
   }
 }

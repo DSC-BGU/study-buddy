@@ -14,30 +14,17 @@ class PopUpQR extends StatelessWidget {
     this.ctx,
     this.purchasedCoupon,
   );
-  //  {
-  //   getCouponData();
-  // // }
-  // Future<void> getCouponData() async {
-  //   FirebaseFirestore.instance
-  //       .collection('coupons')
-  //       .doc(purchasedCouponId)
-  //       .snapshots()
-  //       .listen((event) {
-  //     final couponData = event.data();
-  //     this.couponTitle = couponData['title'];
-  //   });
-  // }
 
-  void useCoupon(BuildContext context) {
+  void useCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
     userProvider.useCoupon(purchasedCoupon.id);
   }
 
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
     Coupon coupon = storeProvider.getCouponById(
         this.purchasedCoupon.couponId); // attention: return value can be null
@@ -55,7 +42,7 @@ class PopUpQR extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(coupon.title,
+            Text(coupon.title, // ?? '',
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.27,
@@ -63,7 +50,8 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: coupon.id, //this.coupon,
+                    data: this.purchasedCoupon.id,
+                    // coupon.id, // ?? '', //this.coupon,
                   ),
                 ),
               ),
@@ -81,7 +69,7 @@ class PopUpQR extends StatelessWidget {
                   t('Got it, Thanks'),
                   style: TextStyle(fontSize: 19),
                 ),
-                onPressed: () => useCoupon(context),
+                onPressed: () => useCoupon(context, userProvider),
               ),
             )
           ],

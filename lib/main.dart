@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/FocusScreen/ResultScreen.dart';
 
 import './app_localizations.dart';
 
@@ -14,14 +13,13 @@ import './Screens/categories_screen.dart';
 import './Screens/MainScreen/Dashboard.dart';
 import './Screens/category_stores_screen.dart';
 import './Screens/FocusScreen/FocusScreen.dart';
+import './Screens/FocusScreen/ResultScreen.dart';
 import './Screens/Authentication/auth_screen.dart';
 
 import './providers/points.dart';
 import './providers/user_provider.dart';
 import './providers/StoreProvider.dart';
 import './providers/FocusProvider.dart';
-import './providers/Coupon_provider.dart';
-import './providers/purchased_coupon_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +37,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Points()),
         ChangeNotifierProvider(create: (context) => StoreProvider()),
         ChangeNotifierProvider(create: (context) => FocusProvider()),
-        // ChangeNotifierProvider(create: (context) => CouponProvider()),
-        // ChangeNotifierProvider(create: (context) => PurchasedCouponProvider()),
       ],
       child: MaterialApp(
         title: 'Study Buddy',

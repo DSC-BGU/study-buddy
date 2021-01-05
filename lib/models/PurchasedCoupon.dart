@@ -15,9 +15,10 @@ class PurchasedCoupon {
     this.used = false,
   });
 
-  factory PurchasedCoupon.fromJson(Map<String, dynamic> json) {
+  factory PurchasedCoupon.fromJson(
+      Map<String, dynamic> json, String purchasedCouponId) {
     return PurchasedCoupon(
-      id: json['id'],
+      id: purchasedCouponId,
       couponId: json['couponId'],
       userId: json['userId'],
       datePurhcased: json['datePurhcased'].toDate(),

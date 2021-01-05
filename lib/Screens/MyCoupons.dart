@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../widgets/Coupons/user_wallet_coupons.dart';
-import '../../models/PurchasedCoupon.dart';
-import '../../providers/user_provider.dart';
-import '../../app_localizations.dart';
+
+import '../widgets/Coupons/user_wallet_coupons.dart';
+import '../providers/user_provider.dart';
+import '../models/PurchasedCoupon.dart';
+import '../app_localizations.dart';
 
 class MyCoupons extends StatelessWidget {
   MyCoupons();
@@ -12,7 +13,10 @@ class MyCoupons extends StatelessWidget {
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    List<PurchasedCoupon> myPurchasedCoupons = userProvider.myPurchasedCoupons;
+    List<PurchasedCoupon> myAvailablePurchasedCoupons =
+        userProvider.getMyAvailablePurchasedCoupons();
+    List<PurchasedCoupon> myUsedPurchasedCoupons =
+        userProvider.getMyUsedPurchasedCoupons();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -29,8 +33,8 @@ class MyCoupons extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: [
-          UserWalletCoupons(myPurchasedCoupons),
-          UserWalletCoupons(myPurchasedCoupons),
+          UserWalletCoupons(myAvailablePurchasedCoupons),
+          UserWalletCoupons(myUsedPurchasedCoupons),
         ]),
       ),
     );

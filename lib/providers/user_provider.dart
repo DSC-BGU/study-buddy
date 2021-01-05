@@ -19,8 +19,6 @@ class UserProvider with ChangeNotifier {
       if (userSnapshot != null) {
         this._id = userSnapshot.uid;
         getUserData();
-        // cancel subscription first
-        getPurchasedCoupons();
       }
     });
   }
@@ -39,6 +37,7 @@ class UserProvider with ChangeNotifier {
       this._purchasedCouponsId =
           myPurchasedCoupons.map((c) => c.toString()).toList();
       notifyListeners();
+      getPurchasedCoupons();
     });
   }
 
@@ -69,15 +68,13 @@ class UserProvider with ChangeNotifier {
       'used': false,
     });
     this._points = this._points - coupon.points;
-    print(docRef.id);
     this._purchasedCouponsId.add(docRef.id);
-    print(_purchasedCouponsId);
     FirebaseFirestore.instance.collection('users').doc(this._id).update({
       'points': this._points,
       'purchased_coupons': this._purchasedCouponsId,
     });
-    getPurchasedCoupons();
     notifyListeners();
+    getPurchasedCoupons();
   }
 
 // @TODO
@@ -88,23 +85,33 @@ class UserProvider with ChangeNotifier {
         .update({
       'used': true,
     });
+    // FirebaseFirestore.instance.collection('users').doc(this._id).update({
+    //   'purchased_coupons': this._purchasedCouponsId,
+    // });
     notifyListeners();
+    getPurchasedCoupons();
   }
 
   void getPurchasedCoupons() {
     if (_couponsSubscription != null) {
       this._couponsSubscription.cancel();
     }
+    List<PurchasedCoupon> purchasedCoupons = [];
     if (_purchasedCouponsId.isNotEmpty) {
-      _couponsSubscription = FirebaseFirestore.instance
-          .collection('purchasedCoupons')
-          .where(FieldPath.documentId, whereIn: _purchasedCouponsId)
-          .snapshots()
-          .listen((event) {
-        print('purchasded: ' + _purchasedCouponsId.toString());
+      _couponsSubscription =
+          // _purchasedCouponsId.map((c) =>
+          FirebaseFirestore.instance
+              .collection('purchasedCoupons')
+              // .doc(c)
+              // FieldPath.documentId
+              .where('userId', isEqualTo: this._id)
+              .snapshots()
+              .listen((event) {
         event.docs.forEach((doc) {
-          _purchasedCoupons.add(PurchasedCoupon.fromJson(doc.data()));
+          Map<String, dynamic> json = doc.data();
+          purchasedCoupons.add(PurchasedCoupon.fromJson(json, doc.id));
         });
+        this._purchasedCoupons = purchasedCoupons;
         notifyListeners();
       });
     }
@@ -131,8 +138,27 @@ class UserProvider with ChangeNotifier {
   }
 
   List<PurchasedCoupon> get myPurchasedCoupons {
-    // print('coupons: ' + _purchasedCoupons.toString());
     return [..._purchasedCoupons];
+  }
+
+  List<PurchasedCoupon> getMyAvailablePurchasedCoupons() {
+    List<PurchasedCoupon> availablePurchasedCoupons = [];
+    _purchasedCoupons.forEach((c) {
+      if (!c.used) {
+        availablePurchasedCoupons.add(c);
+      }
+    });
+    return availablePurchasedCoupons;
+  }
+
+  List<PurchasedCoupon> getMyUsedPurchasedCoupons() {
+    List<PurchasedCoupon> usedPurchasedCoupons = [];
+    _purchasedCoupons.forEach((c) {
+      if (c.used) {
+        usedPurchasedCoupons.add(c);
+      }
+    });
+    return usedPurchasedCoupons;
   }
 }
 

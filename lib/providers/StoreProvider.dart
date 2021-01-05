@@ -104,10 +104,12 @@ class StoreProvider with ChangeNotifier {
   }
 
   Coupon getCouponById(String couponId) {
-    availableCoupons.map((coupon) {
-      if (coupon.id == couponId) {
-        return coupon;
+    Coupon coupon;
+    availableCoupons.forEach((c) {
+      if (c.id == couponId) {
+        coupon = c;
       }
     });
+    return coupon;
   }
 }

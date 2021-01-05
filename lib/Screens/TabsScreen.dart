@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import './Coupons/MyCoupons.dart';
+import './MyCoupons.dart';
 import './MainScreen/Dashboard.dart';
 import './categories_screen.dart';
 import '../widgets/auth/logout.dart';
