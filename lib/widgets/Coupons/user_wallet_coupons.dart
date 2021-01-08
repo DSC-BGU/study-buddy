@@ -12,9 +12,9 @@ class UserWalletCoupons extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (ctx, index) {
-        //   return WalletCoupon(purchasedCoupon: purchasedCoupons[index]);
-        // },
-        return GestureDetector(
+        return
+            // InkWell( // Omri - Roei: you can use Ink wall if you want to add animation for the tap - but it's for your opinion
+            GestureDetector(
           onTap: () {
             if (!purchasedCoupons[index].used) {
               showDialog(

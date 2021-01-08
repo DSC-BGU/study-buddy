@@ -43,8 +43,12 @@ class UserProvider with ChangeNotifier {
 
   void logout() {
     this._id = null;
-    this._subscription.cancel();
-    this._couponsSubscription.cancel();
+    if (this._subscription != null) {
+      this._subscription.cancel();
+    }
+    if (this._couponsSubscription != null) {
+      this._couponsSubscription.cancel();
+    }
     FirebaseAuth.instance.signOut();
   }
 
@@ -57,7 +61,6 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-// @TODO
   void buyCoupon(Coupon coupon) {
     DocumentReference docRef =
         FirebaseFirestore.instance.collection('purchasedCoupons').doc();
@@ -77,7 +80,6 @@ class UserProvider with ChangeNotifier {
     getPurchasedCoupons();
   }
 
-// @TODO
   void useCoupon(String purchasedCouponId) {
     FirebaseFirestore.instance
         .collection('purchasedCoupons')
@@ -98,15 +100,11 @@ class UserProvider with ChangeNotifier {
     }
     List<PurchasedCoupon> purchasedCoupons = [];
     if (_purchasedCouponsId.isNotEmpty) {
-      _couponsSubscription =
-          // _purchasedCouponsId.map((c) =>
-          FirebaseFirestore.instance
-              .collection('purchasedCoupons')
-              // .doc(c)
-              // FieldPath.documentId
-              .where('userId', isEqualTo: this._id)
-              .snapshots()
-              .listen((event) {
+      _couponsSubscription = FirebaseFirestore.instance
+          .collection('purchasedCoupons')
+          .where('userId', isEqualTo: this._id)
+          .snapshots()
+          .listen((event) {
         event.docs.forEach((doc) {
           Map<String, dynamic> json = doc.data();
           purchasedCoupons.add(PurchasedCoupon.fromJson(json, doc.id));

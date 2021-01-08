@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../models/Coupon.dart';
-import '../../models/PurchasedCoupon.dart';
 
 import '../../app_localizations.dart';
 import '../../widgets/auth/auth_form.dart';
@@ -24,8 +22,6 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String username,
     bool isLogin,
-    // List<String> purchasedCoupons,
-    // int points,
     BuildContext ctx,
   ) async {
     UserCredential authResult;
@@ -45,7 +41,6 @@ class _AuthScreenState extends State<AuthScreen> {
           password: password,
         );
 
-        List<String> _purchasedCoupons = [];
         await FirebaseFirestore.instance
             .collection('users')
             .doc(authResult.user.uid)
@@ -53,7 +48,6 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'points': INITIAL_POINTS, // points,
-          'purchased_coupons': _purchasedCoupons,
         });
       }
     } on PlatformException catch (err) {
