@@ -7,32 +7,15 @@ import '../../app_localizations.dart';
 class PopUpBuy extends StatelessWidget {
   final BuildContext contex;
   final Coupon coupon;
-  // String couponTitle;
-  // int couponPoints;
 
   PopUpBuy(
     this.contex,
     this.coupon,
   );
-  // {
-  //   getCouponData();
-  // }
-
-  // Future<void> getCouponData() async {
-  //   FirebaseFirestore.instance
-  //       .collection('coupons')
-  //       .doc(coupon)
-  //       .snapshots()
-  //       .listen((event) {
-  //     final couponData = event.data();
-  //     this.couponTitle = couponData['title'];
-  //     this.couponPoints = couponData['points'];
-  //   });
-  // }
 
   void buyCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
-    if (userProvider.points >= coupon.points /*this.couponPoints*/) {
+    if (userProvider.points >= coupon.points) {
       userProvider.buyCoupon(coupon);
     }
   }
@@ -56,17 +39,21 @@ class PopUpBuy extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(this.coupon.title, //couponTitle,
+            Text(this.coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.07,
               width: constraints.maxWidth * 0.48,
               child: TextButton(
                 style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)))),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(Colors.grey)),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                  ),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: MaterialStateProperty.all(Colors.grey),
+                ),
                 child: Text(
                   t('Are you sure?'),
                   style: TextStyle(fontSize: 19),

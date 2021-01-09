@@ -16,27 +16,8 @@ class WalletCoupon extends StatelessWidget {
   Widget build(BuildContext context) {
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
     Coupon coupon = storeProvider.getCouponById(purchasedCoupon.couponId);
-    // Coupon(
-    //   id: '',
-    //   title: '',
-    //   points: 0,
-    //   imageUrl: '',
-    //   description: '',
-    //   storeId: '',
-    // );
     return LayoutBuilder(builder: (ctx, constraints) {
-      return
-          // GestureDetector(
-          //   onTap: () {
-          //     if (!purchasedCoupon.used) {
-          //       showDialog(
-          //         context: ctx,
-          //         builder: (ctx) => PopUpQR(ctx, purchasedCoupon),
-          //       );
-          //     }
-          //   },
-          // child:
-          Container(
+      return Container(
         margin: EdgeInsets.only(bottom: 8),
         height: constraints.maxWidth * 0.30,
         child: Stack(

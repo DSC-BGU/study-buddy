@@ -42,7 +42,7 @@ class PopUpQR extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(coupon.title, // ?? '',
+            Text(coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.27,
@@ -51,7 +51,6 @@ class PopUpQR extends StatelessWidget {
                 child: Center(
                   child: QrImage(
                     data: this.purchasedCoupon.id,
-                    // coupon.id, // ?? '', //this.coupon,
                   ),
                 ),
               ),
