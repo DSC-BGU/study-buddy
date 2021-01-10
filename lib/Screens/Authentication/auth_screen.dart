@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../models/Coupon.dart';
-import '../../models/PurchasedCoupon.dart';
 
 import '../../app_localizations.dart';
 import '../../widgets/auth/auth_form.dart';
@@ -43,18 +41,13 @@ class _AuthScreenState extends State<AuthScreen> {
           password: password,
         );
 
-        List<Coupon> _usedCoupons = [];
-        List<PurchasedCoupon> _purchasedCoupons = [];
-
         await FirebaseFirestore.instance
             .collection('users')
             .doc(authResult.user.uid)
             .set({
           'username': username,
           'email': email,
-          'points': INITIAL_POINTS,
-          'used_coupons': _usedCoupons,
-          'purchased_coupons': _purchasedCoupons,
+          'points': INITIAL_POINTS, // points,
         });
       }
     } on PlatformException catch (err) {

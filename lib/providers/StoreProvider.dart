@@ -102,4 +102,14 @@ class StoreProvider with ChangeNotifier {
     });
     return filteredList;
   }
+
+  Coupon getCouponById(String couponId) {
+    Coupon coupon;
+    availableCoupons.forEach((c) {
+      if (c.id == couponId) {
+        coupon = c;
+      }
+    });
+    return coupon;
+  }
 }

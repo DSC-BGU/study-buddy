@@ -1,25 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:study_buddy/models/PurchasedCoupon.dart';
-import 'package:study_buddy/providers/user_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import '../../models/Coupon.dart';
+import '../../providers/StoreProvider.dart';
+import '../../models/PurchasedCoupon.dart';
 import '../../app_localizations.dart';
+import '../../providers/user_provider.dart';
 
 class PopUpQR extends StatelessWidget {
   final BuildContext ctx;
-  final PurchasedCoupon coupon;
-  PopUpQR(this.ctx, this.coupon);
+  final PurchasedCoupon purchasedCoupon;
+  PopUpQR(
+    this.ctx,
+    this.purchasedCoupon,
+  );
 
-  void useCoupon(BuildContext context) {
+  void useCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
-    userProvider.useCoupon(coupon);
+    userProvider.useCoupon(purchasedCoupon.id);
   }
 
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    StoreProvider storeProvider = Provider.of<StoreProvider>(context);
+    Coupon coupon = storeProvider.getCouponById(
+        this.purchasedCoupon.couponId); // attention: return value can be null
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -34,7 +42,7 @@ class PopUpQR extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${this.coupon.coupon.title}',
+            Text(coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.27,
@@ -42,7 +50,7 @@ class PopUpQR extends StatelessWidget {
               child: Card(
                 child: Center(
                   child: QrImage(
-                    data: coupon.coupon.id,
+                    data: this.purchasedCoupon.id,
                   ),
                 ),
               ),
@@ -60,7 +68,7 @@ class PopUpQR extends StatelessWidget {
                   t('Got it, Thanks'),
                   style: TextStyle(fontSize: 19),
                 ),
-                onPressed: () => useCoupon(context),
+                onPressed: () => useCoupon(context, userProvider),
               ),
             )
           ],

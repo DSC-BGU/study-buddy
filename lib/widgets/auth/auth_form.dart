@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../app_localizations.dart';
 import './login_with_google_bar.dart';
@@ -7,7 +9,7 @@ class AuthForm extends StatefulWidget {
   final void Function(
     String email,
     String password,
-    String userName,
+    String username,
     bool isLogin,
     BuildContext ctx,
   ) submitFn;

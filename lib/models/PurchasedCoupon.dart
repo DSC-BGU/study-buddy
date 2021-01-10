@@ -1,38 +1,37 @@
 import 'package:flutter/material.dart';
-import './Coupon.dart';
 
 class PurchasedCoupon {
-  // final String couponId;
+  final String id;
+  final String couponId;
   final String userId;
   final DateTime datePurhcased;
-  final Coupon coupon;
   bool used;
-  String purchasedCouponid;
 
   PurchasedCoupon({
-    this.used = false,
+    @required this.id,
+    @required this.couponId,
     @required this.userId,
     @required this.datePurhcased,
-    @required this.coupon,
-    @required this.purchasedCouponid,
+    this.used = false,
   });
 
-  factory PurchasedCoupon.fromJson(Map<String, dynamic> json) {
+  factory PurchasedCoupon.fromJson(
+      Map<String, dynamic> json, String purchasedCouponId) {
     return PurchasedCoupon(
-      used: json['used'],
+      id: purchasedCouponId,
+      couponId: json['couponId'],
       userId: json['userId'],
       datePurhcased: json['datePurhcased'].toDate(),
-      coupon: Coupon.fromJson(json['coupon']),
-      purchasedCouponid: json['purchasedCouponid'],
+      used: json['used'],
     );
   }
 
   Map toJson() {
-    Map _coupon = this.coupon.toJson();
     return {
+      'id': id,
+      'couponId': couponId,
       'userId': userId,
       'datePurhcased': datePurhcased,
-      'coupon': _coupon,
       'used': used,
     };
   }

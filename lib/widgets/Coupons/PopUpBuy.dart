@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../models/Coupon.dart';
 import '../../providers/user_provider.dart';
 import '../../app_localizations.dart';
-import '../../models/Coupon.dart';
 
 class PopUpBuy extends StatelessWidget {
   final BuildContext contex;
@@ -22,9 +22,9 @@ class PopUpBuy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
-    String t(String text) => AppLocalizations.of(context).translate(text);
     return LayoutBuilder(builder: (ctx, constraints) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
@@ -39,17 +39,21 @@ class PopUpBuy extends StatelessWidget {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('${this.coupon.title}',
+            Text(this.coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Container(
               height: constraints.maxHeight * 0.07,
               width: constraints.maxWidth * 0.48,
               child: TextButton(
                 style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)))),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(Colors.grey)),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                  ),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: MaterialStateProperty.all(Colors.grey),
+                ),
                 child: Text(
                   t('Are you sure?'),
                   style: TextStyle(fontSize: 19),

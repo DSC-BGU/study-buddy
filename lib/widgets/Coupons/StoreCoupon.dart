@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import '../../Screens/Coupons/PopUpBuy.dart';
+import './PopUpBuy.dart';
 import '../../models/Coupon.dart';
 
 class StoreCoupon extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
-import '../../models/PointsHistory.dart';
-import '../../providers/points.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
+import '../../models/PointsHistory.dart';
+import '../../providers/points.dart';
 
 class ProgressionGraph extends StatelessWidget {
   // graphs documentaition:
