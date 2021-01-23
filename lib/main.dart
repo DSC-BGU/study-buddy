@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 
 import './app_localizations.dart';
 
-import './Screens/TabsScreen.dart';
-import './Screens/storeScreen.dart';
-import './Screens/categories_screen.dart';
-import './Screens/MainScreen/Dashboard.dart';
-import './Screens/category_stores_screen.dart';
-import './Screens/FocusScreen/FocusScreen.dart';
-import './Screens/FocusScreen/ResultScreen.dart';
-import './Screens/Authentication/auth_screen.dart';
+import './Screens/studentScreens/TabsScreen.dart';
+import './Screens/studentScreens/storeScreen.dart';
+import './Screens/studentScreens/categories_screen.dart';
+import './Screens/studentScreens/MainScreen/Dashboard.dart';
+import './Screens/studentScreens/category_stores_screen.dart';
+import './Screens/studentScreens/FocusScreen/FocusScreen.dart';
+import './Screens/studentScreens/FocusScreen/ResultScreen.dart';
+import './Screens/sharedScreens/Authentication/auth_screen.dart';
 
-import './providers/points.dart';
-import './providers/user_provider.dart';
-import './providers/StoreProvider.dart';
-import './providers/FocusProvider.dart';
+import './providers/studentProviders/points.dart';
+import './providers/studentProviders/user_provider.dart';
+import './providers/studentProviders/FocusProvider.dart';
+import './providers/sharedProviders/StoreProvider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
