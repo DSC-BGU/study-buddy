@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:is_lock_screen/is_lock_screen.dart';
+import '../providers/studentProviders/FocusProvider.dart';
 import 'package:provider/provider.dart';
-import '../providers/FocusProvider.dart';
-// import 'package:wakelock/wakelock.dart';
 import '../app_localizations.dart';
 
 class FocusTimer extends StatefulWidget {
@@ -16,7 +15,6 @@ class FocusTimer extends StatefulWidget {
 }
 
 class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -37,7 +35,7 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     isLockScreen().then((screenTurnedOff) {
       if (state == AppLifecycleState.resumed && !screenTurnedOff) {
         FocusProvider focusProvider =
-        Provider.of<FocusProvider>(context, listen: false);
+            Provider.of<FocusProvider>(context, listen: false);
         focusProvider.outOfFocus(context);
       }
     });
