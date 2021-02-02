@@ -51,30 +51,32 @@ class FocusProvider with ChangeNotifier {
 
   void onFocus(context) {
     const oneMinutes = const Duration(seconds: 1);
-    if (_sessionAdmin) {
-      FirebaseFirestore.instance
-          .collection('friendSessions')
-          .doc(_sessionId)
-          .update({
-        'inFocus': true,
-        'startTime': DateTime.now(),
-        'targetTime': _targetTime.inMinutes,
-      });
-      _subscription = FirebaseFirestore.instance
-          .collection("friendSessions")
-          .where("JoinCode", isEqualTo: joinCode)
-          .snapshots()
-          .listen((event) {
-        if (event.docs.isNotEmpty) {
-          var session = event.docs[0];
-          if (_focus && !session['inFocus']) {
-            this.outOfFocus(context);
+    if (_mode == FocusMode.coop){
+      if (_sessionAdmin) {
+        FirebaseFirestore.instance
+            .collection('friendSessions')
+            .doc(_sessionId)
+            .update({
+          'inFocus': true,
+          'startTime': DateTime.now(),
+          'targetTime': _targetTime.inMinutes,
+        });
+        _subscription = FirebaseFirestore.instance
+            .collection("friendSessions")
+            .where("JoinCode", isEqualTo: joinCode)
+            .snapshots()
+            .listen((event) {
+          if (event.docs.isNotEmpty) {
+            var session = event.docs[0];
+            if (_focus && !session['inFocus']) {
+              this.outOfFocus(context);
+            }
           }
-        }
-      });
-    }
-    if (!_sessionAdmin) {
-      deleteSession();
+        });
+      }
+      if (!_sessionAdmin) {
+        deleteSession();
+      }
     }
     _timer = new Timer.periodic(oneMinutes, (Timer timer) {
       int points = _targetTime.inMinutes;
@@ -101,7 +103,6 @@ class FocusProvider with ChangeNotifier {
         arguments: ResultScreenArguments(success: false, points: points));
     _focus = false;
     _timer.cancel();
-    print(_mode);
     if (_mode == FocusMode.coop) {
       FirebaseFirestore.instance
           .collection('friendSessions')
@@ -128,6 +129,8 @@ class FocusProvider with ChangeNotifier {
       _sessionAdmin = true;
       _sessionId = null;
       _joinCode = null;
+      if (_subscription != null)
+        _subscription.cancel();
       notifyListeners();
     }
   }
@@ -158,14 +161,12 @@ class FocusProvider with ChangeNotifier {
         .listen((event) {
       if (event.docs.isNotEmpty) {
         var session = event.docs[0];
-        print(session.id);
         _sessionId = session.id;
         _targetTime = Duration(minutes: session['targetTime']);
         _remainTime = Duration(minutes: session['targetTime']);
-        print(session['targetTime']);
-        if (session['inFocus'] && !_focus) {
+        if (session['inFocus'] && !_focus && mode == FocusMode.coop) {
           this.onFocus(context);
-        } else if (_focus && !session['inFocus']) {
+        } else if (_focus && !session['inFocus'] && mode == FocusMode.coop) {
           this.outOfFocus(context);
         }
         notifyListeners();
