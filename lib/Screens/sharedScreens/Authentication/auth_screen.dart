@@ -6,16 +6,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../app_localizations.dart';
 import '../../../widgets/sharedWidgets/auth/auth_form.dart';
 
+
 class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
+  static const INITIAL_POINTS = 500;
 }
 
 class _AuthScreenState extends State<AuthScreen> {
   String t(String text) => AppLocalizations.of(context).translate(text);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _isLoading = false;
-  var INITIAL_POINTS = 500;
 
   void _submitAuthForm(
     String email,
@@ -47,7 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({
           'username': username,
           'email': email,
-          'points': INITIAL_POINTS, // points,
+          'points': AuthScreen.INITIAL_POINTS, // points,
         });
       }
     } on PlatformException catch (err) {
