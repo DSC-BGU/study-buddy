@@ -35,8 +35,7 @@ dependencies:
   qr_flutter: ^3.2.0
   uuid: ^2.2.2
   screen_state: ^1.0.1
-
-
+  get_it: ^5.0.6
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
   # firebase_auth: ^0.14.0+5

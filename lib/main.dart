@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScannerScreen.dart';
+import 'package:study_buddy/utils/analyticsService.dart';
 
 import './app_localizations.dart';
 
@@ -23,9 +25,16 @@ import './providers/studentProviders/user_provider.dart';
 import './providers/studentProviders/FocusProvider.dart';
 import './providers/sharedProviders/StoreProvider.dart';
 
+GetIt locator = GetIt.instance;
+
+void setupSingletons() async{
+  locator.registerLazySingleton<AnalyticsService>(() => AnalyticsService());
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  setupSingletons();
   runApp(MyApp());
 }
 
@@ -42,6 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Study Buddy',
+        navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
           accentColor: Colors.orange,

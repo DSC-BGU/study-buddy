@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_buddy/main.dart';
+import 'package:study_buddy/utils/analyticsService.dart';
 import '../../models/studentModels/couponModels/PurchasedCoupon.dart';
 import '../../models/studentModels/couponModels/Coupon.dart';
 
@@ -31,20 +33,27 @@ class UserProvider with ChangeNotifier {
         .snapshots()
         .listen((event) {
       final userData = event.data();
-
       List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
       this._name = userData['username'];
       this._points = userData['points'];
       try {
         if (userData['business'] != null) {
+          print(userData['business']);
           this._business = userData['business'];
         }
       }
       catch(err){
         this._business = false;
       }
-      this._purchasedCouponsId =
-          myPurchasedCoupons.map((c) => c.toString()).toList();
+      try {
+        this._purchasedCouponsId =
+            myPurchasedCoupons.map((c) => c.toString()).toList();
+      }
+      catch(err){
+        myPurchasedCoupons = [];
+      }
+      AnalyticsService analyticsService = locator.get<AnalyticsService>();
+      analyticsService.setUserProperties(userId: this._id, name:this._name, userType:this.business ? "business" : "student");
       notifyListeners();
       getPurchasedCoupons();
     });
@@ -71,20 +80,28 @@ class UserProvider with ChangeNotifier {
   }
 
   void buyCoupon(Coupon coupon) {
-    DocumentReference docRef =
-        FirebaseFirestore.instance.collection('purchasedCoupons').doc();
-    docRef.set({
-      'couponId': coupon.id,
-      'userId': this._id,
-      'datePurhcased': new DateTime.now(),
-      'used': false,
-    });
-    this._points = this._points - coupon.points;
-    this._purchasedCouponsId.add(docRef.id);
-    FirebaseFirestore.instance.collection('users').doc(this._id).update({
-      'points': this._points,
-      'purchased_coupons': this._purchasedCouponsId,
-    });
+    if (_points > coupon.points){
+      DocumentReference docRef =
+      FirebaseFirestore.instance.collection('purchasedCoupons').doc();
+      docRef.set({
+        'couponId': coupon.id,
+        'userId': this._id,
+        'datePurhcased': new DateTime.now(),
+        'used': false,
+      });
+      this._points = this._points - coupon.points;
+      this._purchasedCouponsId.add(docRef.id);
+      FirebaseFirestore.instance.collection('users').doc(this._id).update({
+        'points': this._points,
+        'purchased_coupons': this._purchasedCouponsId,
+      });
+      locator<AnalyticsService>()
+          .logEvent(eventName: EventTypes.BuyCoupon, parameters: {
+        "title": coupon.title,
+        'storeId': coupon.storeId,
+        "couponId":coupon.id,
+      });
+    }
     notifyListeners();
     getPurchasedCoupons();
   }
