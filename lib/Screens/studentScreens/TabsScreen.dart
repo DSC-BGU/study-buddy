@@ -4,6 +4,7 @@ import './MyCoupons.dart';
 import './categories_screen.dart';
 import './MainScreen/Dashboard.dart';
 import '../../widgets/sharedWidgets/auth/logout.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import '../../app_localizations.dart';
 
@@ -23,7 +24,7 @@ class TabsScreen extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     final TabsScreenArguments args = ModalRoute.of(context).settings.arguments;
     int _intialIndex = args?.selectedTab != null ? args.selectedTab : 1;
-
+    // FirebaseCrashlytics.instance.crash();
     return DefaultTabController(
       length: 3,
       initialIndex: _intialIndex,

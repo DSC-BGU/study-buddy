@@ -24,7 +24,7 @@ import './providers/studentProviders/points.dart';
 import './providers/studentProviders/user_provider.dart';
 import './providers/studentProviders/FocusProvider.dart';
 import './providers/sharedProviders/StoreProvider.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 GetIt locator = GetIt.instance;
 
 void setupSingletons() async{
@@ -32,8 +32,10 @@ void setupSingletons() async{
 }
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   setupSingletons();
   runApp(MyApp());
 }
