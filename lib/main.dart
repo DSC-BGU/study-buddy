@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/ScannerScreen.dart';
 
 import './app_localizations.dart';
 
@@ -68,6 +70,10 @@ class MyApp extends StatelessWidget {
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
                   if (userSnapshot.hasData) {
+                    UserProvider userProvider = Provider.of<UserProvider>(ctx);
+                    if(userProvider.business){
+                      return BusinessMainScreen();
+                    }
                     return TabsScreen();
                   }
                   return AuthScreen();
@@ -79,6 +85,7 @@ class MyApp extends StatelessWidget {
           CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
+          ScannerScreen.routeName: (ctx) =>ScannerScreen(),
         },
       ),
     );

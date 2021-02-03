@@ -91,9 +91,9 @@ class LoginWithGoogle extends StatelessWidget {
               'photoURL': userCredential.user.photoURL,
               'points': AuthScreen.INITIAL_POINTS, // points,
               'isBgu': isBgu,
+              'business':false,
             });
           }
-          Navigator.of(context).pushNamed(TabsScreen.routeName);
         });
       },
     );
