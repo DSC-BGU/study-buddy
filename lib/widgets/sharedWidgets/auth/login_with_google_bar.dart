@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../Screens/studentScreens/TabsScreen.dart';
 import '../../../app_localizations.dart';
+import '../../../Screens/sharedScreens/Authentication/auth_screen.dart';
 
 class LoginWithGoogle extends StatelessWidget {
   final double width;
@@ -75,6 +76,23 @@ class LoginWithGoogle extends StatelessWidget {
       ),
       onTap: () async {
         signInWithGoogle().whenComplete(() {
+
+        }).then((userCredential) async {
+          bool isBgu = userCredential.additionalUserInfo.profile['hd'] == "post.bgu.ac.il";
+          if (userCredential.additionalUserInfo.isNewUser){
+
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(userCredential.user.uid)
+                .set({
+              'username': userCredential.user.displayName,
+              'email': userCredential.user.email,
+              'phoneNumber': userCredential.user.phoneNumber,
+              'photoURL': userCredential.user.photoURL,
+              'points': AuthScreen.INITIAL_POINTS, // points,
+              'isBgu': isBgu,
+            });
+          }
           Navigator.of(context).pushNamed(TabsScreen.routeName);
         });
       },

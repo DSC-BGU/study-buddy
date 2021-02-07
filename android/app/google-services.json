@@ -29,6 +29,13 @@
             {
               "client_id": "934642275664-4fpcfocgrjrigmgfmivol3ol156nap19.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "934642275664-un1n7c1nrqqm4tphrkn2quv0jki5espg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dscBgu.studyBuddy"
+              }
             }
           ]
         }
