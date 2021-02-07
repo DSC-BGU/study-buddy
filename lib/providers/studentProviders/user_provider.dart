@@ -9,6 +9,7 @@ class UserProvider with ChangeNotifier {
   String _id = FirebaseAuth.instance.currentUser.uid;
   String _name = '';
   int _points = 500;
+  bool _business = false;
   List<String> _purchasedCouponsId = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
   StreamSubscription _subscription = null;
@@ -34,6 +35,14 @@ class UserProvider with ChangeNotifier {
       List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
       this._name = userData['username'];
       this._points = userData['points'];
+      try {
+        if (userData['business'] != null) {
+          this._business = userData['business'];
+        }
+      }
+      catch(err){
+        this._business = false;
+      }
       this._purchasedCouponsId =
           myPurchasedCoupons.map((c) => c.toString()).toList();
       notifyListeners();
@@ -129,6 +138,10 @@ class UserProvider with ChangeNotifier {
 
   bool get isAuth {
     return _name != '';
+  }
+
+  bool get business{
+    return this._business;
   }
 
   List<String> get myCouponsID {
