@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/Screens/studentScreens/FocusScreen/ResultScreen.dart';
+import 'package:study_buddy/main.dart';
+import 'package:study_buddy/utils/analyticsService.dart';
 import 'dart:async';
 
 import './user_provider.dart';
@@ -51,7 +53,7 @@ class FocusProvider with ChangeNotifier {
 
   void onFocus(context) {
     const oneMinutes = const Duration(seconds: 1);
-    if (_mode == FocusMode.coop){
+    if (_mode == FocusMode.coop) {
       if (_sessionAdmin) {
         FirebaseFirestore.instance
             .collection('friendSessions')
@@ -87,6 +89,12 @@ class FocusProvider with ChangeNotifier {
         UserProvider userProvider =
             Provider.of<UserProvider>(context, listen: false);
         userProvider.addUserPoints(points);
+        locator<AnalyticsService>()
+            .logEvent(eventName: EventTypes.FocusSuccess, parameters: {
+          "mode": _mode.toString(),
+          'targetTime': _targetTime.inMinutes.toString(),
+          "pointsEarned":points,
+        });
         _focus = false;
       } else {
         _remainTime = Duration(minutes: _remainTime.inMinutes - 1);
@@ -94,6 +102,11 @@ class FocusProvider with ChangeNotifier {
       notifyListeners();
     });
     _focus = true;
+    locator<AnalyticsService>()
+        .logEvent(eventName: EventTypes.StartFocus, parameters: {
+      "mode": _mode.toString(),
+      'targetTime': _targetTime.inMinutes.toString(),
+    });
     notifyListeners();
   }
 
@@ -112,6 +125,12 @@ class FocusProvider with ChangeNotifier {
       });
       changeMode();
     }
+    locator<AnalyticsService>()
+        .logEvent(eventName: EventTypes.FocusFail, parameters: {
+      "mode": _mode.toString(),
+      'targetTime': _targetTime.inMinutes.toString(),
+      "pointsMissed":points,
+    });
     if (_subscription != null) _subscription.cancel();
     notifyListeners();
   }
@@ -129,8 +148,7 @@ class FocusProvider with ChangeNotifier {
       _sessionAdmin = true;
       _sessionId = null;
       _joinCode = null;
-      if (_subscription != null)
-        _subscription.cancel();
+      if (_subscription != null) _subscription.cancel();
       notifyListeners();
     }
   }

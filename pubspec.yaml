@@ -31,12 +31,12 @@ dependencies:
   firebase_analytics: ^5.0.2
   firebase_auth: ^0.18.4+1
   firebase_storage: ^5.2.0
+  firebase_crashlytics: ^0.2.4
   google_sign_in: ^4.5.6
   qr_flutter: ^3.2.0
   uuid: ^2.2.2
   screen_state: ^1.0.1
-
-
+  get_it: ^5.0.6
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
   # firebase_auth: ^0.14.0+5

@@ -23,7 +23,6 @@ class TabsScreen extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     final TabsScreenArguments args = ModalRoute.of(context).settings.arguments;
     int _intialIndex = args?.selectedTab != null ? args.selectedTab : 1;
-
     return DefaultTabController(
       length: 3,
       initialIndex: _intialIndex,
