@@ -20,6 +20,7 @@ import './Screens/studentScreens/category_stores_screen.dart';
 import './Screens/studentScreens/FocusScreen/FocusScreen.dart';
 import './Screens/studentScreens/FocusScreen/ResultScreen.dart';
 import './Screens/sharedScreens/Authentication/auth_screen.dart';
+import './Screens/sharedScreens/Authentication/WelcomeScreen.dart';
 
 import './providers/studentProviders/points.dart';
 import './providers/studentProviders/user_provider.dart';
@@ -90,7 +91,7 @@ class MyApp extends StatelessWidget {
                     }
                     return TabsScreen();
                   }
-                  return AuthScreen();
+                  return WelcomeScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
           ScannerScreen.routeName: (ctx) =>ScannerScreen(),
+          AuthScreen.routeName: (ctx)=>AuthScreen(),
         },
       ),
     );

@@ -36,7 +36,6 @@ class CurvePainter extends CustomPainter {
       @required this.color});
   @override
   void paint(Canvas canvas, Size size) {
-    print(size);
     var paint = Paint();
     paint.color = this.color;
     paint.style = PaintingStyle.fill;

@@ -12,6 +12,7 @@ class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
   static const INITIAL_POINTS = 500;
+  static const routeName = "/auth";
 }
 
 class _AuthScreenState extends State<AuthScreen> {
@@ -80,44 +81,43 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget login = null;
-    if (this._business) {
-      login = AuthForm(
+    Widget login = AuthForm(
         _submitAuthForm,
         _isLoading,
       );
-    } else
-      login =  LoginWithGoogle(true);
     return Scaffold(
       // backgroundColor: Theme.of(context).primaryColor,
       body: LayoutBuilder(builder: (ctx, constraints) {
         return Stack(
           children: [
-            TopCurve(
-              startPercent: 75,
-              endPercent: 85,
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                    height: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                    child: Image.asset("assets/icon/icon.jpg"),
-                  ),
-                  login,
-                  FlatButton(
-                    onPressed: () {
-                      setState(() {
-                        _business = !_business;
-                      });
-                    },
-                    child: Text(
-                      t(_business ? "student login" : "business login"),
+            // TopCurve(
+            //   startPercent: 75,
+            //   endPercent: 85,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
+                      height: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
+                      child: Image.asset("assets/icon/icon.jpg"),
                     ),
-                  ),
-                ],
+                    login,
+                    FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          _business = !_business;
+                        });
+                      },
+                      child: Text(
+                        t(_business ? "student login" : "business login"),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
