@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: HexColor("#9CCFEE"),
           accentColor: HexColor("#FFD58C"),
+          hintColor: HexColor("#1E2230"),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         supportedLocales: [
