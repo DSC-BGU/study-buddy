@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScannerScreen.dart';
+import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 
 import './app_localizations.dart';
@@ -55,8 +56,8 @@ class MyApp extends StatelessWidget {
         title: 'Study Buddy',
         navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
         theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-          accentColor: Colors.orange,
+          primaryColor: HexColor("#9CCFEE"),
+          accentColor: HexColor("#FFD58C"),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         supportedLocales: [
