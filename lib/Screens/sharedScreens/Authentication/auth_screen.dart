@@ -6,11 +6,13 @@ import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dar
 
 import '../../../app_localizations.dart';
 import '../../../widgets/sharedWidgets/auth/auth_form.dart';
+import '../../../widgets/designs/TopCurve.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
   _AuthScreenState createState() => _AuthScreenState();
   static const INITIAL_POINTS = 500;
+  static const routeName = "/auth";
 }
 
 class _AuthScreenState extends State<AuthScreen> {
@@ -79,55 +81,46 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget login = null;
-    if (this._business) {
-      login = AuthForm(
+    Widget login = AuthForm(
         _submitAuthForm,
         _isLoading,
       );
-    } else
-      login =  LoginWithGoogle(true);
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      // backgroundColor: Theme.of(context).primaryColor,
       body: LayoutBuilder(builder: (ctx, constraints) {
-        return Center(
-          child: Card(
-            child: Container(
-              child: SingleChildScrollView(
-                child: Container(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight * 0.5,
-                    minWidth: constraints.maxWidth * 0.7,
-                    maxWidth: constraints.maxWidth * 0.8,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                            height: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                            child: Image.asset("assets/icon/icon.jpg"),
-                          ),
-                          login,
-                          FlatButton(
-                            onPressed: () {
-                              setState(() {
-                                _business = !_business;
-                              });
-                            },
-                            child: Text(
-                              t(_business ? "student login" : "business login"),
-                            ),
-                          ),
-                        ],
+        return Stack(
+          children: [
+            // TopCurve(
+            //   startPercent: 75,
+            //   endPercent: 85,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
+                      height: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
+                      child: Image.asset("assets/icon/icon.jpg"),
                     ),
-                  ),
+                    login,
+                    FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          _business = !_business;
+                        });
+                      },
+                      child: Text(
+                        t(_business ? "student login" : "business login"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ),
+            )
+          ],
         );
       }),
     );

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScannerScreen.dart';
+import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 
 import './app_localizations.dart';
@@ -19,6 +20,7 @@ import './Screens/studentScreens/category_stores_screen.dart';
 import './Screens/studentScreens/FocusScreen/FocusScreen.dart';
 import './Screens/studentScreens/FocusScreen/ResultScreen.dart';
 import './Screens/sharedScreens/Authentication/auth_screen.dart';
+import './Screens/sharedScreens/Authentication/WelcomeScreen.dart';
 
 import './providers/studentProviders/points.dart';
 import './providers/studentProviders/user_provider.dart';
@@ -55,8 +57,9 @@ class MyApp extends StatelessWidget {
         title: 'Study Buddy',
         navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
         theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-          accentColor: Colors.orange,
+          primaryColor: HexColor("#9CCFEE"),
+          accentColor: HexColor("#FFD58C"),
+          hintColor: HexColor("#1E2230"),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         supportedLocales: [
@@ -88,7 +91,7 @@ class MyApp extends StatelessWidget {
                     }
                     return TabsScreen();
                   }
-                  return AuthScreen();
+                  return WelcomeScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
@@ -98,6 +101,7 @@ class MyApp extends StatelessWidget {
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
           ScannerScreen.routeName: (ctx) =>ScannerScreen(),
+          AuthScreen.routeName: (ctx)=>AuthScreen(),
         },
       ),
     );

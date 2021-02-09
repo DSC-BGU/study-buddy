@@ -48,7 +48,7 @@ class LoginWithGoogle extends StatelessWidget {
         margin: EdgeInsets.only(top: 25),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).primaryColor),
+            color: Theme.of(context).hintColor),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
