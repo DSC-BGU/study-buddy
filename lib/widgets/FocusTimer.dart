@@ -79,6 +79,7 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
   }
 
   void onPress (FocusProvider focusProvider){
+    print("press!!");
     if (focusProvider.focusStatus){
       focusProvider.outOfFocus(context);
     }
@@ -92,15 +93,9 @@ class _FocusTimerState extends State<FocusTimer> with WidgetsBindingObserver {
     FocusProvider focusProvider = Provider.of<FocusProvider>(context);
     return WillPopScope(
       child: LayoutBuilder(builder: (context, constraints) {
-        return Container(
-          height: constraints.maxHeight,
-          child: RaisedButton(
-            shape: new CircleBorder(),
-            elevation: 2,
-            child: Text(focusProvider.focusStatus ? t('Give up') : t('Start')),
-            onPressed: (){this.onPress(focusProvider);},
-            color: Theme.of(context).primaryColor,
-          ),
+        return GestureDetector(
+          onTap: (){this.onPress(focusProvider);},
+          child: this.widget.child,
         );
       }),
       onWillPop: () async {

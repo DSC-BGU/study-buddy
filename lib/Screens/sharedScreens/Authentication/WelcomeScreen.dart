@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dart';
 
 import '../../../app_localizations.dart';
@@ -64,16 +65,14 @@ class WelcomeScreen extends StatelessWidget {
                             width:constraints.maxWidth * 0.5,
                           ),
                           Container(
-                            child:FlatButton(
-                              minWidth: constraints.maxWidth * 0.5,
+                            child:Button(
                               onPressed: (){
                                 Navigator.of(ctx).pushNamed(
                                   AuthScreen.routeName
                                 );
                               },
                               child: Text(t('Businesses Entrance')),
-                              color: Theme.of(context).accentColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                              yellow: true,
                             )
                           )
                         ],

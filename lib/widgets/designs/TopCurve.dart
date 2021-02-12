@@ -7,7 +7,7 @@ class TopCurve extends StatelessWidget {
 
   Color color;
 
-  TopCurve({this.startPercent = 80, this.endPercent = 100, this.color});
+  TopCurve({this.startPercent = 15, this.endPercent = 22, this.color});
 
   @override
   Widget build(BuildContext context) {

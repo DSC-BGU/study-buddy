@@ -50,11 +50,12 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'points': AuthScreen.INITIAL_POINTS, // points,
+          "purchased_coupons":[],
           'business': true
         });
       }
     } on PlatformException catch (err) {
-      var message = 'An error occurred, pelase check your credentials!';
+      var message = 'An error occurred, please check your credentials!';
 
       if (err.message != null) {
         message = err.message;
@@ -100,13 +101,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: constraints.maxHeight * 0.16,
                     child: Image.asset("assets/logo-temp.png"),
                   ),
-                  SingleChildScrollView(
-                    child: Container(
-                      height: constraints.maxHeight * 0.78,
-                      child: AuthForm(
-                        _submitAuthForm,
-                        _isLoading,
-                      ),
+                  Container(
+                    height: constraints.maxHeight * 0.78,
+                    child: AuthForm(
+                      _submitAuthForm,
+                      _isLoading,
                     ),
                   )
                 ],

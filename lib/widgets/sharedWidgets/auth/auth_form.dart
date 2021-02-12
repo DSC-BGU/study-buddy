@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/widgets/designs/Button.dart';
 import '../../../app_localizations.dart';
 import './login_with_google_bar.dart';
 
@@ -143,15 +144,12 @@ class _AuthFormState extends State<AuthForm> {
                 if (!widget.isLoading)
                   Column(
                     children: [
-                      FlatButton(
+                      Button(
                         child: Text(_isLogin ? t('Login') : t('Signup')),
                         onPressed: _trySubmit,
-                        color: Theme.of(context).accentColor,
-                        minWidth: constraints.maxWidth * 0.5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        yellow: true,
                       ),
-                      FlatButton(
+                      Button(
                         child: Text(_isLogin
                             ? t('Create new account')
                             : t('I already have an account')),
@@ -162,11 +160,7 @@ class _AuthFormState extends State<AuthForm> {
                             },
                           );
                         },
-                        color: Theme.of(context).hintColor,
-                        textColor: Colors.white,
-                        minWidth: constraints.maxWidth * 0.5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        black: true,
                       ),
                     ],
                   )
