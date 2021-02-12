@@ -1,3 +1,17 @@
 {
-  "You are in focus": "אתה בפוקוס"
+  "You are in focus": "אתה בפוקוס",
+  "Please enter a valid email address.": "אנא הכנס כתובת דוא\"ל חוקית",
+  "Email address": "דוא\"ל",
+  "Please enter at least 4 characters": "אנא הכנס לפחות ארבע תווים",
+  "Username": "שם משתמש",
+  "Password": "סיסמא",
+  "Password must be at least 7 characters long.": "הסיסמא חייבת להיות באורך של שבעה תווים לפחות.",
+  "Create new account": "יצירת משתמש חדש",
+  "Login": "כניסה",
+  "Register": "הרשמה",
+  "Signup": "תרשמו אותי",
+  "I already have an account": "כבר יש לי משתמש",
+  "Businesses Entrance": "כניסת עסקים",
+  "Login with Google": "התחבר עם גוגל"
+
 }
