@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
                     if(userProvider.business){
                       return BusinessMainScreen();
                     }
-                    return TabsScreen();
+                    return FocusScreen();
                   }
                   return WelcomeScreen();
                 },
@@ -102,6 +102,7 @@ class MyApp extends StatelessWidget {
           ResultScreen.routeName: (ctx) => ResultScreen(),
           ScannerScreen.routeName: (ctx) =>ScannerScreen(),
           AuthScreen.routeName: (ctx)=>AuthScreen(),
+          'tabScreen':(ctx)=>TabsScreen()
         },
       ),
     );

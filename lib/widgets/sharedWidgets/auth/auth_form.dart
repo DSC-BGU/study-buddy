@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/widgets/designs/Button.dart';
 import '../../../app_localizations.dart';
 import './login_with_google_bar.dart';
 
@@ -42,78 +43,132 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          TextFormField(
-            key: ValueKey('email'),
-            validator: (value) {
-              if (value.isEmpty || !value.contains('@')) {
-                return t('Please enter a valid email address.');
-              }
-              return null;
-            },
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: t('Email address'),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: constraints.maxHeight * 0.07),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          key: ValueKey('email'),
+                          validator: (value) {
+                            if (value.isEmpty || !value.contains('@')) {
+                              return t('Please enter a valid email address.');
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            filled: true,
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Theme.of(context).primaryColor,
+                            border: new OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0),
+                              ),
+                            ),
+                            labelText: t('Email address'),
+                          ),
+                          onSaved: (value) {
+                            _userEmail = value;
+                          },
+                        ),
+                      ),
+                      if (!_isLogin)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            key: ValueKey('username'),
+                            validator: (value) {
+                              if (value.isEmpty || value.length < 4) {
+                                return t('Please enter at least 4 characters');
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              labelStyle: TextStyle(color: Colors.black),
+                              fillColor: Theme.of(context).primaryColor,
+                              border: new OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0),
+                                ),
+                              ),
+                              labelText: t('Username'),
+                            ),
+                            onSaved: (value) {
+                              _userName = value;
+                            },
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          key: ValueKey('password'),
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 7) {
+                              return t(
+                                  'Password must be at least 7 characters long.');
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Theme.of(context).primaryColor,
+                            border: new OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(10.0),
+                              ),
+                            ),
+                            labelText: t('Password'),
+                          ),
+                          obscureText: true,
+                          onSaved: (value) {
+                            _userPassword = value;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (widget.isLoading) CircularProgressIndicator(),
+                if (!widget.isLoading)
+                  Column(
+                    children: [
+                      Button(
+                        child: Text(_isLogin ? t('Login') : t('Signup')),
+                        onPressed: _trySubmit,
+                        yellow: true,
+                      ),
+                      Button(
+                        child: Text(_isLogin
+                            ? t('Create new account')
+                            : t('I already have an account')),
+                        onPressed: () {
+                          setState(
+                            () {
+                              _isLogin = !_isLogin;
+                            },
+                          );
+                        },
+                        black: true,
+                      ),
+                    ],
+                  )
+              ],
             ),
-            onSaved: (value) {
-              _userEmail = value;
-            },
           ),
-          if (!_isLogin)
-            TextFormField(
-              key: ValueKey('username'),
-              validator: (value) {
-                if (value.isEmpty || value.length < 4) {
-                  return t('Please enter at least 4 characters');
-                }
-                return null;
-              },
-              decoration: InputDecoration(labelText: t('Username')),
-              onSaved: (value) {
-                _userName = value;
-              },
-            ),
-          TextFormField(
-            key: ValueKey('password'),
-            validator: (value) {
-              if (value.isEmpty || value.length < 7) {
-                return t('Password must be at least 7 characters long.');
-              }
-              return null;
-            },
-            decoration: InputDecoration(labelText: t('Password')),
-            obscureText: true,
-            onSaved: (value) {
-              _userPassword = value;
-            },
-          ),
-          SizedBox(height: 12),
-          if (widget.isLoading) CircularProgressIndicator(),
-          if (!widget.isLoading)
-            RaisedButton(
-              child: Text(_isLogin ? t('Login') : t('Signup')),
-              onPressed: _trySubmit,
-            ),
-          if (!widget.isLoading)
-            FlatButton(
-              textColor: Theme.of(context).accentColor,
-              child: Text(_isLogin
-                  ? t('Create new account')
-                  : t('I already have an account')),
-              onPressed: () {
-                setState(
-                  () {
-                    _isLogin = !_isLogin;
-                  },
-                );
-              },
-            ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }

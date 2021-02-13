@@ -33,24 +33,26 @@ class UserProvider with ChangeNotifier {
         .snapshots()
         .listen((event) {
       final userData = event.data();
-      List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
-      this._name = userData['username'];
-      this._points = userData['points'];
-      try {
-        if (userData['business'] != null) {
-          print(userData['business']);
-          this._business = userData['business'];
+      if (userData!= null){
+        List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
+        this._name = userData['username'];
+        this._points = userData['points'];
+        try {
+          if (userData['business'] != null) {
+            print(userData['business']);
+            this._business = userData['business'];
+          }
         }
-      }
-      catch(err){
-        this._business = false;
-      }
-      try {
-        this._purchasedCouponsId =
-            myPurchasedCoupons.map((c) => c.toString()).toList();
-      }
-      catch(err){
-        myPurchasedCoupons = [];
+        catch(err){
+          this._business = false;
+        }
+        try {
+          this._purchasedCouponsId =
+              myPurchasedCoupons.map((c) => c.toString()).toList();
+        }
+        catch(err){
+          myPurchasedCoupons = [];
+        }
       }
       AnalyticsService analyticsService = locator.get<AnalyticsService>();
       analyticsService.setUserProperties(userId: this._id, name:this._name, userType:this.business ? "business" : "student");

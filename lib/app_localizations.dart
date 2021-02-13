@@ -36,6 +36,9 @@ class AppLocalizations {
     String translateResult = _localizedStrings[key];
     return translateResult != null ? translateResult : key;
   }
+  bool isRtl (){
+    return ['he', 'ar'].contains(locale.languageCode);
+  }
 }
 
 class _AppLocalizationsDelegate

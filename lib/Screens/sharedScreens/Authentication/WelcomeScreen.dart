@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dart';
 
+import '../../../app_localizations.dart';
 import '../../../widgets/designs/TopCurve.dart';
 import "auth_screen.dart";
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
@@ -62,16 +65,14 @@ class WelcomeScreen extends StatelessWidget {
                             width:constraints.maxWidth * 0.5,
                           ),
                           Container(
-                            child:FlatButton(
-                              minWidth: constraints.maxWidth * 0.5,
+                            child:Button(
                               onPressed: (){
                                 Navigator.of(ctx).pushNamed(
                                   AuthScreen.routeName
                                 );
                               },
-                              child: Text('Businesses Entrance'),
-                              color: Theme.of(context).accentColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                              child: Text(t('Businesses Entrance')),
+                              yellow: true,
                             )
                           )
                         ],

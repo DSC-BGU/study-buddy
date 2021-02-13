@@ -83,7 +83,7 @@ class FocusProvider with ChangeNotifier {
     _timer = new Timer.periodic(oneMinutes, (Timer timer) {
       int points = _targetTime.inMinutes;
       if (_remainTime.inMinutes < 1) {
-        Navigator.of(context).pushReplacementNamed(ResultScreen.routeName,
+        Navigator.of(context).pushNamed(ResultScreen.routeName,
             arguments: ResultScreenArguments(success: true, points: points));
         timer.cancel();
         UserProvider userProvider =
@@ -112,7 +112,7 @@ class FocusProvider with ChangeNotifier {
 
   void outOfFocus(context) {
     int points = _targetTime.inMinutes;
-    Navigator.of(context).pushReplacementNamed(ResultScreen.routeName,
+    Navigator.of(context).pushNamed(ResultScreen.routeName,
         arguments: ResultScreenArguments(success: false, points: points));
     _focus = false;
     _timer.cancel();

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dart';
+import 'package:study_buddy/widgets/designs/TopCurve.dart';
 
 import '../../../app_localizations.dart';
 import '../../../widgets/sharedWidgets/auth/auth_form.dart';
-import '../../../widgets/designs/TopCurve.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -19,7 +18,6 @@ class _AuthScreenState extends State<AuthScreen> {
   String t(String text) => AppLocalizations.of(context).translate(text);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _isLoading = false;
-  bool _business = false;
 
   void _submitAuthForm(
     String email,
@@ -52,11 +50,12 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'points': AuthScreen.INITIAL_POINTS, // points,
-          'business':true
+          "purchased_coupons":[],
+          'business': true
         });
       }
     } on PlatformException catch (err) {
-      var message = 'An error occurred, pelase check your credentials!';
+      var message = 'An error occurred, please check your credentials!';
 
       if (err.message != null) {
         message = err.message;
@@ -81,48 +80,40 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget login = AuthForm(
-        _submitAuthForm,
-        _isLoading,
-      );
     return Scaffold(
-      // backgroundColor: Theme.of(context).primaryColor,
-      body: LayoutBuilder(builder: (ctx, constraints) {
-        return Stack(
-          children: [
-            // TopCurve(
-            //   startPercent: 75,
-            //   endPercent: 85,
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                      height: _business ? constraints.maxWidth*0.2 : constraints.maxWidth*0.4,
-                      child: Image.asset("assets/icon/icon.jpg"),
-                    ),
-                    login,
-                    FlatButton(
-                      onPressed: () {
-                        setState(() {
-                          _business = !_business;
-                        });
-                      },
-                      child: Text(
-                        t(_business ? "student login" : "business login"),
-                      ),
-                    ),
-                  ],
-                ),
+      backgroundColor: Theme.of(context).primaryColor,
+      body: SafeArea(
+        child: LayoutBuilder(builder: (ctx, constraints) {
+          return Stack(
+            children: [
+              Container(
+                color: Colors.white,
               ),
-            )
-          ],
-        );
-      }),
+              TopCurve(
+                startPercent: 15,
+                endPercent: 22,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: constraints.maxWidth * 0.42,
+                    height: constraints.maxHeight * 0.16,
+                    child: Image.asset("assets/logo-temp.png"),
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.78,
+                    child: AuthForm(
+                      _submitAuthForm,
+                      _isLoading,
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
+        }),
+      ),
     );
   }
 }
