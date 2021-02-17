@@ -96,8 +96,8 @@ class _FocusScreenState extends State<FocusScreen> {
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).primaryColor,
-        endDrawer: AppLocalizations.of(context).isRtl() ?  DrawerMenu() : null,
         drawer:  AppLocalizations.of(context).isRtl() ?  DrawerMenu() : null,
+        endDrawer:  !AppLocalizations.of(context).isRtl() ?  DrawerMenu() : null,
         body: SafeArea(
           child: LayoutBuilder(builder: (ctx, constraints) {
             return Stack( children: [
