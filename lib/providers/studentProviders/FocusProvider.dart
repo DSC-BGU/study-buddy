@@ -18,9 +18,9 @@ class FocusProvider with ChangeNotifier {
   Timer _timer;
   bool _focus = false;
   String _sessionId;
-  int _joinCode;
+  String _joinCode;
   FocusMode _mode = FocusMode.solo;
-  bool _sessionAdmin = true;
+  bool _sessionAdmin = false;
   StreamSubscription _subscription;
 
   Duration get remainTime {
@@ -35,8 +35,16 @@ class FocusProvider with ChangeNotifier {
     return _focus == true;
   }
 
-  int get joinCode {
+  String get joinCode {
     return _joinCode;
+  }
+
+  String get sessionId{
+    return _sessionId;
+  }
+
+  bool get isAdmin{
+    return _sessionAdmin;
   }
 
   FocusMode get mode {
@@ -51,7 +59,7 @@ class FocusProvider with ChangeNotifier {
     }
   }
 
-  void onFocus(context) {
+  void onFocus(BuildContext context) {
     const oneMinutes = const Duration(seconds: 1);
     if (_mode == FocusMode.coop) {
       if (_sessionAdmin) {
@@ -77,7 +85,8 @@ class FocusProvider with ChangeNotifier {
         });
       }
       if (!_sessionAdmin) {
-        deleteSession();
+        // TODO: fix what happend if you are not the host and try to start the session
+        leaveSession();
       }
     }
     _timer = new Timer.periodic(oneMinutes, (Timer timer) {
@@ -110,7 +119,7 @@ class FocusProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void outOfFocus(context) {
+  void outOfFocus(BuildContext context) {
     int points = _targetTime.inMinutes;
     Navigator.of(context).pushNamed(ResultScreen.routeName,
         arguments: ResultScreenArguments(success: false, points: points));
@@ -123,7 +132,7 @@ class FocusProvider with ChangeNotifier {
           .update({
         'inFocus': false,
       });
-      changeMode();
+      leaveSession();
     }
     locator<AnalyticsService>()
         .logEvent(eventName: EventTypes.FocusFail, parameters: {
@@ -135,53 +144,44 @@ class FocusProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeMode() {
-    if (_mode == FocusMode.solo) {
-      _mode = FocusMode.coop;
-      createSession();
-      notifyListeners();
-    } else {
-      _mode = FocusMode.solo;
-      if (_sessionAdmin) {
-        deleteSession();
-      }
-      _sessionAdmin = true;
-      _sessionId = null;
-      _joinCode = null;
-      if (_subscription != null) _subscription.cancel();
-      notifyListeners();
+  void leaveSession() {
+    _mode = FocusMode.solo;
+    if (_sessionAdmin) {
+      deleteSession();
     }
-  }
-
-  void createSession() async {
-    _joinCode = 100000 + Random().nextInt(999999 - 100000);
-    DocumentReference ref =
-        await FirebaseFirestore.instance.collection('friendSessions').add({
-      'inFocus': false,
-      "createTime": DateTime.now(),
-      "JoinCode": _joinCode,
-    });
-    _sessionId = ref.id;
-    _mode = FocusMode.coop;
+    _sessionAdmin = true;
+    _sessionId = null;
+    if (_subscription != null) _subscription.cancel();
     notifyListeners();
   }
 
-  void joinSession(int joinCode, context) {
-    if (joinCode.toString().length != 6) {
-      _sessionAdmin = true;
-      _subscription.cancel();
-    }
-    _sessionAdmin = false;
+  void createSession(BuildContext context) async {
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    DocumentReference ref =
+    await FirebaseFirestore.instance.collection('friendSessions').add({
+      'inFocus': false,
+      "createTime": DateTime.now(),
+      "creator":userProvider.id,
+      "targetTime": _targetTime.inMinutes
+    });
+    _sessionId = ref.id;
+    _mode = FocusMode.coop;
+    _sessionAdmin = true;
+    notifyListeners();
+  }
+
+  void joinSession(String sessionId, context) {
     _subscription = FirebaseFirestore.instance
         .collection("friendSessions")
-        .where("JoinCode", isEqualTo: joinCode)
+        .doc(sessionId)
         .snapshots()
-        .listen((event) {
-      if (event.docs.isNotEmpty) {
-        var session = event.docs[0];
-        _sessionId = session.id;
+        .listen((doc) {
+      if (doc.exists) {
+        var session = doc.data();
+        _sessionId = sessionId;
         _targetTime = Duration(minutes: session['targetTime']);
         _remainTime = Duration(minutes: session['targetTime']);
+        _mode = FocusMode.coop;
         if (session['inFocus'] && !_focus && mode == FocusMode.coop) {
           this.onFocus(context);
         } else if (_focus && !session['inFocus'] && mode == FocusMode.coop) {
