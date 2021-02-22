@@ -8,7 +8,7 @@ import '../../models/studentModels/couponModels/PurchasedCoupon.dart';
 import '../../models/studentModels/couponModels/Coupon.dart';
 
 class UserProvider with ChangeNotifier {
-  String _id = FirebaseAuth.instance.currentUser.uid;
+  String _id = FirebaseAuth.instance.currentUser!=null ?  FirebaseAuth.instance.currentUser.uid : "";
   String _name = '';
   int _points = 500;
   bool _business = false;
