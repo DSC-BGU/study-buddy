@@ -20,7 +20,9 @@ class MyCoupons extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: TabBar(
             tabs: [
               Tab(

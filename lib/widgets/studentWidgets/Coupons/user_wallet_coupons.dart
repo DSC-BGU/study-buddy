@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import './PopUpQR.dart';
 import './wallet_coupon.dart';
 import '../../../models/studentModels/couponModels/PurchasedCoupon.dart';
@@ -10,6 +12,7 @@ class UserWalletCoupons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // UserProvider userProvider = Provider.of<UserProvider>(context);
     return ListView.builder(
       itemBuilder: (ctx, index) {
         return
@@ -21,6 +24,7 @@ class UserWalletCoupons extends StatelessWidget {
                 context: ctx,
                 builder: (ctx) => PopUpQR(ctx, purchasedCoupons[index]),
               );
+              // userProvider.useCoupon(purchasedCoupons[index].couponId);
             }
           },
           child: WalletCoupon(purchasedCoupon: purchasedCoupons[index]),

@@ -33,7 +33,7 @@ class UserProvider with ChangeNotifier {
         .snapshots()
         .listen((event) {
       final userData = event.data();
-      if (userData!= null){
+      if (userData != null) {
         List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
         this._name = userData['username'];
         this._points = userData['points'];
@@ -42,20 +42,21 @@ class UserProvider with ChangeNotifier {
             print(userData['business']);
             this._business = userData['business'];
           }
-        }
-        catch(err){
+        } catch (err) {
           this._business = false;
         }
         try {
           this._purchasedCouponsId =
               myPurchasedCoupons.map((c) => c.toString()).toList();
-        }
-        catch(err){
+        } catch (err) {
           myPurchasedCoupons = [];
         }
       }
       AnalyticsService analyticsService = locator.get<AnalyticsService>();
-      analyticsService.setUserProperties(userId: this._id, name:this._name, userType:this.business ? "business" : "student");
+      analyticsService.setUserProperties(
+          userId: this._id,
+          name: this._name,
+          userType: this.business ? "business" : "student");
       notifyListeners();
       getPurchasedCoupons();
     });
@@ -82,9 +83,9 @@ class UserProvider with ChangeNotifier {
   }
 
   void buyCoupon(Coupon coupon) {
-    if (_points > coupon.points){
+    if (_points > coupon.points) {
       DocumentReference docRef =
-      FirebaseFirestore.instance.collection('purchasedCoupons').doc();
+          FirebaseFirestore.instance.collection('purchasedCoupons').doc();
       docRef.set({
         'couponId': coupon.id,
         'userId': this._id,
@@ -101,7 +102,7 @@ class UserProvider with ChangeNotifier {
           .logEvent(eventName: EventTypes.BuyCoupon, parameters: {
         "title": coupon.title,
         'storeId': coupon.storeId,
-        "couponId":coupon.id,
+        "couponId": coupon.id,
       });
     }
     notifyListeners();
@@ -159,7 +160,7 @@ class UserProvider with ChangeNotifier {
     return _name != '';
   }
 
-  bool get business{
+  bool get business {
     return this._business;
   }
 

@@ -96,85 +96,92 @@ class _FocusScreenState extends State<FocusScreen> {
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).primaryColor,
-        drawer:  AppLocalizations.of(context).isRtl() ?  DrawerMenu() : null,
-        endDrawer:  !AppLocalizations.of(context).isRtl() ?  DrawerMenu() : null,
+        drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+        endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
         body: SafeArea(
           child: LayoutBuilder(builder: (ctx, constraints) {
-            return Stack( children: [
-              Container(color: Colors.white),
-              TopCurve(),
-              DrawerButton(),
-              Container(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: constraints.maxWidth * 0.42,
-                    height: constraints.maxHeight * 0.16,
-                    child: Image.asset("assets/logo-temp.png"),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: constraints.maxHeight * 0.04,
-                        bottom: constraints.maxHeight * 0.03),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: constraints.maxHeight * 0.07,
-                            backgroundImage:
-                            AssetImage("assets/avatar_temp.jpg"),
-                          ),
-                          Text(
-                            t("Hii") + " " + user.name,
-                            style: TextStyle(fontSize: 34),
-                          ),
-                          Text("You have" +
-                              " " +
-                              user.points.toString() +
-                              " " +
-                              "points")
-                        ],
+            return Stack(
+              children: [
+                Container(color: Colors.white),
+                TopCurve(),
+                DrawerButton(),
+                Container(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: constraints.maxWidth * 0.42,
+                        height: constraints.maxHeight * 0.16,
+                        child: Image.asset("assets/logo-temp.png"),
                       ),
-                    ),
-                  ),
-                  FocusCircleSlider(
-                    maxMinutes: 60,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: constraints.maxHeight * 0.035,
-                        top: constraints.maxHeight * 0.04),
-                    child: Column(
-                      children: [
-                        FocusTimer(
-                          child: Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              height: MediaQuery.of(context).size.height * 0.045,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Theme.of(context).accentColor,),
-                              child: Center(child: Text(focusProvider.focusStatus ? t("Give up") : t("Start")))
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: constraints.maxHeight * 0.04,
+                            bottom: constraints.maxHeight * 0.03),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: constraints.maxHeight * 0.07,
+                                backgroundImage:
+                                    AssetImage("assets/avatar_temp.jpg"),
+                              ),
+                              Text(
+                                t("Hi") + " " + user.name,
+                                style: TextStyle(fontSize: 34),
+                              ),
+                              Text("You have" +
+                                  " " +
+                                  user.points.toString() +
+                                  " " +
+                                  "points")
+                            ],
                           ),
                         ),
-                        Button(
-                          onPressed: () {},
-                          child: Text(t("Focus with Friends")),
-                          black: true,
+                      ),
+                      FocusCircleSlider(
+                        maxMinutes: 60,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: constraints.maxHeight * 0.035,
+                            top: constraints.maxHeight * 0.04),
+                        child: Column(
+                          children: [
+                            FocusTimer(
+                              child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                  child: Center(
+                                      child: Text(focusProvider.focusStatus
+                                          ? t("Give up")
+                                          : t("Start")))),
+                            ),
+                            Button(
+                              onPressed: () {},
+                              child: Text(t("Focus with Friends")),
+                              black: true,
+                            ),
+                            Text(
+                              t("want to get more points? focus with your friends"),
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
-                        Text(
-                          t("want to get more points? focus with your friends"),
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
-            ],);
+                )
+              ],
+            );
           }),
         ));
   }
 }
-
-
