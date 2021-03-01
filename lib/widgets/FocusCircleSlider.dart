@@ -6,7 +6,9 @@ import '../widgets/studentWidgets/MainScreen/circular_slider.dart';
 
 class FocusCircleSlider extends StatelessWidget {
   final int maxMinutes;
+  final double height;
   const FocusCircleSlider({
+    this.height,
     this.maxMinutes = 90,
     Key key,
   }) : super(key: key);
@@ -18,6 +20,7 @@ class FocusCircleSlider extends StatelessWidget {
     int minutesLeft = focusProvider.remainTime.inMinutes;
     return Container(
       child: SingleCircularSlider(maxMinutes, minutesLeft,
+          height: height,
           baseColor: Theme.of(context).accentColor,
           handlerColor: Theme.of(context).primaryColor,
           child: Center(
