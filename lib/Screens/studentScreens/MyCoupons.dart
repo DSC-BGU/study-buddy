@@ -7,6 +7,7 @@ import '../../providers/studentProviders/user_provider.dart';
 import '../../app_localizations.dart';
 
 class MyCoupons extends StatelessWidget {
+  static const routeName = '/wallet';
   MyCoupons();
 
   @override
@@ -17,25 +18,27 @@ class MyCoupons extends StatelessWidget {
         userProvider.getMyAvailablePurchasedCoupons();
     List<PurchasedCoupon> myUsedPurchasedCoupons =
         userProvider.getMyUsedPurchasedCoupons();
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: TabBar(
-            tabs: [
-              Tab(
-                text: t('Available'),
-              ),
-              Tab(
-                text: t('Used'),
-              ),
-            ],
+    return Scaffold(
+      body: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: TabBar(
+              tabs: [
+                Tab(
+                  text: t('Available'),
+                ),
+                Tab(
+                  text: t('Used'),
+                ),
+              ],
+            ),
           ),
+          body: TabBarView(children: [
+            UserWalletCoupons(myAvailablePurchasedCoupons),
+            UserWalletCoupons(myUsedPurchasedCoupons),
+          ]),
         ),
-        body: TabBarView(children: [
-          UserWalletCoupons(myAvailablePurchasedCoupons),
-          UserWalletCoupons(myUsedPurchasedCoupons),
-        ]),
       ),
     );
   }
