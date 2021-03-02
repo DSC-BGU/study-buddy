@@ -18,25 +18,37 @@ class WalletCoupon extends StatelessWidget {
     Coupon coupon = storeProvider.getCouponById(purchasedCoupon.couponId);
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
-        margin: EdgeInsets.only(bottom: 8),
-        height: constraints.maxWidth * 0.30,
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
+        margin: EdgeInsets.all(8),
+        height: constraints.maxWidth * 0.40,
         child: Stack(
           children: [
-            Image.network(
-              coupon.imageUrl,
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              child: Image.network(
+                coupon.imageUrl,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  width: double.infinity,
-                  color: Colors.black38,
-                  child: Text(
-                    coupon.description,
-                    style: TextStyle(color: Colors.white, fontSize: 26),
-                  ),
+                  // height: constraints.maxWidth * 0.40,
+                  decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  // width: double.infinity,
+                  child: Column(children: [
+                    Text(
+                      "  " + coupon.description,
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                  ]),
                 ),
               ],
             ),

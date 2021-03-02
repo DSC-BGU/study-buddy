@@ -30,7 +30,7 @@ class StoreScreen extends StatelessWidget {
           ),
         ),
         SliverFixedExtentList(
-          itemExtent: 150.0,
+          itemExtent: 130.0,
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
               return list[index];

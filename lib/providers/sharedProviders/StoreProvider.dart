@@ -112,4 +112,10 @@ class StoreProvider with ChangeNotifier {
     });
     return coupon;
   }
+
+  void removeCoupon(String couponId) {
+    databaseReference.collection('coupons').doc(couponId).delete();
+  }
+
+  void addCoupon(Coupon couponToAdd) {}
 }

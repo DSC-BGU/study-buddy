@@ -16,7 +16,18 @@ class PopUpBuy extends StatelessWidget {
   void buyCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
     if (userProvider.points >= coupon.points) {
+      // Fluttertoast.showToast(
+      //     msg: "Coupon Added",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1);
       userProvider.buyCoupon(coupon);
+    } else {
+      // Fluttertoast.showToast(
+      //     msg: "You don't have enough points",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1);
     }
   }
 
@@ -41,26 +52,41 @@ class PopUpBuy extends StatelessWidget {
           children: [
             Text(this.coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
-            Container(
-              height: constraints.maxHeight * 0.07,
-              width: constraints.maxWidth * 0.48,
-              child: TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                  ),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  backgroundColor: MaterialStateProperty.all(Colors.grey),
-                ),
-                child: Text(
-                  t('Are you sure?'),
-                  style: TextStyle(fontSize: 19),
-                ),
-                onPressed: () => buyCoupon(context, userProvider),
-              ),
+            Text(
+              this.coupon.points.toString() + " pts",
+              style: TextStyle(color: Colors.white, fontSize: 22),
             ),
+            Text(
+              t('Are you sure?'),
+              style: TextStyle(color: Colors.white, fontSize: 19),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: TextButton(
+                      onPressed: () => buyCoupon(context, userProvider),
+                      child: Text(
+                        "Yes",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        "No",
+                        style: TextStyle(color: Colors.black),
+                      )),
+                )
+              ],
+            )
           ],
         ),
       );
