@@ -14,63 +14,82 @@ class StoreCoupon extends StatelessWidget {
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     return LayoutBuilder(builder: (ctx, constraints) {
-      return GestureDetector(
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-            margin: EdgeInsets.all(6),
-            child: Container(
-              child: Stack(children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  child: Image.network(
-                    this.coupon.imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                          onPressed: null,
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Theme.of(context).primaryColor)),
-                          icon: Icon(
-                            Icons.star,
-                            color: Colors.white,
-                          ),
-                          label: Text(
-                            '${coupon.points}',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.black38,
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20))),
-                          width: double.infinity,
-                          child: Text(
-                            "  " + this.coupon.description,
-                            style: TextStyle(color: Colors.white, fontSize: 22),
-                          )),
-                    ])
-              ]),
+      return Container(
+        height: constraints.maxWidth * 0.5,
+        margin: EdgeInsets.all(6),
+        child: Container(
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.white, width: 5)),
+          child: Stack(children: [
+            ClipRRect(
+              child: Image.network(
+                this.coupon.imageUrl,
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-          onTap: () {
-            if (!userProvider.business) {
-              showDialog(
-                  context: context,
-                  builder: (ctx) => PopUpBuy(
-                        ctx,
-                        coupon,
-                      ));
-            } else {}
-          });
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: constraints.maxWidth * 0.45,
+                    height: constraints.maxWidth * 0.48,
+                    color: Colors.black54,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            '  ' + coupon.title,
+                            style: TextStyle(color: Colors.white, fontSize: 24),
+                          ),
+                          Text(
+                            '  ' + coupon.description,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          Text(
+                            '  points: ' + coupon.points.toString() + ' ',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Center(
+                            child: ElevatedButton.icon(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0))),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Theme.of(context).accentColor)),
+                                onPressed: () {
+                                  if (!userProvider.business) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => PopUpBuy(
+                                              ctx,
+                                              coupon,
+                                            ));
+                                  } else {}
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                                label: Text(
+                                  'Buy Coupon',
+                                  style: TextStyle(color: Colors.black),
+                                )),
+                          )
+                        ]),
+                  ),
+                ])
+          ]),
+        ),
+      );
     });
   }
 }
