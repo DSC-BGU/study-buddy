@@ -21,7 +21,7 @@ class WalletCoupon extends StatelessWidget {
         decoration:
             BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
         margin: EdgeInsets.all(8),
-        height: constraints.maxWidth * 0.30,
+        height: constraints.maxWidth * 0.40,
         child: Stack(
           children: [
             ClipRRect(
@@ -36,16 +36,19 @@ class WalletCoupon extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
+                  // height: constraints.maxWidth * 0.40,
                   decoration: BoxDecoration(
                       color: Colors.black38,
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20))),
-                  width: double.infinity,
-                  child: Text(
-                    "  " + coupon.description,
-                    style: TextStyle(color: Colors.white, fontSize: 22),
-                  ),
+                  // width: double.infinity,
+                  child: Column(children: [
+                    Text(
+                      "  " + coupon.description,
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                  ]),
                 ),
               ],
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../../../app_localizations.dart';
 import '../../../models/studentModels/couponModels/Coupon.dart';
@@ -17,18 +16,18 @@ class PopUpBuy extends StatelessWidget {
   void buyCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
     if (userProvider.points >= coupon.points) {
-      Fluttertoast.showToast(
-          msg: "Coupon Added",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1);
+      // Fluttertoast.showToast(
+      //     msg: "Coupon Added",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1);
       userProvider.buyCoupon(coupon);
     } else {
-      Fluttertoast.showToast(
-          msg: "You don't have enough points",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1);
+      // Fluttertoast.showToast(
+      //     msg: "You don't have enough points",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1);
     }
   }
 
