@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
+import 'package:study_buddy/Screens/studentScreens/categories_screen.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:study_buddy/widgets/designs/TopCurve.dart';
@@ -121,13 +123,19 @@ class FocusScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Button(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(CategoriesScreen.routeName);
+                                },
                                 child: Text(t("Coupons store")),
                                 icon: Icon(Ionicons.ios_add),
                                 width: constraints.maxWidth * 0.7,
                               ),
                               Button(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(MyCoupons.routeName);
+                                },
                                 child: Text(t("My coupons")),
                                 icon: Icon(Ionicons.md_pricetag),
                                 width: constraints.maxWidth * 0.7,
