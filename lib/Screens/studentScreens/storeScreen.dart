@@ -17,31 +17,45 @@ class StoreScreen extends StatelessWidget {
     List<StoreCoupon> list =
         store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
     return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text(store.name + ' '), Icon(Icons.store)]),
+        ),
         body: CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          title: Text(
-            '${store.name}',
-          ),
-          backgroundColor: Colors.black,
-          expandedHeight: 200.0,
-          flexibleSpace: FlexibleSpaceBar(
-            background: Image.network(store.imageUrl, fit: BoxFit.cover),
-          ),
-        ),
-        SliverFixedExtentList(
-          itemExtent: 130.0,
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return list[index];
-            },
-            childCount: list.length,
-          ),
-          // delegate: SliverChildListDelegate(
-          //   list,
-          // ),
-        ),
-      ],
-    ));
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              automaticallyImplyLeading: false,
+              title: Container(
+                color: Colors.black54,
+                child: Text(
+                  '${store.address}\n${store.description}',
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
+              ),
+              backgroundColor: Colors.black,
+              expandedHeight: 100.0,
+              flexibleSpace: FlexibleSpaceBar(
+                centerTitle: true,
+                background: Image.network(store.imageUrl, fit: BoxFit.cover),
+              ),
+            ),
+            SliverFixedExtentList(
+              itemExtent: 220.0,
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return list[index];
+                },
+                childCount: list.length,
+              ),
+              // delegate: SliverChildListDelegate(
+              //   list,
+              // ),
+            ),
+          ],
+        ));
   }
 }

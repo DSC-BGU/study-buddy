@@ -117,5 +117,13 @@ class StoreProvider with ChangeNotifier {
     databaseReference.collection('coupons').doc(couponId).delete();
   }
 
-  void addCoupon(Coupon couponToAdd) {}
+  Store getStoreById(String storeId) {
+    Store store;
+    availableStores.forEach((c) {
+      if (c.id == storeId) {
+        store = c;
+      }
+    });
+    return store;
+  }
 }

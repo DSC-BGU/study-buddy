@@ -19,25 +19,35 @@ class MyCoupons extends StatelessWidget {
     List<PurchasedCoupon> myUsedPurchasedCoupons =
         userProvider.getMyUsedPurchasedCoupons();
     return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            title: TabBar(
-              tabs: [
-                Tab(
-                  text: t('Available'),
-                ),
-                Tab(
-                  text: t('Used'),
-                ),
-              ],
+      appBar: AppBar(
+        centerTitle: true,
+        title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text('My Wallet '), Icon(Icons.wallet_giftcard)]),
+      ),
+      body: Scaffold(
+        body: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: TabBar(
+                tabs: [
+                  Tab(
+                    text: t('Available'),
+                  ),
+                  Tab(
+                    text: t('Used'),
+                  ),
+                ],
+              ),
             ),
+            body: TabBarView(children: [
+              UserWalletCoupons(myAvailablePurchasedCoupons),
+              UserWalletCoupons(myUsedPurchasedCoupons),
+            ]),
           ),
-          body: TabBarView(children: [
-            UserWalletCoupons(myAvailablePurchasedCoupons),
-            UserWalletCoupons(myUsedPurchasedCoupons),
-          ]),
         ),
       ),
     );

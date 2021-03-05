@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/sharedProviders/StoreProvider.dart';
 import '../../../models/studentModels/couponModels/Coupon.dart';
 import '../../../models/studentModels/couponModels/PurchasedCoupon.dart';
+import 'package:intl/intl.dart';
 
 class WalletCoupon extends StatelessWidget {
   final PurchasedCoupon purchasedCoupon;
@@ -18,39 +19,56 @@ class WalletCoupon extends StatelessWidget {
     Coupon coupon = storeProvider.getCouponById(purchasedCoupon.couponId);
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
         margin: EdgeInsets.all(8),
-        height: constraints.maxWidth * 0.40,
+        height: constraints.maxWidth * 0.5,
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
               child: Image.network(
                 coupon.imageUrl,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  // height: constraints.maxWidth * 0.40,
-                  decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
-                  // width: double.infinity,
-                  child: Column(children: [
+            Container(
+              width: constraints.maxWidth * 0.45,
+              height: constraints.maxWidth * 0.5,
+              color: Colors.black54,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      "  " + coupon.description,
+                      '  ' +
+                          storeProvider.getStoreById(coupon.storeId).name +
+                          '\n',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '  ' + coupon.title,
                       style: TextStyle(color: Colors.white, fontSize: 22),
                     ),
+                    Text(
+                      '  ' + coupon.description,
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    Text(
+                      '  points: ' + coupon.points.toString() + ' ',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '  ' +
+                          DateFormat('dd/MM/yyyy')
+                              .format(purchasedCoupon.datePurhcased),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ]),
-                ),
-              ],
             ),
           ],
         ),
