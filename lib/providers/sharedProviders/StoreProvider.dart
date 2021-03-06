@@ -20,7 +20,13 @@ class StoreProvider with ChangeNotifier {
     databaseReference.collection('categories').snapshots().listen((event) {
       List<Cat.Category> categorylst = [];
       event.docs.forEach((element) {
-        categorylst.add(Cat.Category(id: element.id, title: element['name']));
+        categorylst.add(
+          Cat.Category(
+            id: element.id,
+            title: element['name'],
+            icon: element['icon'],
+          ),
+        );
       });
       this.availableCategories = categorylst;
       notifyListeners();

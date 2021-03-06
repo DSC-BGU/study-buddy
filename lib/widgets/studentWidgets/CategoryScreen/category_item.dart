@@ -24,6 +24,7 @@ class CategoryItem extends StatelessWidget {
           onPressed: () => selectCategory(context),
           child: Column(
             children: [
+              // Icon(category.icon),
               Center(
                 child: Text(
                   this.category.title,
