@@ -55,14 +55,14 @@ class FocusScreen extends StatelessWidget {
                                     AssetImage("assets/avatar_temp.jpg"),
                               ),
                               Text(
-                                t("Hii") + " " + user.name,
-                                style: TextStyle(fontSize: 34),
+                                t("Hi") + " " + user.name,
+                                style: TextStyle(fontSize: 25),
                               ),
-                              Text("You have" +
+                              Text(t("You have") +
                                   " " +
                                   user.points.toString() +
                                   " " +
-                                  "points")
+                                  t("points"))
                             ],
                           ),
                         ),
@@ -78,7 +78,7 @@ class FocusScreen extends StatelessWidget {
                             children: [
                               FocusTimer(
                                 child: Container(
-                                    width: constraints.maxWidth * 0.4,
+                                    width: constraints.maxWidth * 0.24,
                                     height: constraints.maxHeight * 0.11,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -89,25 +89,36 @@ class FocusScreen extends StatelessWidget {
                                             ? t("Give up")
                                             : t("Start")))),
                               ),
-                              FlatButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => Container(
-                                      height: constraints.maxHeight * 0.5,
-                                      child: FocusWithFriendsModal(),
+                              focusProvider.focusStatus
+                                  ? null
+                                  : Container(
+                                      width: constraints.maxWidth * 0.24,
+                                      child: FlatButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) => Container(
+                                              height:
+                                                  constraints.maxHeight * 0.5,
+                                              child: FocusWithFriendsModal(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          t("Focus with Friends"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                        minWidth: constraints.maxWidth * 0.4,
+                                        color: Theme.of(context).accentColor,
+                                        height: constraints.maxHeight * 0.11,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                      ),
                                     ),
-                                  );
-                                },
-                                child: Text(t("Focus with Friends")),
-                                minWidth: constraints.maxWidth * 0.4,
-                                color: Theme.of(context).accentColor,
-                                height: constraints.maxHeight * 0.11,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
-                            ],
+                            ].where((element) => element != null).toList(),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5),

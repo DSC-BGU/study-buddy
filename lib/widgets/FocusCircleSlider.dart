@@ -40,6 +40,7 @@ class FocusCircleSlider extends StatelessWidget {
                   padding: const EdgeInsets.all(3),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    textDirection: TextDirection.ltr,
                     children: [
                       Text(
                         "01:30",
