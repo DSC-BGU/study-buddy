@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -5,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/Screens/studentScreens/categories_screen.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
+import 'package:study_buddy/utils/HexColor.dart';
+import 'package:study_buddy/widgets/designs/Background.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:study_buddy/widgets/designs/TopCurve.dart';
 import 'package:study_buddy/widgets/studentWidgets/MainScreen/FocusWithFriendsModal.dart';
@@ -25,15 +28,14 @@ class FocusScreen extends StatelessWidget {
     UserProvider user = Provider.of<UserProvider>(context);
     return Scaffold(
         // resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
         endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
         body: SafeArea(
           child: LayoutBuilder(builder: (ctx, constraints) {
             return Stack(
               children: [
-                Container(color: Colors.white),
-                TopCurve(),
+                Background(),
                 DrawerButton(),
                 Container(
                   width: double.infinity,
@@ -67,7 +69,7 @@ class FocusScreen extends StatelessWidget {
                       ),
                       FocusCircleSlider(
                         height: constraints.maxHeight * 0.3,
-                        maxMinutes: 60,
+                        maxMinutes: 120,
                       ),
                       Column(
                         children: [
@@ -80,7 +82,7 @@ class FocusScreen extends StatelessWidget {
                                     height: constraints.maxHeight * 0.11,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                     child: Center(
                                         child: Text(focusProvider.focusStatus
@@ -100,8 +102,7 @@ class FocusScreen extends StatelessWidget {
                                 },
                                 child: Text(t("Focus with Friends")),
                                 minWidth: constraints.maxWidth * 0.4,
-                                color: Theme.of(context).hintColor,
-                                textColor: Colors.white,
+                                color: Theme.of(context).accentColor,
                                 height: constraints.maxHeight * 0.11,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
@@ -109,7 +110,7 @@ class FocusScreen extends StatelessWidget {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 0),
+                            padding: const EdgeInsets.only(top: 5),
                             child: Text(
                               t("want to get more points? focus with your friends"),
                               style: TextStyle(fontSize: 12),
@@ -130,15 +131,22 @@ class FocusScreen extends StatelessWidget {
                                 child: Text(t("Coupons store")),
                                 icon: Icon(Ionicons.ios_add),
                                 width: constraints.maxWidth * 0.7,
+                                color: HexColor("#E1E0E0"),
+                                height: constraints.maxHeight * 0.08,
                               ),
-                              Button(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(MyCoupons.routeName);
-                                },
-                                child: Text(t("My coupons")),
-                                icon: Icon(Ionicons.md_pricetag),
-                                width: constraints.maxWidth * 0.7,
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Button(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed(MyCoupons.routeName);
+                                  },
+                                  child: Text(t("My coupons")),
+                                  icon: Icon(Ionicons.md_pricetag),
+                                  width: constraints.maxWidth * 0.7,
+                                  color: HexColor("#E1E0E0"),
+                                  height: constraints.maxHeight * 0.08,
+                                ),
                               )
                             ],
                           ),

@@ -73,7 +73,7 @@ class WelcomeScreen extends StatelessWidget {
                                       );
                                     },
                                     child: Text(t('Businesses Entrance')),
-                                    yellow: true,
+                                    pink: true,
                                   )
                               )
                             ],

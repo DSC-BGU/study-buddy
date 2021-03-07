@@ -7,9 +7,10 @@ import '../widgets/studentWidgets/MainScreen/circular_slider.dart';
 class FocusCircleSlider extends StatelessWidget {
   final int maxMinutes;
   final double height;
+
   const FocusCircleSlider({
     this.height,
-    this.maxMinutes = 90,
+    this.maxMinutes = 120,
     Key key,
   }) : super(key: key);
 
@@ -20,11 +21,55 @@ class FocusCircleSlider extends StatelessWidget {
     int minutesLeft = focusProvider.remainTime.inMinutes;
     return Container(
       child: SingleCircularSlider(maxMinutes, minutesLeft,
+          primarySectors: 4,
           height: height,
-          baseColor: Theme.of(context).accentColor,
+          baseColor: Colors.white,
           handlerColor: Theme.of(context).primaryColor,
+          selectionColor: Theme.of(context).backgroundColor,
+          sliderStrokeWidth: 15,
+          width: height,
           child: Center(
-            child: Text(setTime),
+            child: Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(1000)),
+                  border: Border.all(color: Colors.black, width: 7),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "01:30",
+                        style: TextStyle(fontSize: 13),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "00:00",
+                            style: TextStyle(fontSize: 13),
+                          ),
+                          Text(
+                            setTime,
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "01:00",
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "00:30",
+                        style: TextStyle(fontSize: 13),
+                      ),
+                    ],
+                  ),
+                )),
           ), onSelectionChange: (int init, int end, int laps) {
         focusProvider.setTime(Duration(minutes: end));
       }),

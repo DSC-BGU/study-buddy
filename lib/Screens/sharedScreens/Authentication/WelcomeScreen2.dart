@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                                       Navigator.of(ctx).pushNamed(AuthScreen.routeName);
                                     },
                                     child: Text(t('Businesses Entrance')),
-                                    yellow: true,
+                                    pink: true,
                                   ))
                             ],
                           ),
