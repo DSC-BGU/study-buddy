@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/Screens/studentScreens/DrawerMenu.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
@@ -22,6 +23,9 @@ class CategoriesScreen extends StatelessWidget {
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
     List<Cat.Category> categoriesList = storeProvider.categories;
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+      endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (ctx, constraints) {
