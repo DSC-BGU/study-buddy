@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:study_buddy/utils/Mapping.dart';
 import '../../models/sharedModels/Store.dart';
 import '../../models/sharedModels/Category.dart' as Cat;
 import '../../models/studentModels/couponModels/Coupon.dart';
@@ -20,7 +21,13 @@ class StoreProvider with ChangeNotifier {
     databaseReference.collection('categories').snapshots().listen((event) {
       List<Cat.Category> categorylst = [];
       event.docs.forEach((element) {
-        categorylst.add(Cat.Category(id: element.id, title: element['name']));
+        categorylst.add(
+          Cat.Category(
+            id: element.id,
+            title: element['name'],
+            icon: getIconByString(element['name']),
+          ),
+        );
       });
       this.availableCategories = categorylst;
       notifyListeners();
