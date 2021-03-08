@@ -24,11 +24,9 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    // return LayoutBuilder(
-    //   builder: (ctx, constraints) {
     return Container(
-      width: this.width, // constraints.maxWidth * 0.24,
-      height: this.height, //.maxHeight * 0.11,
+      width: this.width,
+      height: this.height,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

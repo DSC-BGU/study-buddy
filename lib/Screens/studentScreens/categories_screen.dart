@@ -51,7 +51,7 @@ class CategoriesScreen extends StatelessWidget {
                                     AssetImage("assets/avatar_temp.jpg"),
                               ),
                               Text(
-                                t("Hii") + " " + user.name,
+                                t("Hi") + " " + user.name,
                                 style: TextStyle(fontSize: 34),
                               ),
                               Text(t("You have") +
