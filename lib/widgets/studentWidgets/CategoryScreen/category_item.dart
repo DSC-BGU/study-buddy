@@ -32,6 +32,8 @@ class CategoryItem extends StatelessWidget {
             children: [
               IconButton(
                 icon: this.category.icon,
+                iconSize: 48,
+                // color: Theme.of(context).primaryColor,
                 onPressed: () => selectCategory(context),
               ),
               Text(
