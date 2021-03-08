@@ -147,7 +147,7 @@ class _AuthFormState extends State<AuthForm> {
                       Button(
                         child: Text(_isLogin ? t('Login') : t('Signup')),
                         onPressed: _trySubmit,
-                        yellow: true,
+                        pink: true,
                       ),
                       Button(
                         child: Text(_isLogin

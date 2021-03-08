@@ -17,7 +17,7 @@ class Background extends StatelessWidget {
               Container(
                 height: constraints.maxHeight * 0.4,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: HexColor("#91CCF4"),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
