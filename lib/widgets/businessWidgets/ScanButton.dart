@@ -6,7 +6,6 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 class ScanButton extends StatelessWidget {
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666',
