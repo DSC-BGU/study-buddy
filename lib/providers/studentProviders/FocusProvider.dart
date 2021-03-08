@@ -13,8 +13,8 @@ import './user_provider.dart';
 enum FocusMode { solo, coop }
 
 class FocusProvider with ChangeNotifier {
-  Duration _remainTime = Duration(minutes: 60);
-  Duration _targetTime = Duration(minutes: 60);
+  Duration _remainTime = Duration(minutes: 20);
+  Duration _targetTime = Duration(minutes: 20);
   Timer _timer;
   bool _focus = false;
   String _sessionId;

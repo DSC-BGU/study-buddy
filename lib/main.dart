@@ -60,9 +60,10 @@ class MyApp extends StatelessWidget {
           locator<AnalyticsService>().getAnalyticsObserver()
         ],
         theme: ThemeData(
-          primaryColor: HexColor("#9CCFEE"),
-          accentColor: HexColor("#FFD58C"),
+          primaryColor: HexColor("#F3D24F"),
+          accentColor: HexColor("#FF8485"),
           hintColor: HexColor("#1E2230"),
+          backgroundColor: HexColor("#5CA2D5"),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         supportedLocales: [

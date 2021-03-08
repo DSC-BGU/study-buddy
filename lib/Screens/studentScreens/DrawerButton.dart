@@ -12,14 +12,24 @@ class DrawerButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: rtl ? MainAxisAlignment.start :  MainAxisAlignment.end,
       children: [
-        IconButton(icon: Icon(Icons.menu), onPressed: (){
-          if (rtl){
-            Scaffold.of(context).openDrawer();
-          }
-          else{
-            Scaffold.of(context).openEndDrawer();
-          }
-        }),
+        Container(
+
+          decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
+            borderRadius: new BorderRadius.only(
+              bottomLeft: const Radius.circular(10)
+            )
+          ),
+          child: IconButton(
+              icon: Icon(Icons.menu), onPressed: (){
+            if (rtl){
+              Scaffold.of(context).openDrawer();
+            }
+            else{
+              Scaffold.of(context).openEndDrawer();
+            }
+          }),
+        ),
       ],
     );
   }
