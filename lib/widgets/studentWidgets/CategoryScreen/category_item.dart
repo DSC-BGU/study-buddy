@@ -20,26 +20,56 @@ class CategoryItem extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     return LayoutBuilder(
       builder: (ctx, constraints) {
-        return FlatButton(
-          onPressed: () => selectCategory(context),
+        return Container(
+          width: constraints.maxWidth * 0.24,
+          height: constraints.maxHeight * 0.11,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Theme.of(context).primaryColor,
+          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Icon(category.icon),
-              Center(
-                child: Text(
-                  this.category.title,
-                  style: Theme.of(context).textTheme.title,
-                ),
+              IconButton(
+                icon: this.category.icon,
+                onPressed: () => selectCategory(context),
+              ),
+              Text(
+                this.category.title,
+                style: Theme.of(context).textTheme.title,
               ),
             ],
           ),
-          minWidth: constraints.maxWidth * 0.4,
-          color: Theme.of(context).accentColor,
-          textColor: Colors.black,
-          height: constraints.maxHeight * 0.11,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         );
+
+        //  Column(
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        //     IconButton(
+        //       icon: this.category.icon,
+        //       onPressed: () => selectCategory(context),
+        //       highlightColor: ,
+        //     ),
+        //     Text(
+        //       this.category.title,
+        //       style: Theme.of(context).textTheme.title,
+        //     ),
+        //   ],
+        // );
+
+        // return FlatButton(
+        //   onPressed: () => selectCategory(context),
+        //   child: Text(
+        //     this.category.title,
+        //     style: Theme.of(context).textTheme.title,
+        //   ),
+        //   minWidth: constraints.maxWidth * 0.4,
+        //   color: Theme.of(context).accentColor,
+        //   textColor: Colors.black,
+        //   height: constraints.maxHeight * 0.11,
+        //   shape:
+        //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        // );
       },
     );
 
