@@ -5,11 +5,9 @@ import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
-import 'package:study_buddy/widgets/designs/TopCurve.dart';
 import '../../app_localizations.dart';
 import '../../models/sharedModels/Category.dart' as Cat;
 import '../../providers/sharedProviders/StoreProvider.dart';
-import '../../widgets/studentWidgets/CategoryScreen/advertising.dart';
 import '../../widgets/studentWidgets/CategoryScreen/category_item.dart';
 import 'DrawerButton.dart';
 import 'MyCoupons.dart';
@@ -38,8 +36,8 @@ class CategoriesScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: constraints.maxHeight * 0.03,
-                            bottom: constraints.maxHeight * 0.03),
+                          top: constraints.maxHeight * 0.03,
+                        ),
                         child: Container(
                           child: Column(
                             children: [
@@ -52,16 +50,18 @@ class CategoriesScreen extends StatelessWidget {
                                 t("Hii") + " " + user.name,
                                 style: TextStyle(fontSize: 34),
                               ),
-                              Text("You have" +
+                              Text(t("You have") +
                                   " " +
                                   user.points.toString() +
                                   " " +
-                                  "points"),
+                                  t("points")),
                             ],
                           ),
                         ),
                       ),
                       Container(
+                        margin:
+                            EdgeInsets.only(top: constraints.maxHeight * 0.014),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +69,6 @@ class CategoriesScreen extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              // child: Flexible(
                               child: GridView.count(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 10,
@@ -77,10 +76,15 @@ class CategoriesScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(15),
                                 children: categoriesList
-                                    .map((c) => CategoryItem(c))
+                                    .map(
+                                      (c) => CategoryItem(
+                                        category: c,
+                                        width: constraints.maxWidth * 0.24,
+                                        height: constraints.maxHeight * 0.14,
+                                      ),
+                                    )
                                     .toList(),
                               ),
-                              // ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
