@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-class ScannerScreen extends StatelessWidget {
-  static const routeName = '/scanScreen';
-
+class ScanButton extends StatelessWidget {
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+        '#ff6666',
+        'Cancel',
+        true,
+        ScanMode.QR,
+      );
       print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
@@ -19,16 +22,11 @@ class ScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future<String> barcodeScanRes = FlutterBarcodeScanner.scanBarcode(
-    //   '#ff6666',
-    //   'Cancel',
-    //   true,
-    //   ScanMode.QR,
-    // );
-    return Container(
-        alignment: Alignment.center,
-        child: RaisedButton(
-            onPressed: () => scanBarcodeNormal(),
-            child: Text("Start barcode scan")));
+    return FloatingActionButton(
+      child: Icon(AntDesign.barcode),
+      onPressed: () {
+        scanBarcodeNormal();
+      },
+    );
   }
 }
