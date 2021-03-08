@@ -24,7 +24,6 @@ class UserWalletCoupons extends StatelessWidget {
                 context: ctx,
                 builder: (ctx) => PopUpQR(ctx, purchasedCoupons[index]),
               );
-              // userProvider.useCoupon(purchasedCoupons[index].couponId);
             }
           },
           child: WalletCoupon(purchasedCoupon: purchasedCoupons[index]),

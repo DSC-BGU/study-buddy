@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/app_localizations.dart';
 import '../../../providers/sharedProviders/StoreProvider.dart';
 import '../../../models/studentModels/couponModels/Coupon.dart';
 import '../../../models/studentModels/couponModels/PurchasedCoupon.dart';
@@ -15,11 +16,14 @@ class WalletCoupon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     StoreProvider storeProvider = Provider.of<StoreProvider>(context);
     Coupon coupon = storeProvider.getCouponById(purchasedCoupon.couponId);
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
-        margin: EdgeInsets.all(8),
+        decoration:
+            BoxDecoration(border: Border.all(color: Colors.white, width: 5)),
+        margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
         height: constraints.maxWidth * 0.5,
         child: Stack(
           children: [
@@ -38,35 +42,48 @@ class WalletCoupon extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '  ' +
-                          storeProvider.getStoreById(coupon.storeId).name +
-                          '\n',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      margin: EdgeInsets.only(right: 5, left: 5),
+                      child: Text(
+                        t(storeProvider.getStoreById(coupon.storeId).name) +
+                            '\n',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text(
-                      '  ' + coupon.title,
-                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    Container(
+                      margin: EdgeInsets.only(right: 5, left: 5),
+                      child: Text(
+                        t(coupon.title),
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
                     ),
-                    Text(
-                      '  ' + coupon.description,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    Container(
+                      margin: EdgeInsets.only(right: 5, left: 5),
+                      child: Text(
+                        t(coupon.description),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                    Text(
-                      '  points: ' + coupon.points.toString() + ' ',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      margin: EdgeInsets.only(right: 5, left: 5),
+                      child: Text(
+                        t('points: ') + coupon.points.toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Text(
-                      '  ' +
-                          DateFormat('dd/MM/yyyy')
-                              .format(purchasedCoupon.datePurhcased),
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    Container(
+                      margin: EdgeInsets.only(right: 5, left: 5),
+                      child: Text(
+                        DateFormat('dd/MM/yyyy')
+                            .format(purchasedCoupon.datePurhcased),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
                   ]),
             ),
