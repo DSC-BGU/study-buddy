@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import '../../../app_localizations.dart';
 import '../../../models/sharedModels/Category.dart' as Cat;
 import '../../../Screens/studentScreens/category_stores_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   final Cat.Category category;
+  final double width;
+  final double height;
 
-  CategoryItem(this.category);
+  CategoryItem({
+    this.category,
+    this.width,
+    this.height,
+  });
 
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
@@ -16,30 +23,37 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => selectCategory(context),
-      splashColor: Theme.of(context).primaryColor,
-      // borderRadius: BorderRadius.circular(10),
-      child: Container(
-        child: Center(
-          child: Text(
-            this.category.title,
-            style: Theme.of(context).textTheme.title,
+    String t(String text) => AppLocalizations.of(context).translate(text);
+    return Container(
+      width: this.width,
+      height: this.height,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: height * 0.9,
+            width: height * 0.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).primaryColor,
+            ),
+            child: IconButton(
+              icon: this.category.icon,
+              iconSize: 48,
+              color: Colors.white,
+              onPressed: () => selectCategory(context),
+            ),
           ),
-        ),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).primaryColor.withOpacity(0.8),
-              Theme.of(context).primaryColor.withOpacity(0.7),
-              // color.withOpacity(0.7),
-              // color,
-            ],
-            // begin: Alignment.center,
-            // end: Alignment.center,
+          Padding(
+            padding: EdgeInsets.only(top: this.height * 0.07),
+            child: Text(
+              t(this.category.title),
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
           ),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        ],
       ),
     );
   }
