@@ -58,36 +58,5 @@ class CategoryItem extends StatelessWidget {
         ],
       ),
     );
-
-    //  Column(
-    //   mainAxisSize: MainAxisSize.min,
-    //   children: [
-    //     IconButton(
-    //       icon: this.category.icon,
-    //       onPressed: () => selectCategory(context),
-    //       highlightColor: ,
-    //     ),
-    //     Text(
-    //       this.category.title,
-    //       style: Theme.of(context).textTheme.title,
-    //     ),
-    //   ],
-    // );
-
-    // return FlatButton(
-    //   onPressed: () => selectCategory(context),
-    //   child: Text(
-    //     this.category.title,
-    //     style: Theme.of(context).textTheme.title,
-    //   ),
-    //   minWidth: constraints.maxWidth * 0.4,
-    //   color: Theme.of(context).accentColor,
-    //   textColor: Colors.black,
-    //   height: constraints.maxHeight * 0.11,
-    //   shape:
-    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    // );
-    //   },
-    // );
   }
 }
