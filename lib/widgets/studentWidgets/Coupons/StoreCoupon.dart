@@ -47,11 +47,11 @@ class StoreCoupon extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 24),
                           ),
                           Text(
-                            '  ' + coupon.description,
+                            coupon.description,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           Text(
-                            t('  points: ') + coupon.points.toString() + ' ',
+                            t('points') + ':' + coupon.points.toString() + ' ',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

@@ -34,23 +34,28 @@ class StoreScreen extends StatelessWidget {
                 Container(
                   height: constraints.maxHeight * 0.18,
                   child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          '\n' + t(store.name),
-                          style: TextStyle(fontSize: 25),
-                        ),
-                        Text(
-                          t(store.address),
-                          style: TextStyle(
-                            fontSize: 18,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: constraints.maxHeight * 0.03,
+                          bottom: constraints.maxHeight * 0.03),
+                      child: Column(
+                        children: [
+                          Text(
+                            store.name,
+                            style: TextStyle(fontSize: 25),
                           ),
-                        ),
-                        Text(
-                          t(store.description),
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            store.address,
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            store.description,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -58,7 +63,7 @@ class StoreScreen extends StatelessWidget {
                   child: CustomScrollView(
                     slivers: <Widget>[
                       SliverFixedExtentList(
-                        itemExtent: 220.0,
+                        itemExtent: constraints.maxWidth * 0.53,
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return list[index];
