@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
+import '../../../app_localizations.dart';
 import './PopUpBuy.dart';
 import '../../../models/studentModels/couponModels/Coupon.dart';
 
@@ -12,11 +13,12 @@ class StoreCoupon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider = Provider.of<UserProvider>(context);
     return LayoutBuilder(builder: (ctx, constraints) {
       return Container(
         height: constraints.maxWidth * 0.5,
-        margin: EdgeInsets.all(6),
+        margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
         child: Container(
           decoration:
               BoxDecoration(border: Border.all(color: Colors.white, width: 5)),
@@ -45,11 +47,11 @@ class StoreCoupon extends StatelessWidget {
                             style: TextStyle(color: Colors.white, fontSize: 24),
                           ),
                           Text(
-                            '  ' + coupon.description,
+                            coupon.description,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           Text(
-                            '  points: ' + coupon.points.toString() + ' ',
+                            t('points') + ':' + coupon.points.toString() + ' ',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -80,7 +82,7 @@ class StoreCoupon extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                                 label: Text(
-                                  'Buy Coupon',
+                                  t('Buy Coupon'),
                                   style: TextStyle(color: Colors.black),
                                 )),
                           )

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/widgets/designs/Background.dart';
+import '../../app_localizations.dart';
 import '../../models/sharedModels/Store.dart' as St;
 import '../../widgets/studentWidgets/Coupons/StoreCoupon.dart';
+import 'DrawerButton.dart';
+import 'DrawerMenu.dart';
 
 class StoreScreenArguments {
   StoreScreenArguments();
@@ -12,50 +16,68 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String t(String text) => AppLocalizations.of(context).translate(text);
     final routeArgs = ModalRoute.of(context).settings.arguments;
     St.Store store = routeArgs;
     List<StoreCoupon> list =
         store.coupons.map((e) => StoreCoupon(coupon: e)).toList();
     return Scaffold(
+        // resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text(store.name + ' '), Icon(Icons.store)]),
-        ),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              automaticallyImplyLeading: false,
-              title: Container(
-                color: Colors.black54,
-                child: Text(
-                  '${store.address}\n${store.description}',
-                  style: TextStyle(color: Theme.of(context).accentColor),
+        drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+        endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+        body: SafeArea(child: LayoutBuilder(
+          builder: (ctx, constraints) {
+            return Stack(children: [
+              Background(),
+              Column(children: [
+                Container(
+                  height: constraints.maxHeight * 0.18,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: constraints.maxHeight * 0.03,
+                          bottom: constraints.maxHeight * 0.03),
+                      child: Column(
+                        children: [
+                          Text(
+                            store.name,
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          Text(
+                            store.address,
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            store.description,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              backgroundColor: Colors.black,
-              expandedHeight: 100.0,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                background: Image.network(store.imageUrl, fit: BoxFit.cover),
-              ),
-            ),
-            SliverFixedExtentList(
-              itemExtent: 220.0,
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return list[index];
-                },
-                childCount: list.length,
-              ),
-              // delegate: SliverChildListDelegate(
-              //   list,
-              // ),
-            ),
-          ],
-        ));
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverFixedExtentList(
+                        itemExtent: constraints.maxWidth * 0.53,
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return list[index];
+                          },
+                          childCount: list.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+              DrawerButton(),
+            ]);
+          },
+        )));
   }
 }
