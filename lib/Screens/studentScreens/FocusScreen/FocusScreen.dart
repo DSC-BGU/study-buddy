@@ -68,7 +68,7 @@ class FocusScreen extends StatelessWidget {
                         ),
                       ),
                       FocusCircleSlider(
-                        height: constraints.maxHeight * 0.3,
+                        height: constraints.maxHeight * 0.32,
                         maxMinutes: 120,
                       ),
                       Column(
