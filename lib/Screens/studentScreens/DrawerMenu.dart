@@ -36,9 +36,7 @@ class DrawerMenu extends StatelessWidget {
                             width: MediaQuery.of(context).size.height *0.1,
                             margin: EdgeInsets.only(left:10),
                             child: CircleAvatar(
-                              backgroundImage: userProvider.image == null
-                                  ? AssetImage("assets/avatar_temp.jpg")
-                                  : NetworkImage(userProvider.image),
+                              backgroundImage: userProvider.imageProvider,
                             ),
                           ),
                           Container(

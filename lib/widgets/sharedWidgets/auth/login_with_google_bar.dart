@@ -76,11 +76,9 @@ class LoginWithGoogle extends StatelessWidget {
       ),
       onTap: () async {
         signInWithGoogle().whenComplete(() {
-
         }).then((userCredential) async {
           bool isBgu = userCredential.additionalUserInfo.profile['hd'] == "post.bgu.ac.il";
           if (userCredential.additionalUserInfo.isNewUser){
-
             await FirebaseFirestore.instance
                 .collection('users')
                 .doc(userCredential.user.uid)

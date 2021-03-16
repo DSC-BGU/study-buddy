@@ -40,9 +40,11 @@ class UserProvider with ChangeNotifier {
         List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
         this._name = userData['username'];
         this._points = userData['points'];
+        if(userData['photoURL'] != null){
+          this._image = userData['photoURL'];
+        }
         try {
           if (userData['business'] != null) {
-            print(userData['business']);
             this._business = userData['business'];
           }
         } catch (err) {
@@ -156,6 +158,12 @@ class UserProvider with ChangeNotifier {
   }
   String get image {
     return _image;
+  }
+
+  ImageProvider get imageProvider {
+    return _image == null
+        ? AssetImage("assets/avatar_temp.jpg")
+        : NetworkImage(this._image);
   }
 
   int get points {

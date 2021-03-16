@@ -47,8 +47,7 @@ class CategoriesScreen extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: constraints.maxHeight * 0.07,
-                                backgroundImage:
-                                    AssetImage("assets/avatar_temp.jpg"),
+                                backgroundImage: user.imageProvider,
                               ),
                               Text(
                                 t("Hi") + " " + user.name,
