@@ -14,6 +14,7 @@ class UserProvider with ChangeNotifier {
   String _name = '';
   int _points = 500;
   bool _business = false;
+  String _image = null;
   List<String> _purchasedCouponsId = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
   StreamSubscription _subscription = null;
@@ -39,9 +40,11 @@ class UserProvider with ChangeNotifier {
         List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
         this._name = userData['username'];
         this._points = userData['points'];
+        if(userData['photoURL'] != null){
+          this._image = userData['photoURL'];
+        }
         try {
           if (userData['business'] != null) {
-            print(userData['business']);
             this._business = userData['business'];
           }
         } catch (err) {
@@ -152,6 +155,15 @@ class UserProvider with ChangeNotifier {
 
   String get name {
     return _name;
+  }
+  String get image {
+    return _image;
+  }
+
+  ImageProvider get imageProvider {
+    return _image == null
+        ? AssetImage("assets/avatar_temp.jpg")
+        : NetworkImage(this._image);
   }
 
   int get points {
