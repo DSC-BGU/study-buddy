@@ -40,8 +40,8 @@ class FocusScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
+                      Container(
+                        margin: EdgeInsets.only(
                             top: constraints.maxHeight * 0.03,
                             bottom: constraints.maxHeight * 0.03),
                         child: Container(
@@ -60,8 +60,11 @@ class FocusScreen extends StatelessWidget {
                                   " " +
                                   user.points.toString() +
                                   " " +
-                                  t("points"))
-                            ],
+                                  t("points")),
+                              focusProvider.mode == FocusMode.coop ? Container(
+                                  margin: EdgeInsets.only(top: constraints.maxHeight*0.03),
+                                  child: Text(t("Social session") + " 💪", style: TextStyle(fontSize:20))) : null,
+                            ].where((element) => element!=null).toList(),
                           ),
                         ),
                       ),
@@ -118,14 +121,14 @@ class FocusScreen extends StatelessWidget {
                                     ),
                             ].where((element) => element != null).toList(),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
+                          focusProvider.mode == FocusMode.solo ? Container(
+                            margin: const EdgeInsets.only(top: 5),
                             child: Text(
                               t("want to get more points? focus with your friends"),
                               style: TextStyle(fontSize: 12),
                             ),
-                          ),
-                        ],
+                          ) : null,
+                        ].where((element) => element != null).toList(),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),

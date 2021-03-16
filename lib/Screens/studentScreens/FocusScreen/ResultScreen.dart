@@ -22,10 +22,10 @@ class ResultScreen extends StatelessWidget {
                 ),
                 Text(
                   ((args.success
-                          ? t("You just got ")
-                          : t("You could have get ")) +
+                          ? t("You just got")
+                          : t("You could have get")) + " " +
                       args.points.toString() +
-                      t(" points")),
+                      " " + t("points")),
                   style: Theme.of(context).textTheme.headline5,
                 )
               ],
@@ -36,7 +36,7 @@ class ResultScreen extends StatelessWidget {
                     args.success ? "assets/present.png" : "assets/sad.png")),
             RaisedButton(
               onPressed: () => {Navigator.of(context).pop()},
-              child: Text("Go Back"),
+              child: Text(t("Go Back")),
               color: Theme.of(context).primaryColor,
             )
           ],
