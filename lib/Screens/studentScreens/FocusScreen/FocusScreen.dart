@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/Screens/studentScreens/categories_screen.dart';
@@ -9,7 +8,6 @@ import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
-import 'package:study_buddy/widgets/designs/TopCurve.dart';
 import 'package:study_buddy/widgets/studentWidgets/MainScreen/FocusWithFriendsModal.dart';
 import '../../../app_localizations.dart';
 import '../../../providers/studentProviders/FocusProvider.dart';

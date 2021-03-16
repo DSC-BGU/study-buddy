@@ -14,6 +14,7 @@ class UserProvider with ChangeNotifier {
   String _name = '';
   int _points = 500;
   bool _business = false;
+  String _image = null;
   List<String> _purchasedCouponsId = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
   StreamSubscription _subscription = null;
@@ -152,6 +153,9 @@ class UserProvider with ChangeNotifier {
 
   String get name {
     return _name;
+  }
+  String get image {
+    return _image;
   }
 
   int get points {
