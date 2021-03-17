@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
 
 class ScanButton extends StatelessWidget {
-  Future<void> scanBarcodeNormal() async {
+  Future<void> scanBarcode(BuildContext ctx) async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -13,7 +14,10 @@ class ScanButton extends StatelessWidget {
         true,
         ScanMode.QR,
       );
-      print(barcodeScanRes);
+      Navigator.of(ctx).pushNamed(
+        ScanDetailsScreen.routeName,
+        arguments: barcodeScanRes,
+      );
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -24,7 +28,7 @@ class ScanButton extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(AntDesign.barcode),
       onPressed: () {
-        scanBarcodeNormal();
+        scanBarcode(context);
       },
     );
   }

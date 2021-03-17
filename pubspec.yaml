@@ -55,6 +55,7 @@ dependencies:
   wakelock: ^0.4.0
   is_lock_screen: ^1.0.0
   flutter_barcode_scanner: ^1.0.2
+  rflutter_alert: ^2.0.2
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

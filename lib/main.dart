@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
@@ -105,7 +106,8 @@ class MyApp extends StatelessWidget {
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
           AuthScreen.routeName: (ctx) => AuthScreen(),
-          'tabScreen': (ctx) => TabsScreen()
+          'tabScreen': (ctx) => TabsScreen(),
+          ScanDetailsScreen.routeName: (ctx) => ScanDetailsScreen(),
         },
       ),
     );
