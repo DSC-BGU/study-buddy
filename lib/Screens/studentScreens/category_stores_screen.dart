@@ -22,7 +22,7 @@ class CategoryStoresScreen extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle),
+        title: Text(t(categoryTitle)),
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {

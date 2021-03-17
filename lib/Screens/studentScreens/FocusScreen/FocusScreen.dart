@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/Screens/studentScreens/categories_screen.dart';
@@ -9,7 +8,6 @@ import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
-import 'package:study_buddy/widgets/designs/TopCurve.dart';
 import 'package:study_buddy/widgets/studentWidgets/MainScreen/FocusWithFriendsModal.dart';
 import '../../../app_localizations.dart';
 import '../../../providers/studentProviders/FocusProvider.dart';
@@ -42,8 +40,8 @@ class FocusScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
+                      Container(
+                        margin: EdgeInsets.only(
                             top: constraints.maxHeight * 0.03,
                             bottom: constraints.maxHeight * 0.03),
                         child: Container(
@@ -52,7 +50,7 @@ class FocusScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: constraints.maxHeight * 0.07,
                                 backgroundImage:
-                                    AssetImage("assets/avatar_temp.jpg"),
+                                    user.imageProvider
                               ),
                               Text(
                                 t("Hi") + " " + user.name,
@@ -62,8 +60,11 @@ class FocusScreen extends StatelessWidget {
                                   " " +
                                   user.points.toString() +
                                   " " +
-                                  t("points"))
-                            ],
+                                  t("points")),
+                              focusProvider.mode == FocusMode.coop ? Container(
+                                  margin: EdgeInsets.only(top: constraints.maxHeight*0.03),
+                                  child: Text(t("Social session") + " 💪", style: TextStyle(fontSize:20))) : null,
+                            ].where((element) => element!=null).toList(),
                           ),
                         ),
                       ),
@@ -120,14 +121,14 @@ class FocusScreen extends StatelessWidget {
                                     ),
                             ].where((element) => element != null).toList(),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
+                          focusProvider.mode == FocusMode.solo ? Container(
+                            margin: const EdgeInsets.only(top: 5),
                             child: Text(
                               t("want to get more points? focus with your friends"),
                               style: TextStyle(fontSize: 12),
                             ),
-                          ),
-                        ],
+                          ) : null,
+                        ].where((element) => element != null).toList(),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),

@@ -38,62 +38,55 @@ class CategoriesScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
+                      Container(
+                        margin: EdgeInsets.only(
                           top: constraints.maxHeight * 0.03,
                         ),
-                        child: Container(
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: constraints.maxHeight * 0.07,
-                                backgroundImage:
-                                    AssetImage("assets/avatar_temp.jpg"),
-                              ),
-                              Text(
-                                t("Hi") + " " + user.name,
-                                style: TextStyle(fontSize: 34),
-                              ),
-                              Text(t("You have") +
-                                  " " +
-                                  user.points.toString() +
-                                  " " +
-                                  t("points")),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: constraints.maxHeight * 0.07,
+                              backgroundImage: user.imageProvider,
+                            ),
+                            Text(
+                              t("Hi") + " " + user.name,
+                              style: TextStyle(fontSize: 34),
+                            ),
+                            Text(t("You have") +
+                                " " +
+                                user.points.toString() +
+                                " " +
+                                t("points")),
+                          ],
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.only(top: constraints.maxHeight * 0.014),
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: GridView.count(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(15),
-                                children: categoriesList
-                                    .map(
-                                      (c) => CategoryItem(
-                                        category: c,
-                                        width: constraints.maxWidth * 0.24,
-                                        height: constraints.maxHeight * 0.14,
-                                      ),
-                                    )
-                                    .toList(),
+                      Expanded(
+                        child: Container(
+                          margin:
+                              EdgeInsets.only(top: constraints.maxHeight * 0.014),
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: GridView.count(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: constraints.maxHeight * 0.03,
+                                  shrinkWrap: true,
+                                  children: categoriesList
+                                      .map(
+                                        (c) => CategoryItem(
+                                          category: c,
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 15),
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10),
+                              Container(
+                                margin: EdgeInsets.only(top: 10, bottom: 15),
                                 child: Button(
                                   onPressed: () {
                                     Navigator.of(context)
@@ -106,8 +99,8 @@ class CategoriesScreen extends StatelessWidget {
                                   height: constraints.maxHeight * 0.08,
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
