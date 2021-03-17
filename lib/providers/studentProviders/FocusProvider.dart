@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +5,7 @@ import 'package:study_buddy/Screens/studentScreens/FocusScreen/ResultScreen.dart
 import 'package:study_buddy/main.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 import './user_provider.dart';
 
@@ -60,7 +59,12 @@ class FocusProvider with ChangeNotifier {
   }
 
   void onFocus(BuildContext context) {
-    const oneMinutes = const Duration(seconds: 1);
+    Duration oneMinutes;
+    if (kReleaseMode) {
+      oneMinutes = const Duration(minutes: 1);
+    } else {
+      oneMinutes = const Duration(seconds: 1);
+    }
     if (_mode == FocusMode.coop) {
       if (_sessionAdmin) {
         FirebaseFirestore.instance
@@ -90,8 +94,13 @@ class FocusProvider with ChangeNotifier {
       }
     }
     _timer = new Timer.periodic(oneMinutes, (Timer timer) {
-      int points = _targetTime.inMinutes;
       if (_remainTime.inMinutes < 1) {
+        if (kReleaseMode) {
+
+        } else {
+          // Will be tree-shaked on release builds.
+        }
+        int points = _mode == FocusMode.coop ? _targetTime.inMinutes*2 : _targetTime.inMinutes; // FIXME: check if there is more then one participant
         Navigator.of(context).pushNamed(ResultScreen.routeName,
             arguments: ResultScreenArguments(success: true, points: points));
         timer.cancel();
@@ -124,6 +133,7 @@ class FocusProvider with ChangeNotifier {
     Navigator.of(context).pushNamed(ResultScreen.routeName,
         arguments: ResultScreenArguments(success: false, points: points));
     _focus = false;
+    _targetTime = _remainTime;
     _timer.cancel();
     if (_mode == FocusMode.coop) {
       FirebaseFirestore.instance

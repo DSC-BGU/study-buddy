@@ -24,37 +24,38 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return Container(
-      width: this.width,
-      height: this.height,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: height * 0.9,
-            width: height * 0.9,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Theme.of(context).primaryColor,
-            ),
-            child: IconButton(
-              icon: this.category.icon,
-              iconSize: 48,
-              color: Colors.white,
-              onPressed: () => selectCategory(context),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: this.height * 0.07),
-            child: Text(
-              t(this.category.title),
-              style: TextStyle(
-                fontSize: 18,
+    return
+      LayoutBuilder(builder:(ctx, constraints) {
+        return Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: constraints.maxHeight * 0.80,
+                width: constraints.maxHeight * 0.80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: IconButton(
+                  icon: this.category.icon,
+                  iconSize: 48,
+                  color: Colors.white,
+                  onPressed: () => selectCategory(context),
+                ),
               ),
-            ),
+              Container(
+                margin: EdgeInsets.only(top: constraints.maxHeight * 0.01),
+                child: Text(
+                  t(this.category.title),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        );
+      });
   }
 }

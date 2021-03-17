@@ -53,11 +53,11 @@ class PopUpBuy extends StatelessWidget {
             Text(this.coupon.title,
                 style: TextStyle(color: Colors.white, fontSize: 24)),
             Text(
-              this.coupon.points.toString() + " pts",
+              this.coupon.points.toString() + " " + t("points"),
               style: TextStyle(color: Colors.white, fontSize: 22),
             ),
             Text(
-              t('Are you sure?'),
+              t('Are you sure') + "?",
               style: TextStyle(color: Colors.white, fontSize: 19),
             ),
             Row(

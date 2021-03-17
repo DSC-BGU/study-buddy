@@ -43,7 +43,7 @@ class DrawerMenu extends StatelessWidget {
                               margin: EdgeInsets.only(left: 15),
                               child: Column(
                                 children: [
-                                  Text(userProvider.name),
+                                  Text(userProvider.name, style:TextStyle(fontWeight: FontWeight.bold)),
                                   Text(userProvider.points.toString() +
                                       " " +
                                       t("points")),
@@ -84,7 +84,7 @@ class DrawerMenu extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 child: ListTile(
                   leading: Icon(Icons.shopping_bag),
-                  title: Text(t("Coupons Store")),
+                  title: Text(t("Coupons store")),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.of(context).pushNamed(CategoriesScreen.routeName);
