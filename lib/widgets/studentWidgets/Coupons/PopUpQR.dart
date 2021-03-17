@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -55,22 +56,28 @@ class PopUpQR extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: constraints.maxHeight * 0.07,
-              width: constraints.maxWidth * 0.48,
-              child: TextButton(
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)))),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(Colors.grey)),
-                child: Text(
-                  t('Got it, Thanks'),
-                  style: TextStyle(fontSize: 19),
-                ),
-                onPressed: () => useCoupon(context, userProvider),
-              ),
-            )
+            kReleaseMode
+                ? null
+                : Container(
+                    height: constraints.maxHeight * 0.07,
+                    width: constraints.maxWidth * 0.48,
+                    child: TextButton(
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)))),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey)),
+                      child: Text(
+                        t('Got it, Thanks'),
+                        style: TextStyle(fontSize: 19),
+                      ),
+                      onPressed: () => useCoupon(context, userProvider),
+                    ),
+                  ),
           ],
         ),
       );
