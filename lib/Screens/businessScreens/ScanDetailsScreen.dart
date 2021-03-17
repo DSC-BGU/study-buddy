@@ -26,12 +26,12 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
   String couponName = null;
   int points = null;
   bool init = false;
-  bool valid = false;
   bool used;
   DateTime dateExpired;
 
   void useCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
+    approvePurchaseAlert();
     userProvider.useCoupon(this.purchasedId);
   }
 
@@ -92,11 +92,29 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
   }
 
   bool isValid(bool used, DateTime dateExpired) {
-    print('check if valid. used = ' +
-        used.toString() +
-        ' and date = ' +
-        dateExpired.toString());
-    return !used && DateTime.now().compareTo(dateExpired) > 0;
+    return !used && DateTime.now().compareTo(dateExpired) < 0;
+  }
+
+  void approvePurchaseAlert() {
+    Alert(
+      context: context,
+      title: 'Approved',
+      desc: 'Coupon succussfuly used',
+      closeIcon: Icon(Icons.verified),
+      buttons: [
+        DialogButton(
+          child: Text(
+            'COOL',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            // @TODO!!! hanle this
+            Navigator.pop(context);
+          },
+          width: 120,
+        )
+      ],
+    ).show();
   }
 
   void notValidCouponAlert() {
@@ -125,15 +143,15 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
   Widget build(BuildContext context) {
     bringData();
     if (loading) {
-      if (isValid(used, dateExpired)) {
-        print('VALID!');
+      if (this.userName != null &&
+          this.dateExpired != null &&
+          isValid(used, dateExpired)) {
         setState(() {
           loading = false;
         });
       }
       // @TODO!!! ask roei if its ok (async programming wize)!!!
       else {
-        print('NOT VALID!');
         notValidCouponAlert();
       }
     }
