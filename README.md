@@ -1,6 +1,7 @@
 # Paid Attention
 
-A new Flutter project.
+A flutter application, developed by 4 team members at BGU DSC in Israel.
+Participates in the DCS solution Challenge.
 
 ## Getting Started
 
