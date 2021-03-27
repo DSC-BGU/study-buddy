@@ -9,7 +9,7 @@ This project is a Flutter application.
 
 Running this application is just like any other Flutter application.
 You will need:
-1. Download Flutter to your computer.
+1. [Download Flutter to your computer.](https://roei-bracha.github.io/flutter-codelab-quiz/#0)
 2. Clone our project's repository.
 3. Connect yout device \ start an emulator.
 4. Run the application and enjoy :)
