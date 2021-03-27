@@ -1,10 +1,21 @@
-# study_buddy
+# Paid Attention
 
 A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a Flutter application.
+
+Running this application is just like any other Flutter application.
+You will need:
+1. Download Flutter to your computer.
+2. Clone our project's repository.
+3. Connect yout device \ start an emulator.
+4. Run the application and enjoy :)
+
+Notes:
+1. We can also provide an apk file if you wish.
+2. Our application is also supported at Hebrew devices.
 
 A few resources to get you started if this is your first Flutter project:
 
