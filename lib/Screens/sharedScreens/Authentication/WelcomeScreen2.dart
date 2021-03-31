@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
@@ -32,29 +29,28 @@ class WelcomeScreen extends StatelessWidget {
                           "assets/kidsWithClock.svg",
                         )),
                     Container(
-                        width:  constraints.maxWidth * 0.7 ,
-                        child:Image.asset("assets/logo-temp2.png")
-                    ),
+                        width: constraints.maxWidth * 0.7,
+                        child: Image.asset("assets/logo.png")),
                     Container(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8.0),
-                          child: Column(
-                            children: [
-                              LoginWithGoogle(
-                                true,
-                                width: constraints.maxWidth * 0.5,
-                              ),
-                              Container(
-                                  child: Button(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pushNamed(AuthScreen.routeName);
-                                    },
-                                    child: Text(t('Businesses Entrance')),
-                                    pink: true,
-                                  ))
-                            ],
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8.0),
+                      child: Column(
+                        children: [
+                          LoginWithGoogle(
+                            true,
+                            width: constraints.maxWidth * 0.5,
                           ),
-                        ))
+                          Container(
+                              child: Button(
+                            onPressed: () {
+                              Navigator.of(ctx).pushNamed(AuthScreen.routeName);
+                            },
+                            child: Text(t('Businesses Entrance')),
+                            pink: true,
+                          ))
+                        ],
+                      ),
+                    ))
                   ],
                 ),
               )
