@@ -17,7 +17,8 @@ class DrawerButton extends StatelessWidget {
           Container(
             height: constraints.maxHeight * 0.09,
             decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context)
+                    .accentColor, // @TODO: change for primaryColor when used at business part
                 borderRadius: new BorderRadius.only(
                     bottomLeft: const Radius.circular(10))),
             child: IconButton(

@@ -59,5 +59,8 @@
   "Coupon been used before or it is expired": "הקופון כבר מומש בעבר או שפג תוקפו",
   "Cancel": "ביטול",
   "Approve": "אישור",
-  "Decline": "דחיה"
+  "Decline": "דחיה",
+  "Create new coupon": "יצירת קופון חדש",
+  "Manage coupons": "ניהול קופונים",
+  "Scan barcode": "סריקת קוד"
 }
