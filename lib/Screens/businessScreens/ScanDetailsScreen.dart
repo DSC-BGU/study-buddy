@@ -21,13 +21,16 @@ class ScanDetailsScreen extends StatefulWidget {
 
 class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
   bool loading = true;
-  String purchasedId = null;
-  String userName = null;
-  String couponName = null;
-  int points = null;
+  String purchasedId;
+  String userName;
+  String couponTitle;
+  String couponDescription;
+  String couponImage; // for now, not in use
+  int points;
   bool init = false;
   bool used;
   DateTime dateExpired;
+  bool valid;
 
   void useCoupon(BuildContext context, UserProvider userProvider) {
     Navigator.pop(context);
@@ -66,10 +69,12 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
           .then((doc) {
         Map data = doc.data();
         setState(() {
-          this.couponName = data['description'];
+          this.couponTitle = data['title'];
+          this.couponDescription = data['description'];
           this.points = data['points'];
           Timestamp time = data['dateExpired'];
           this.dateExpired = time.toDate();
+          this.couponImage = data['imageUrl'];
         });
       });
       FirebaseFirestore.instance
@@ -91,10 +96,6 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
     super.initState();
   }
 
-  bool isValid(bool used, DateTime dateExpired) {
-    return !used && DateTime.now().compareTo(dateExpired) < 0;
-  }
-
   void approvePurchaseAlert() {
     Alert(
       context: context,
@@ -108,7 +109,6 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            // @TODO!!! hanle this
             Navigator.pop(context);
           },
           width: 120,
@@ -117,42 +117,34 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
     ).show();
   }
 
-  void notValidCouponAlert() {
-    Alert(
-      context: context,
-      type: AlertType.error,
-      title: 'Invalid Coupon',
-      desc: 'Coupon been used before or it is expired',
-      buttons: [
+  AlertDialog notValidCouponAlert() {
+    return AlertDialog(
+      title: Text('Invalid Coupon'),
+      content: Text('Coupon been used before or it is expired'),
+      actions: [
         DialogButton(
           child: Text(
             'Cancel',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            // @TODO!!! hanle this
             Navigator.pop(context);
           },
           width: 120,
         )
       ],
-    ).show();
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     bringData();
     if (loading) {
-      if (this.userName != null &&
-          this.dateExpired != null &&
-          isValid(used, dateExpired)) {
+      if (this.userName != null && this.dateExpired != null) {
         setState(() {
           loading = false;
+          valid = !used && DateTime.now().compareTo(dateExpired) < 0;
         });
-      }
-      // @TODO!!! ask roei if its ok (async programming wize)!!!
-      else {
-        notValidCouponAlert();
       }
     }
 
@@ -176,63 +168,83 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
               ),
             );
           } else {
-            return Stack(
-              children: [
-                Background(),
-                DrawerButton(),
-                Container(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Center(
-                        child: Text(this.couponName),
-                      ),
-                      Center(
-                        child: Text(this.userName),
-                      ),
-                      Row(
+            if (valid) {
+              return Stack(
+                children: [
+                  Background(),
+                  DrawerButton(),
+                  Container(
+                      width: double.infinity,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            width: constraints.maxWidth * 0.24,
-                            child: FlatButton(
-                              onPressed: () {},
-                              child: Text(
-                                t("decline"),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              minWidth: constraints.maxWidth * 0.4,
-                              color: Theme.of(context).accentColor,
-                              height: constraints.maxHeight * 0.11,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                          Center(
+                            child: Text(
+                              this.userName +
+                                  ' ' +
+                                  t('just entered your store'),
+                              style: TextStyle(fontSize: 25),
                             ),
                           ),
-                          Container(
-                            width: constraints.maxWidth * 0.24,
-                            child: FlatButton(
-                              onPressed: () => useCoupon(context, userProvider),
-                              child: Text(
-                                t("approve"),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              minWidth: constraints.maxWidth * 0.4,
-                              color: Theme.of(context).accentColor,
-                              height: constraints.maxHeight * 0.11,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                          Center(
+                            child: Text(
+                              t('The coupon') + ': ' + t(this.couponTitle),
+                              style: TextStyle(fontSize: 22),
                             ),
+                          ),
+                          Center(
+                            child: Text(
+                              t('More details \\ terms') +
+                                  ': ' +
+                                  t(this.couponDescription),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                width: constraints.maxWidth * 0.24,
+                                child: FlatButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text(
+                                    t("decline"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  minWidth: constraints.maxWidth * 0.4,
+                                  color: Theme.of(context).accentColor,
+                                  height: constraints.maxHeight * 0.11,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                              ),
+                              Container(
+                                width: constraints.maxWidth * 0.24,
+                                child: FlatButton(
+                                  onPressed: () =>
+                                      useCoupon(context, userProvider),
+                                  child: Text(
+                                    t("approve"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  minWidth: constraints.maxWidth * 0.4,
+                                  color: Theme.of(context).accentColor,
+                                  height: constraints.maxHeight * 0.11,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
+                      )),
+                ],
+              );
+            } else {
+              return notValidCouponAlert();
+            }
           }
         }),
       ),
