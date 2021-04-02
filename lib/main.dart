@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FocusProvider()),
       ],
       child: MaterialApp(
-        title: 'Study Buddy',
+        title: 'Paid Attention',
         navigatorObservers: [
           locator<AnalyticsService>().getAnalyticsObserver()
         ],

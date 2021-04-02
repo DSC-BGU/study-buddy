@@ -63,14 +63,18 @@ class StoreProvider with ChangeNotifier {
     databaseReference.collection('stores').snapshots().listen((snapshot) {
       List<Store> templst = [];
       snapshot.docs.forEach((doc) {
-        templst.add(Store(
-            id: doc.id,
-            name: doc['name'],
-            address: doc['address'],
-            imageUrl: doc['imageUrl'],
-            description: doc['description'],
-            coupons: createCouponList(doc['coupons']),
-            categories: createCategoryList(doc['categories'])));
+        try {
+          templst.add(Store(
+              id: doc.id,
+              name: doc['name'],
+              address: doc['address'],
+              imageUrl: doc['imageUrl'],
+              description: doc['description'],
+              coupons: createCouponList(doc['coupons']),
+              categories: createCategoryList(doc['categories'])));
+        } catch (e) {
+          print(e);
+        }
       });
       this.availableStores = templst;
       notifyListeners();

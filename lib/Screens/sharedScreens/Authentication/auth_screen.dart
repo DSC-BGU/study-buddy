@@ -50,7 +50,7 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'points': AuthScreen.INITIAL_POINTS, // points,
-          "purchased_coupons":[],
+          "purchased_coupons": [],
           'business': true
         });
       }
@@ -99,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   Container(
                     width: constraints.maxWidth * 0.42,
                     height: constraints.maxHeight * 0.16,
-                    child: Image.asset("assets/logo-temp.png"),
+                    child: Image.asset("assets/logo.png"),
                   ),
                   Container(
                     height: constraints.maxHeight * 0.78,
