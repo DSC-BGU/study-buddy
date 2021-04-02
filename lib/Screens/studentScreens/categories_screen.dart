@@ -34,9 +34,9 @@ class CategoriesScreen extends StatelessWidget {
                 Background(),
                 DrawerButton(),
                 Container(
-                  width: double.infinity,
+                  // width: double.infinity,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         margin: EdgeInsets.only(
@@ -60,50 +60,55 @@ class CategoriesScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          margin:
-                              EdgeInsets.only(top: constraints.maxHeight * 0.014),
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: GridView.count(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: constraints.maxHeight * 0.03,
-                                  shrinkWrap: true,
-                                  children: categoriesList
-                                      .map(
-                                        (c) => CategoryItem(
-                                          category: c,
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
+                      // Expanded(
+                      //   child:
+                      Container(
+                        margin:
+                            EdgeInsets.only(top: constraints.maxHeight * 0.014),
+                        width: double.infinity,
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: constraints.maxHeight * 0.7,
+                              width: constraints.maxWidth * 0.8,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: GridView.count(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 6,
+                                mainAxisSpacing: constraints.maxHeight * 0.03,
+                                shrinkWrap: true,
+                                children: categoriesList
+                                    .map(
+                                      (c) => CategoryItem(
+                                        category: c,
+                                      ),
+                                    )
+                                    .toList(),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 10, bottom: 15),
-                                child: Button(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed(MyCoupons.routeName);
-                                  },
-                                  child: Text(t("My coupons")),
-                                  icon: Icon(Ionicons.md_pricetag),
-                                  width: constraints.maxWidth * 0.7,
-                                  color: HexColor("#E1E0E0"),
-                                  height: constraints.maxHeight * 0.08,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  margin: EdgeInsets.only(
+                    top: 10,
+                    bottom: 15,
+                  ),
+                  child: Button(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(MyCoupons.routeName);
+                    },
+                    child: Text(t("My coupons")),
+                    icon: Icon(Ionicons.md_pricetag),
+                    width: constraints.maxWidth * 0.7,
+                    color: HexColor("#E1E0E0"),
+                    height: constraints.maxHeight * 0.08,
                   ),
                 ),
               ],

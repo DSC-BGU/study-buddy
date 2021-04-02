@@ -1,8 +1,8 @@
 {
-  "You are in focus": "אתה בפוקוס",
+  "You are in focus": "את/ה בפוקוס",
   "Please enter a valid email address.": "אנא הכנס כתובת דוא\"ל חוקית",
   "Email address": "דוא\"ל",
-  "Please enter at least 4 characters": "אנא הכנס לפחות ארבע תווים",
+  "Please enter at least 4 characters": "אנא הכנס/י לפחות ארבע תווים",
   "Username": "שם משתמש",
   "Password": "סיסמא",
   "Password must be at least 7 characters long.": "הסיסמא חייבת להיות באורך של שבעה תווים לפחות.",
@@ -45,8 +45,8 @@
   "Go Back": "חזור",
   "Stationery": "לימודים",
   "Cosmetics" :"קוסמטיקה",
-  "You are buying Coupon" : "אתה עומד לרכוש קופון",
-  "Are you sure": "האם אתה בטוח",
+  "You are buying Coupon" : "את/ה עומד/ת לרכוש קופון",
+  "Are you sure": "האם את/ה בטוח/ה",
   "Yes": "כן",
   "No": "לא"
 }

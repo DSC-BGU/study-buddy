@@ -24,38 +24,40 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return
-      LayoutBuilder(builder:(ctx, constraints) {
-        return Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                height: constraints.maxHeight * 0.80,
-                width: constraints.maxHeight * 0.80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: IconButton(
-                  icon: this.category.icon,
-                  iconSize: 48,
-                  color: Colors.white,
-                  onPressed: () => selectCategory(context),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 10,
+          bottom: 8,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: constraints.maxHeight * 0.80,
+              width: constraints.maxHeight * 0.80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                color: Theme.of(context).primaryColor,
+              ),
+              child: IconButton(
+                icon: this.category.icon,
+                iconSize: 55,
+                color: Colors.white,
+                onPressed: () => selectCategory(context),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: constraints.maxHeight * 0.01),
+              child: Text(
+                t(this.category.title),
+                style: TextStyle(
+                  fontSize: 16,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: constraints.maxHeight * 0.01),
-                child: Text(
-                  t(this.category.title),
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
