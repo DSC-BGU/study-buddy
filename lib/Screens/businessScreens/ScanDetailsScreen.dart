@@ -20,6 +20,8 @@ class ScanDetailsScreen extends StatefulWidget {
 }
 
 class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
+  String t(String text) => AppLocalizations.of(context).translate(text);
+
   bool loading = true;
   String purchasedId;
   String userName;
@@ -99,13 +101,13 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
   void approvePurchaseAlert() {
     Alert(
       context: context,
-      title: 'Approved',
-      desc: 'Coupon succussfuly used',
+      title: t('Approved'),
+      desc: t('Coupon succussfuly used'),
       closeIcon: Icon(Icons.verified),
       buttons: [
         DialogButton(
           child: Text(
-            'COOL',
+            t('COOL'),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
@@ -119,12 +121,12 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
 
   AlertDialog notValidCouponAlert() {
     return AlertDialog(
-      title: Text('Invalid Coupon'),
-      content: Text('Coupon been used before or it is expired'),
+      title: Text(t('Invalid Coupon')),
+      content: Text(t('Coupon been used before or it is expired')),
       actions: [
         DialogButton(
           child: Text(
-            'Cancel',
+            t('Cancel'),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
@@ -148,7 +150,6 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
       }
     }
 
-    String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
@@ -208,7 +209,7 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
                                 child: FlatButton(
                                   onPressed: () => Navigator.pop(context),
                                   child: Text(
-                                    t("decline"),
+                                    t("Decline"),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontSize: 15),
                                   ),
@@ -225,7 +226,7 @@ class _ScanDetailsScreenState extends State<ScanDetailsScreen> {
                                   onPressed: () =>
                                       useCoupon(context, userProvider),
                                   child: Text(
-                                    t("approve"),
+                                    t("Approve"),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontSize: 15),
                                   ),

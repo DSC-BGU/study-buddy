@@ -51,5 +51,13 @@
   "No": "לא",
   "just entered your store": "נכנס/ה לחנות",
   "The coupon": "הקופון",
-  "More details \\ terms": "תנאים/ פרטים נוספים"
+  "More details \\ terms": "תנאים/ פרטים נוספים",
+  "Approved": "מאושר",
+  "Coupon succussfuly used": "הקופון מומש בהצלחה",
+  "COOL": "מגניב",
+  "Invalid Coupon": "קופון לא מאושר",
+  "Coupon been used before or it is expired": "הקופון כבר מומש בעבר או שפג תוקפו",
+  "Cancel": "ביטול",
+  "Approve": "אישור",
+  "Decline": "דחיה"
 }
