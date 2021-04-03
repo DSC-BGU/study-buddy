@@ -108,7 +108,26 @@ class BusinessMainScreen extends StatelessWidget {
                                         children: [
                                           Icon(Icons.arrow_back_ios),
                                           Text(t("Manage coupons")),
-                                          Icon(Ionicons.md_pricetag),
+                                          Icon(Ionicons.md_pricetag_outline),
+                                        ],
+                                      ),
+                                      width: constraints.maxWidth * 0.7,
+                                      color: Theme.of(context)
+                                          .primaryColor, //HexColor("#E1E0E0"),
+                                      height: constraints.maxHeight * 0.08,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Button(
+                                      onPressed: () {},
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Icon(Icons.arrow_back_ios),
+                                          Text(t("Manage my store")),
+                                          Icon(Ionicons.home_outline),
                                         ],
                                       ),
                                       width: constraints.maxWidth * 0.7,
@@ -118,23 +137,25 @@ class BusinessMainScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Card(), // @TODO
-                                  Container(
-                                    width: constraints.maxWidth * 0.6,
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        scanBarcode(context);
-                                      },
+                                  ScanButton(
+                                    child: Container(
+                                      // decoration: BoxDecoration(
+                                      //   borderRadius: BorderRadius.circular(16),
+                                      // ),
+                                      margin: EdgeInsets.only(
+                                          top: constraints.maxHeight * 0.095,
+                                          bottom: constraints.maxHeight * 0.03),
                                       child: Text(
                                         t("Scan barcode"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(fontSize: 15),
                                       ),
-                                      minWidth: constraints.maxWidth * 0.6,
+                                      width: constraints.maxWidth * 0.6,
                                       color: Theme.of(context).primaryColor,
                                       height: constraints.maxHeight * 0.11,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
+                                      // shape: RoundedRectangleBorder(
+                                      //     borderRadius:
+                                      //         BorderRadius.circular(16)),
                                     ),
                                   ),
                                 ],
@@ -144,17 +165,23 @@ class BusinessMainScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(
-                    //     horizontal: constraints.maxWidth * 0.08,
-                    //   ),
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(bottom: 50),
-                    //     child: SvgPicture.asset(
-                    //       "assets/kidWithComputer.svg",
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                bottom: constraints.maxHeight *
+                                    0.015), // TODO: constrains
+                            child: SvgPicture.asset(
+                              "assets/kidsWithPhone.svg",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -163,24 +190,5 @@ class BusinessMainScreen extends StatelessWidget {
         }),
       ),
     );
-  }
-}
-
-// @TODO : what to do with that?
-Future<void> scanBarcode(BuildContext ctx) async {
-  String barcodeScanRes;
-  try {
-    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      '#ff6666',
-      'Cancel',
-      true,
-      ScanMode.QR,
-    );
-    Navigator.of(ctx).pushNamed(
-      ScanDetailsScreen.routeName,
-      arguments: barcodeScanRes,
-    );
-  } on PlatformException {
-    barcodeScanRes = 'Failed to get platform version.';
   }
 }
