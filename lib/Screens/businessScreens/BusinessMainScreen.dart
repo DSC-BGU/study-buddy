@@ -20,12 +20,11 @@ class BusinessMainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
     UserProvider user = Provider.of<UserProvider>(context);
+    bool rtl = AppLocalizations.of(context).isRtl();
     return Scaffold(
       backgroundColor: HexColor("#5CA2D5"),
-      drawer:
-          AppLocalizations.of(context).isRtl() ? BusinessDrawerMenu() : null,
-      endDrawer:
-          !AppLocalizations.of(context).isRtl() ? BusinessDrawerMenu() : null,
+      drawer: rtl ? BusinessDrawerMenu() : null,
+      endDrawer: !rtl ? BusinessDrawerMenu() : null,
       body: SafeArea(
         child: LayoutBuilder(builder: (ctx, constraints) {
           return Stack(
@@ -45,7 +44,9 @@ class BusinessMainScreen extends StatelessWidget {
                       right: constraints.maxWidth * 0.05,
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: rtl
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
                           radius: constraints.maxHeight * 0.044,
