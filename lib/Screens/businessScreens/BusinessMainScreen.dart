@@ -36,19 +36,24 @@ class BusinessMainScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Container(
                   margin: EdgeInsets.only(
-                      top: constraints.maxHeight * 0.03,
+                      top: constraints.maxHeight * 0.02,
                       bottom: constraints.maxHeight * 0.03),
                   child: Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.only(
+                      left: constraints.maxWidth * 0.05,
+                      right: constraints.maxWidth * 0.05,
+                    ),
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
-                          radius: constraints.maxHeight * 0.055,
+                          radius: constraints.maxHeight * 0.044,
                           backgroundImage: user.imageProvider,
                         ),
                         Text(
                           user.name,
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
@@ -75,8 +80,8 @@ class BusinessMainScreen extends StatelessWidget {
                           child: Container(
                             margin: EdgeInsets.only(
                               top: constraints.maxHeight * 0.02,
-                              left: constraints.maxWidth * 0.1,
-                              right: constraints.maxWidth * 0.1,
+                              left: constraints.maxWidth * 0.04,
+                              right: constraints.maxWidth * 0.04,
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 15),
@@ -97,9 +102,7 @@ class BusinessMainScreen extends StatelessWidget {
                                         Icon(Ionicons.ios_add),
                                       ],
                                     ),
-                                    width: constraints.maxWidth * 0.7,
-                                    color: Theme.of(context)
-                                        .primaryColor, //HexColor("#E1E0E0"),
+                                    color: Theme.of(context).primaryColor,
                                     height: constraints.maxHeight * 0.08,
                                   ),
                                   Container(
@@ -119,7 +122,6 @@ class BusinessMainScreen extends StatelessWidget {
                                           Icon(Ionicons.md_pricetag_outline),
                                         ],
                                       ),
-                                      width: constraints.maxWidth * 0.7,
                                       color: Theme.of(context).primaryColor,
                                       height: constraints.maxHeight * 0.08,
                                     ),
@@ -141,7 +143,6 @@ class BusinessMainScreen extends StatelessWidget {
                                           Icon(Ionicons.home_outline),
                                         ],
                                       ),
-                                      width: constraints.maxWidth * 0.7,
                                       color: Theme.of(context).primaryColor,
                                       height: constraints.maxHeight * 0.08,
                                     ),
@@ -149,23 +150,24 @@ class BusinessMainScreen extends StatelessWidget {
                                   Card(), // @TODO
                                   ScanButton(
                                     child: Container(
-                                      // decoration: BoxDecoration(
-                                      //   borderRadius: BorderRadius.circular(16),
-                                      // ),
                                       margin: EdgeInsets.only(
-                                          top: constraints.maxHeight * 0.095,
-                                          bottom: constraints.maxHeight * 0.03),
-                                      child: Text(
-                                        t("Scan barcode"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 15),
+                                        top: constraints.maxHeight * 0.11,
                                       ),
-                                      width: constraints.maxWidth * 0.6,
-                                      color: Theme.of(context).primaryColor,
+                                      child: Center(
+                                        child: Text(
+                                          t("Scan barcode"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      width: constraints.maxWidth * 0.55,
                                       height: constraints.maxHeight * 0.11,
-                                      // shape: RoundedRectangleBorder(
-                                      //     borderRadius:
-                                      //         BorderRadius.circular(16)),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -183,8 +185,7 @@ class BusinessMainScreen extends StatelessWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.only(
-                                bottom: constraints.maxHeight *
-                                    0.015), // TODO: constrains
+                                bottom: constraints.maxHeight * 0.01),
                             child: SvgPicture.asset(
                               "assets/kidsWithPhone.svg",
                             ),
