@@ -34,9 +34,7 @@ class CategoriesScreen extends StatelessWidget {
                 Background(),
                 DrawerButton(),
                 Container(
-                  // width: double.infinity,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         margin: EdgeInsets.only(
@@ -60,20 +58,15 @@ class CategoriesScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Expanded(
-                      //   child:
                       Container(
                         margin:
                             EdgeInsets.only(top: constraints.maxHeight * 0.014),
                         width: double.infinity,
                         child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
                               height: constraints.maxHeight * 0.7,
                               width: constraints.maxWidth * 0.8,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: GridView.count(
                                 crossAxisCount: 3,
                                 // crossAxisSpacing: 6,
@@ -97,8 +90,8 @@ class CategoriesScreen extends StatelessWidget {
                 Container(
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.only(
-                    top: 10,
-                    bottom: 15,
+                    top: constraints.maxHeight * 0.02,
+                    bottom: constraints.maxHeight * 0.02,
                   ),
                   child: Button(
                     onPressed: () {

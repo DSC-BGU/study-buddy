@@ -24,22 +24,20 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    // return LayoutBuilder(builder: (ctx, constraints) {
     return Container(
       margin: EdgeInsets.only(
-        top: 10,
-        bottom: 8,
+        top: MediaQuery.of(context).size.height * 0.005,
+        bottom: MediaQuery.of(context).size.height * 0.005,
       ),
       child: Column(
         children: [
           Expanded(
-            flex: 8,
+            flex: 75,
             child: Container(
-              // height: constraints.maxHeight * 0.8,
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(16),
                 color: Theme.of(context).primaryColor,
               ),
               child: IconButton(
@@ -51,10 +49,9 @@ class CategoryItem extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 25,
             child: Container(
-              // margin: EdgeInsets.only(top: constraints.maxHeight * 0.01),
-              // height: constraints.maxHeight * 0.18,
+              height: MediaQuery.of(context).size.width * 0.15,
               child: Text(
                 t(this.category.title),
                 style: TextStyle(
@@ -66,7 +63,5 @@ class CategoryItem extends StatelessWidget {
         ],
       ),
     );
-    // }
-    // );
   }
 }
