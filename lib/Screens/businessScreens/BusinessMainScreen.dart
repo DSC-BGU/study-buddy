@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessDrawerMenu.dart';
-import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
 import 'package:study_buddy/Screens/studentScreens/DrawerButton.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
@@ -83,7 +83,11 @@ class BusinessMainScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Button(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.of(ctx).pushNamed(
+                                        CreateNewCouponScreen.routeName,
+                                      );
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -101,7 +105,11 @@ class BusinessMainScreen extends StatelessWidget {
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
                                     child: Button(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(ctx).pushNamed(
+                                          ManageCoupons.routeName,
+                                        );
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -112,15 +120,18 @@ class BusinessMainScreen extends StatelessWidget {
                                         ],
                                       ),
                                       width: constraints.maxWidth * 0.7,
-                                      color: Theme.of(context)
-                                          .primaryColor, //HexColor("#E1E0E0"),
+                                      color: Theme.of(context).primaryColor,
                                       height: constraints.maxHeight * 0.08,
                                     ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
                                     child: Button(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(ctx).pushNamed(
+                                          ManageStoreScreen.routeName,
+                                        );
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -131,8 +142,7 @@ class BusinessMainScreen extends StatelessWidget {
                                         ],
                                       ),
                                       width: constraints.maxWidth * 0.7,
-                                      color: Theme.of(context)
-                                          .primaryColor, //HexColor("#E1E0E0"),
+                                      color: Theme.of(context).primaryColor,
                                       height: constraints.maxHeight * 0.08,
                                     ),
                                   ),
