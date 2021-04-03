@@ -76,7 +76,7 @@ class CategoriesScreen extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: GridView.count(
                                 crossAxisCount: 3,
-                                crossAxisSpacing: 6,
+                                // crossAxisSpacing: 6,
                                 mainAxisSpacing: constraints.maxHeight * 0.03,
                                 shrinkWrap: true,
                                 children: categoriesList
