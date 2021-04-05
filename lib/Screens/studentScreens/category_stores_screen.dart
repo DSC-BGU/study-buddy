@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/Screens/studentScreens/DrawerButton.dart';
+import 'package:study_buddy/Screens/studentScreens/DrawerMenu.dart';
+import 'package:study_buddy/widgets/designs/Background.dart';
 import '../../app_localizations.dart';
 import '../../models/sharedModels/Category.dart' as Cat;
 import '../../models/sharedModels/Store.dart';
@@ -21,16 +24,51 @@ class CategoryStoresScreen extends StatelessWidget {
         storeProvider.filterStoresByCategory(categoryId);
     String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t(categoryTitle)),
-      ),
-      body: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return StoreItem(
-            store: availableStores[index],
-          );
-        },
-        itemCount: availableStores.length,
+      backgroundColor: Theme.of(context).backgroundColor,
+      drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+      endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (ctx, constraints) {
+            return Stack(children: [
+              Background(),
+              Column(children: [
+                Container(
+                  height: constraints.maxHeight * 0.16,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: constraints.maxHeight * 0.03,
+                          bottom: constraints.maxHeight * 0.03),
+                      child: Text(
+                        categoryTitle,
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverFixedExtentList(
+                        itemExtent: constraints.maxWidth * 0.6,
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return StoreItem(
+                              store: availableStores[index],
+                            );
+                          },
+                          childCount: availableStores.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+              DrawerButton(),
+            ]);
+          },
+        ),
       ),
     );
   }
