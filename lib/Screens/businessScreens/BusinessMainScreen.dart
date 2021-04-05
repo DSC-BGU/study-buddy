@@ -88,28 +88,31 @@ class BusinessMainScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 15),
                               child: Column(
                                 children: [
-                                  MainScreenButton(
-                                    routeName: CreateNewCouponScreen.routeName,
-                                    title: "Create new coupon",
-                                    icon: Icon(Ionicons.ios_add),
-                                    constraints: constraints,
-                                  ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 10),
+                                    height: constraints.maxHeight * 0.08,
                                     child: MainScreenButton(
-                                      routeName: ManageCoupons.routeName,
-                                      title: "Manage coupons",
-                                      icon: Icon(Ionicons.md_pricetag_outline),
-                                      constraints: constraints,
+                                      routeName:
+                                          CreateNewCouponScreen.routeName,
+                                      title: "Create new coupon",
+                                      icon: Icon(Ionicons.ios_add),
                                     ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
+                                    height: constraints.maxHeight * 0.08,
+                                    child: MainScreenButton(
+                                      routeName: ManageCoupons.routeName,
+                                      title: "Manage coupons",
+                                      icon: Icon(Ionicons.md_pricetag_outline),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    height: constraints.maxHeight * 0.08,
                                     child: MainScreenButton(
                                       routeName: ManageStoreScreen.routeName,
                                       title: "Manage my store",
                                       icon: Icon(Ionicons.home_outline),
-                                      constraints: constraints,
                                     ),
                                   ),
                                   ScanButton(
