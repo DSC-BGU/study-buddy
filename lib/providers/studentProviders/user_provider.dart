@@ -14,11 +14,11 @@ class UserProvider with ChangeNotifier {
   String _name = '';
   int _points = 500;
   bool _business = false;
-  String _image = null;
+  String _image;
   List<String> _purchasedCouponsId = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
-  StreamSubscription _subscription = null;
-  StreamSubscription _couponsSubscription = null;
+  StreamSubscription _subscription;
+  StreamSubscription _couponsSubscription;
 
   UserProvider() {
     FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
@@ -40,7 +40,7 @@ class UserProvider with ChangeNotifier {
         List<dynamic> myPurchasedCoupons = userData['purchased_coupons'];
         this._name = userData['username'];
         this._points = userData['points'];
-        if(userData['photoURL'] != null){
+        if (userData['photoURL'] != null) {
           this._image = userData['photoURL'];
         }
         try {
@@ -88,7 +88,7 @@ class UserProvider with ChangeNotifier {
   }
 
   void buyCoupon(Coupon coupon) {
-    if (_points > coupon.points) {
+    if (_points >= coupon.points) {
       DocumentReference docRef =
           FirebaseFirestore.instance.collection('purchasedCoupons').doc();
       docRef.set({
@@ -156,6 +156,7 @@ class UserProvider with ChangeNotifier {
   String get name {
     return _name;
   }
+
   String get image {
     return _image;
   }
