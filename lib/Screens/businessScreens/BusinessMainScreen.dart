@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:study_buddy/Screens/businessScreens/BusinessDrawerMenu.dart';
+import 'package:study_buddy/widgets/businessWidgets/BusinessDrawerMenu.dart';
 import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
@@ -75,14 +75,14 @@ class BusinessMainScreen extends StatelessWidget {
                           height: constraints.maxHeight * 0.59,
                           width: constraints.maxWidth * 0.9,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(18),
                             color: Color.fromRGBO(92, 162, 213, 0.9),
                           ),
                           child: Container(
                             margin: EdgeInsets.only(
                               top: constraints.maxHeight * 0.02,
-                              left: constraints.maxWidth * 0.04,
-                              right: constraints.maxWidth * 0.04,
+                              left: constraints.maxWidth * 0.03,
+                              right: constraints.maxWidth * 0.03,
                             ),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 15),
@@ -98,7 +98,9 @@ class BusinessMainScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 10),
+                                    margin: EdgeInsets.only(
+                                      top: constraints.maxHeight * 0.012,
+                                    ),
                                     height: constraints.maxHeight * 0.08,
                                     child: MainScreenButton(
                                       routeName: ManageCoupons.routeName,
@@ -107,7 +109,9 @@ class BusinessMainScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(top: 10),
+                                    margin: EdgeInsets.only(
+                                      top: constraints.maxHeight * 0.012,
+                                    ),
                                     height: constraints.maxHeight * 0.08,
                                     child: MainScreenButton(
                                       routeName: ManageStoreScreen.routeName,
@@ -118,7 +122,7 @@ class BusinessMainScreen extends StatelessWidget {
                                   ScanButton(
                                     child: Container(
                                       margin: EdgeInsets.only(
-                                        top: constraints.maxHeight * 0.11,
+                                        top: constraints.maxHeight * 0.14,
                                       ),
                                       child: Center(
                                         child: Text(
@@ -154,7 +158,7 @@ class BusinessMainScreen extends StatelessWidget {
                             height: constraints.maxHeight * 0.26,
                             width: constraints.maxWidth * 0.44,
                             margin: EdgeInsets.only(
-                              bottom: constraints.maxHeight * 0.01,
+                              bottom: constraints.maxHeight * 0.008,
                             ),
                             child: SvgPicture.asset(
                               "assets/kidsWithPhone.svg",
