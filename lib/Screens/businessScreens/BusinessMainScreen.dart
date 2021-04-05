@@ -9,8 +9,8 @@ import 'package:study_buddy/Screens/studentScreens/DrawerButton.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/businessWidgets/ScanButton.dart';
+import 'package:study_buddy/widgets/businessWidgets/mainScreenButton.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
-import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_localizations.dart';
@@ -70,7 +70,7 @@ class BusinessMainScreen extends StatelessWidget {
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                            top: 39.8,
+                            top: constraints.maxHeight * 0.055,
                           ),
                           height: constraints.maxHeight * 0.59,
                           width: constraints.maxWidth * 0.9,
@@ -88,67 +88,30 @@ class BusinessMainScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 15),
                               child: Column(
                                 children: [
-                                  Button(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pushNamed(
-                                        CreateNewCouponScreen.routeName,
-                                      );
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(Icons.arrow_back_ios),
-                                        Text(t("Create new coupon")),
-                                        Icon(Ionicons.ios_add),
-                                      ],
-                                    ),
-                                    color: Theme.of(context).primaryColor,
-                                    height: constraints.maxHeight * 0.08,
+                                  MainScreenButton(
+                                    routeName: CreateNewCouponScreen.routeName,
+                                    title: "Create new coupon",
+                                    icon: Icon(Ionicons.ios_add),
+                                    constraints: constraints,
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
-                                    child: Button(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pushNamed(
-                                          ManageCoupons.routeName,
-                                        );
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(Icons.arrow_back_ios),
-                                          Text(t("Manage coupons")),
-                                          Icon(Ionicons.md_pricetag_outline),
-                                        ],
-                                      ),
-                                      color: Theme.of(context).primaryColor,
-                                      height: constraints.maxHeight * 0.08,
+                                    child: MainScreenButton(
+                                      routeName: ManageCoupons.routeName,
+                                      title: "Manage coupons",
+                                      icon: Icon(Ionicons.md_pricetag_outline),
+                                      constraints: constraints,
                                     ),
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
-                                    child: Button(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pushNamed(
-                                          ManageStoreScreen.routeName,
-                                        );
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Icon(Icons.arrow_back_ios),
-                                          Text(t("Manage my store")),
-                                          Icon(Ionicons.home_outline),
-                                        ],
-                                      ),
-                                      color: Theme.of(context).primaryColor,
-                                      height: constraints.maxHeight * 0.08,
+                                    child: MainScreenButton(
+                                      routeName: ManageStoreScreen.routeName,
+                                      title: "Manage my store",
+                                      icon: Icon(Ionicons.home_outline),
+                                      constraints: constraints,
                                     ),
                                   ),
-                                  Card(), // @TODO
                                   ScanButton(
                                     child: Container(
                                       margin: EdgeInsets.only(
@@ -185,8 +148,11 @@ class BusinessMainScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
+                            height: constraints.maxHeight * 0.26,
+                            width: constraints.maxWidth * 0.44,
                             margin: EdgeInsets.only(
-                                bottom: constraints.maxHeight * 0.01),
+                              bottom: constraints.maxHeight * 0.01,
+                            ),
                             child: SvgPicture.asset(
                               "assets/kidsWithPhone.svg",
                             ),

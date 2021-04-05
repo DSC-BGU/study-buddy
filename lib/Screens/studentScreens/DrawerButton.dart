@@ -23,8 +23,7 @@ class DrawerButton extends StatelessWidget {
             decoration: BoxDecoration(
                 color: userProvider.business
                     ? Theme.of(context).primaryColor
-                    : Theme.of(context)
-                        .accentColor, // @TODO: change for primaryColor when used at business part
+                    : Theme.of(context).accentColor,
                 borderRadius: new BorderRadius.only(
                     bottomLeft: const Radius.circular(10))),
             child: IconButton(

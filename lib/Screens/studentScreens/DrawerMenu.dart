@@ -21,94 +21,99 @@ class DrawerMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-            child: ListView(padding: EdgeInsets.zero,
+            child: ListView(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 children: <Widget>[
-              DrawerHeader(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height *0.1,
-                            width: MediaQuery.of(context).size.height *0.1,
-                            margin: EdgeInsets.only(left:10),
-                            child: CircleAvatar(
-                              backgroundImage: userProvider.imageProvider,
-                            ),
+                  DrawerHeader(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                width: MediaQuery.of(context).size.height * 0.1,
+                                margin: EdgeInsets.only(left: 10),
+                                child: CircleAvatar(
+                                  backgroundImage: userProvider.imageProvider,
+                                ),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 15),
+                                  child: Column(
+                                    children: [
+                                      Text(userProvider.name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      Text(userProvider.points.toString() +
+                                          " " +
+                                          t("points")),
+                                    ],
+                                  ))
+                            ],
                           ),
-                          Container(
-                              margin: EdgeInsets.only(left: 15),
-                              child: Column(
-                                children: [
-                                  Text(userProvider.name, style:TextStyle(fontWeight: FontWeight.bold)),
-                                  Text(userProvider.points.toString() +
-                                      " " +
-                                      t("points")),
-                                ],
-                              ))
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text(t("Home Screen")),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('/');
-                  },
-                ),
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: ListTile(
-                  leading: Icon(MaterialCommunityIcons.wallet),
-                  title: Text(t("My Coupons")),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed(MyCoupons.routeName);
-                  },
-                ),
-              ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: ListTile(
-                  leading: Icon(Icons.shopping_bag),
-                  title: Text(t("Coupons store")),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed(CategoriesScreen.routeName);
-                  },
-                ),
-              ),
-            ]),
+                        )
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text(t("Home Screen")),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed('/');
+                      },
+                    ),
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ListTile(
+                      leading: Icon(MaterialCommunityIcons.wallet),
+                      title: Text(t("My Coupons")),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushNamed(MyCoupons.routeName);
+                      },
+                    ),
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ListTile(
+                      leading: Icon(Icons.shopping_bag),
+                      title: Text(t("Coupons store")),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context)
+                            .pushNamed(CategoriesScreen.routeName);
+                      },
+                    ),
+                  ),
+                ]),
           ),
-          Column(children: [
-            Divider(),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text(t("Logout")),
-                onTap: () {
-                  Navigator.pop(context);
-                  UserProvider userProvider =
-                  Provider.of<UserProvider>(context, listen: false);
-                  userProvider.logout();
-                },
+          Column(
+            children: [
+              Divider(),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text(t("Logout")),
+                  onTap: () {
+                    Navigator.pop(context);
+                    userProvider.logout();
+                  },
+                ),
               ),
-            ),
-          ],)
+            ],
+          )
         ],
       ),
     );

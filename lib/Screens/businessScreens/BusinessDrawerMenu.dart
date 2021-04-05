@@ -68,8 +68,6 @@ class BusinessDrawerMenu extends StatelessWidget {
                   title: Text(t("Logout")),
                   onTap: () {
                     Navigator.pop(context);
-                    UserProvider userProvider =
-                        Provider.of<UserProvider>(context, listen: false);
                     userProvider.logout();
                   },
                 ),
