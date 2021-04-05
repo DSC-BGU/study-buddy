@@ -7,9 +7,8 @@ class MainScreenButton extends StatelessWidget {
   String routeName;
   String title;
   Icon icon;
-  BoxConstraints constraints;
 
-  MainScreenButton({this.routeName, this.title, this.icon, this.constraints});
+  MainScreenButton({this.routeName, this.title, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,6 @@ class MainScreenButton extends StatelessWidget {
         ],
       ),
       color: Theme.of(context).primaryColor,
-      height: constraints.maxHeight * 0.08,
     );
   }
 }
