@@ -48,5 +48,20 @@
   "You are buying Coupon" : "את/ה עומד/ת לרכוש קופון",
   "Are you sure": "האם את/ה בטוח/ה",
   "Yes": "כן",
-  "No": "לא"
+  "No": "לא",
+  "just entered your store": "נכנס/ה לחנות",
+  "The coupon": "הקופון",
+  "More details \\ terms": "תנאים/ פרטים נוספים",
+  "Approved": "מאושר",
+  "Coupon succussfuly used": "הקופון מומש בהצלחה",
+  "COOL": "מגניב",
+  "Invalid Coupon": "קופון לא מאושר",
+  "Coupon been used before or it is expired": "הקופון כבר מומש בעבר או שפג תוקפו",
+  "Cancel": "ביטול",
+  "Approve": "אישור",
+  "Decline": "דחיה",
+  "Create new coupon": "יצירת קופון חדש",
+  "Manage coupons": "ניהול קופונים",
+  "Manage my store": "ניהול החנות",
+  "Scan barcode": "סריקת קוד"
 }

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 
 import '../../app_localizations.dart';
-import 'MyCoupons.dart';
-import 'categories_screen.dart';
 
-class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({
+class BusinessDrawerMenu extends StatelessWidget {
+  const BusinessDrawerMenu({
     Key key,
   }) : super(key: key);
 
@@ -48,9 +45,6 @@ class DrawerMenu extends StatelessWidget {
                                       Text(userProvider.name,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      Text(userProvider.points.toString() +
-                                          " " +
-                                          t("points")),
                                     ],
                                   ))
                             ],
@@ -60,40 +54,6 @@ class DrawerMenu extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text(t("Home Screen")),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).pushNamed('/');
-                      },
-                    ),
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ListTile(
-                      leading: Icon(MaterialCommunityIcons.wallet),
-                      title: Text(t("My Coupons")),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).pushNamed(MyCoupons.routeName);
-                      },
-                    ),
-                  ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ListTile(
-                      leading: Icon(Icons.shopping_bag),
-                      title: Text(t("Coupons store")),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context)
-                            .pushNamed(CategoriesScreen.routeName);
-                      },
                     ),
                   ),
                 ]),
