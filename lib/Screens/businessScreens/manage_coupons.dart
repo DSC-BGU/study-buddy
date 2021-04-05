@@ -5,6 +5,7 @@ import 'package:study_buddy/models/studentModels/couponModels/Coupon.dart';
 import 'package:study_buddy/widgets/businessWidgets/business_coupon.dart';
 
 class ManageCoupons extends StatelessWidget {
+  static const String routeName = '/manageCoupons';
   final databaseReference = FirebaseFirestore.instance;
   final Store currStore = null;
   List<Coupon> availableCoupons = [

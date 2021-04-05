@@ -6,7 +6,10 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
-import 'package:study_buddy/Screens/businessScreens/ScannerScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
+import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
@@ -105,9 +108,12 @@ class MyApp extends StatelessWidget {
           CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
-          ScannerScreen.routeName: (ctx) => ScannerScreen(),
           AuthScreen.routeName: (ctx) => AuthScreen(),
-          'tabScreen': (ctx) => TabsScreen()
+          'tabScreen': (ctx) => TabsScreen(),
+          ScanDetailsScreen.routeName: (ctx) => ScanDetailsScreen(),
+          ManageCoupons.routeName: (ctx) => ManageCoupons(),
+          CreateNewCouponScreen.routeName: (ctx) => CreateNewCouponScreen(),
+          ManageStoreScreen.routeName: (ctx) => ManageStoreScreen(),
         },
       ),
     );
