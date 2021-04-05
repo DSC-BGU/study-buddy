@@ -13,21 +13,26 @@ class MainScreenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
-    return Button(
-      onPressed: () {
-        Navigator.of(context).pushNamed(
-          this.routeName,
-        );
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(Icons.arrow_back_ios),
-          Text(t(this.title)),
-          this.icon,
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(14),
       ),
-      color: Theme.of(context).primaryColor,
+      child: Button(
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            this.routeName,
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.arrow_back_ios),
+            Text(t(this.title)),
+            this.icon,
+          ],
+        ),
+      ),
     );
   }
 }

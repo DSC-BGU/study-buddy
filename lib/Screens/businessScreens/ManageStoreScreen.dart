@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/businessScreens/BusinessDrawerMenu.dart';
+import 'package:study_buddy/widgets/businessWidgets/BusinessDrawerMenu.dart';
 import 'package:study_buddy/Screens/studentScreens/DrawerButton.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
