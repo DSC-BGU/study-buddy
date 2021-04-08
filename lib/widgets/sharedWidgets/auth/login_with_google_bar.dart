@@ -43,42 +43,42 @@ class LoginWithGoogle extends StatelessWidget {
     String t(String text) => AppLocalizations.of(context).translate(text);
     return InkWell(
       child: Container(
-        width: this.width,
-        height: this.height,
-        margin: EdgeInsets.only(top: 25),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).hintColor),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                height: 30.0,
-                width: 30.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('./assets/google.jpg'),
-                      fit: BoxFit.cover),
-                  shape: BoxShape.circle,
-                ),
+        // width: this.width,
+        // height: this.height,
+        // margin: EdgeInsets.only(top: 25),
+        // decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(20),
+        //     color: Theme.of(context).hintColor),
+        // child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              height: 30.0,
+              width: 30.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('./assets/google.jpg'),
+                    fit: BoxFit.cover),
+                shape: BoxShape.circle,
               ),
-              Text(
-                isLogin ? t('Login with Google') : t('Sign in with Google'),
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ],
-          ),
+            ),
+            Text(
+              isLogin ? t('Login with Google') : t('Sign in with Google'),
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
         ),
+        // ),
       ),
       onTap: () async {
-        signInWithGoogle().whenComplete(() {
-        }).then((userCredential) async {
-          bool isBgu = userCredential.additionalUserInfo.profile['hd'] == "post.bgu.ac.il";
-          if (userCredential.additionalUserInfo.isNewUser){
+        signInWithGoogle().whenComplete(() {}).then((userCredential) async {
+          bool isBgu = userCredential.additionalUserInfo.profile['hd'] ==
+              "post.bgu.ac.il";
+          if (userCredential.additionalUserInfo.isNewUser) {
             await FirebaseFirestore.instance
                 .collection('users')
                 .doc(userCredential.user.uid)
@@ -89,7 +89,7 @@ class LoginWithGoogle extends StatelessWidget {
               'photoURL': userCredential.user.photoURL,
               'points': AuthScreen.INITIAL_POINTS, // points,
               'isBgu': isBgu,
-              'business':false,
+              'business': false,
             });
           }
         });
