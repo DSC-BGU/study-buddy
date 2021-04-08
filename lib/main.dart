@@ -10,6 +10,7 @@ import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
+import 'package:study_buddy/Screens/sharedScreens/Authentication/splash_screen.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
@@ -88,19 +89,20 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         routes: {
-          '/': (ctx) => StreamBuilder(
-                stream: FirebaseAuth.instance.authStateChanges(),
-                builder: (ctx, userSnapshot) {
-                  if (userSnapshot.hasData) {
-                    UserProvider userProvider = Provider.of<UserProvider>(ctx);
-                    if (userProvider.business) {
-                      return BusinessMainScreen();
-                    }
-                    return FocusScreen();
-                  }
-                  return WelcomeScreen();
-                },
-              ),
+          '/': (ctx) => SplashScreen(),
+          // StreamBuilder(
+          //       stream: FirebaseAuth.instance.authStateChanges(),
+          //       builder: (ctx, userSnapshot) {
+          //         if (userSnapshot.hasData) {
+          //           UserProvider userProvider = Provider.of<UserProvider>(ctx);
+          //           if (userProvider.business) {
+          //             return BusinessMainScreen();
+          //           }
+          //           return FocusScreen();
+          //         }
+          //         return WelcomeScreen();
+          //       },
+          //     ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           MyCoupons.routeName: (ctx) => MyCoupons(),
           Dashboard.routeName: (ctx) => Dashboard(),
