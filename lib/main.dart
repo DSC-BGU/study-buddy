@@ -10,6 +10,7 @@ import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
+import 'package:study_buddy/Screens/sharedScreens/splash_screen.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
@@ -44,6 +45,12 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   setupSingletons();
   runApp(MyApp());
+  // runApp(MaterialApp(
+  //   // debugShowCheckedModeBanner: false,
+  //   title: 'FaceBase',
+  //   // routes: routes,
+  //   home: SplashScreen(),
+  // ));
 }
 
 class MyApp extends StatelessWidget {
@@ -91,14 +98,25 @@ class MyApp extends StatelessWidget {
           '/': (ctx) => StreamBuilder(
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
+                  UserProvider userProvider = Provider.of<UserProvider>(ctx);
+
+                  // FocusProvider focusProvider = Provider.of<FocusProvider>(ctx);
+                  // StoreProvider storeProvider = Provider.of<StoreProvider>(ctx);
+                  // Points points = Provider.of<Points>(ctx);
                   if (userSnapshot.hasData) {
-                    UserProvider userProvider = Provider.of<UserProvider>(ctx);
                     if (userProvider.business) {
+                      // if (!userProvider.loading)
                       return BusinessMainScreen();
+                      // return SplashScreen();
                     }
+                    // if (!userProvider.loading)
                     return FocusScreen();
+                    // return SplashScreen();
                   }
+
+                  // if (!userProvider.loading)
                   return WelcomeScreen();
+                  // return SplashScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
