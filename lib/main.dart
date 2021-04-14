@@ -45,12 +45,6 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   setupSingletons();
   runApp(MyApp());
-  // runApp(MaterialApp(
-  //   // debugShowCheckedModeBanner: false,
-  //   title: 'FaceBase',
-  //   // routes: routes,
-  //   home: SplashScreen(),
-  // ));
 }
 
 class MyApp extends StatelessWidget {
@@ -99,21 +93,27 @@ class MyApp extends StatelessWidget {
                 stream: FirebaseAuth.instance.authStateChanges(),
                 builder: (ctx, userSnapshot) {
                   UserProvider userProvider = Provider.of<UserProvider>(ctx);
-
-                  // FocusProvider focusProvider = Provider.of<FocusProvider>(ctx);
-                  // StoreProvider storeProvider = Provider.of<StoreProvider>(ctx);
-                  // Points points = Provider.of<Points>(ctx);
+                  StoreProvider storeProvider = Provider.of<StoreProvider>(ctx);
                   if (userSnapshot.hasData) {
                     if (userProvider.business) {
-                      if (!userProvider.loading) return BusinessMainScreen();
-                      return SplashScreen();
+                      // if (!userProvider.loading && !storeProvider.loading) {
+                      return BusinessMainScreen();
+                      //   } else {
+                      //     return SplashScreen();
+                      //   }
                     }
-                    if (!userProvider.loading) return FocusScreen();
-                    return SplashScreen();
+                    // if (!userProvider.loading && !storeProvider.loading) {
+                    return FocusScreen();
+                    // } else {
+                    //   return SplashScreen();
+                    // }
                   }
 
-                  if (!userProvider.loading) return WelcomeScreen();
-                  return SplashScreen();
+                  // if (!userProvider.loading && !storeProvider.loading) {
+                  return WelcomeScreen();
+                  // } else {
+                  //   return SplashScreen();
+                  // }
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),

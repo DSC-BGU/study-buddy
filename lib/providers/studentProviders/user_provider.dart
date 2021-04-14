@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_buddy/main.dart';
 import 'package:study_buddy/models/sharedModels/store.dart';
-import 'package:study_buddy/providers/sharedProviders/StoreProvider.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 import '../../models/studentModels/couponModels/PurchasedCoupon.dart';
 import '../../models/studentModels/couponModels/Coupon.dart';
@@ -35,6 +34,7 @@ class UserProvider with ChangeNotifier {
         this._id = userSnapshot.uid;
         getUserData().then((val) {
           _loading = false;
+          // notifyListeners();
         });
       }
     });

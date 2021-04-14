@@ -10,14 +10,20 @@ class StoreProvider with ChangeNotifier {
   List<Store> availableStores = [];
   List<Coupon> availableCoupons = [];
   List<Cat.Category> availableCategories = [];
+  bool _loading = true;
 
   StoreProvider() {
-    getCategoryList();
-    getCouponList();
-    storesFromDB();
+    getCategoryList().then((v) {
+      getCouponList().then((v) {
+        storesFromDB().then((v) {
+          _loading = false;
+          // notifyListeners();
+        });
+      });
+    });
   }
 
-  void getCategoryList() {
+  Future<void> getCategoryList() async {
     databaseReference.collection('categories').snapshots().listen((event) {
       List<Cat.Category> categorylst = [];
       event.docs.forEach((element) {
@@ -38,7 +44,7 @@ class StoreProvider with ChangeNotifier {
     return [...availableCategories];
   }
 
-  void getCouponList() {
+  Future<void> getCouponList() async {
     databaseReference.collection('coupons').snapshots().listen((event) {
       List<Coupon> couponlst = [];
       event.docs.forEach((element) {
@@ -59,7 +65,7 @@ class StoreProvider with ChangeNotifier {
     return [...availableCoupons];
   }
 
-  void storesFromDB() {
+  Future<void> storesFromDB() async {
     databaseReference.collection('stores').snapshots().listen((snapshot) {
       List<Store> templst = [];
       snapshot.docs.forEach((doc) {
@@ -79,6 +85,10 @@ class StoreProvider with ChangeNotifier {
       this.availableStores = templst;
       notifyListeners();
     });
+  }
+
+  bool get loading {
+    return _loading;
   }
 
   List<Cat.Category> createCategoryList(List<dynamic> categoryIDs) {

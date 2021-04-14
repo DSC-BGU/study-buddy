@@ -1,15 +1,13 @@
 // import 'package:flutter/material.dart';
 
-// import '../../app_localizations.dart';
-
 // class SplashScreen extends StatelessWidget {
 //   static const String routeName = '/splash';
 //   @override
 //   Widget build(BuildContext context) {
-//     String t(String text) => AppLocalizations.of(context).translate(text);
 //     return Scaffold(
+//       backgroundColor: Colors.white,
 //       body: Center(
-//         child: Text('Loading...'),
+//         child: Image.asset("assets/icon.png"),
 //       ),
 //     );
 //   }
@@ -38,15 +36,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future initializeUser() async {
     await Firebase.initializeApp();
-    final User firebaseUser = await FirebaseAuth.instance.currentUser;
+    final User firebaseUser = FirebaseAuth.instance.currentUser;
     await firebaseUser.reload();
-    _user = await _auth.currentUser;
+    _user = _auth.currentUser;
     // get User authentication status here
   }
 
   navigateUser() async {
     // checking whether user already loggedIn or not
-    if (_auth.currentUser != null) {
+    if (_auth.currentUser != null &&
+        FirebaseAuth.instance.currentUser.reload() != null) {
       // &&  FirebaseAuth.instance.currentUser.reload() != null
       Timer(
         Duration(seconds: 3),
@@ -64,12 +63,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text("Design Your splash screen"),
-        ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset("assets/icon.png"),
       ),
     );
   }
