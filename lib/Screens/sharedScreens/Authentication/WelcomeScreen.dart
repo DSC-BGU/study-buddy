@@ -41,19 +41,19 @@ class WelcomeScreen extends StatelessWidget {
                           height: constraints.maxHeight * 0.3,
                           child: Image.asset("assets/logo.png"),
                         ),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(10),
-                        //     color: Colors.white70,
-                        //   ),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(5.0),
-                        //     child: Text(
-                        //       "The more you learn, the more you earn!",
-                        //       style: TextStyle(fontSize: 12),
-                        //     ),
-                        //   ),
-                        // ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white70,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "The more you learn, the more you earn!",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Container(
