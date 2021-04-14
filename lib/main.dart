@@ -105,18 +105,15 @@ class MyApp extends StatelessWidget {
                   // Points points = Provider.of<Points>(ctx);
                   if (userSnapshot.hasData) {
                     if (userProvider.business) {
-                      // if (!userProvider.loading)
-                      return BusinessMainScreen();
-                      // return SplashScreen();
+                      if (!userProvider.loading) return BusinessMainScreen();
+                      return SplashScreen();
                     }
-                    // if (!userProvider.loading)
-                    return FocusScreen();
-                    // return SplashScreen();
+                    if (!userProvider.loading) return FocusScreen();
+                    return SplashScreen();
                   }
 
-                  // if (!userProvider.loading)
-                  return WelcomeScreen();
-                  // return SplashScreen();
+                  if (!userProvider.loading) return WelcomeScreen();
+                  return SplashScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
