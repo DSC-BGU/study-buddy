@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:study_buddy/main.dart';
+import 'package:study_buddy/models/sharedModels/store.dart';
+import 'package:study_buddy/providers/sharedProviders/StoreProvider.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 import '../../models/studentModels/couponModels/PurchasedCoupon.dart';
 import '../../models/studentModels/couponModels/Coupon.dart';
@@ -15,11 +17,17 @@ class UserProvider with ChangeNotifier {
   int _points = 500;
   bool _business = false;
   String _image;
+
   List<String> _purchasedCouponsId = [];
   List<PurchasedCoupon> _purchasedCoupons = [];
   StreamSubscription _subscription;
   StreamSubscription _couponsSubscription;
   bool _loading = true;
+
+  // Bussiness fields
+  String storeId;
+  Store currStore;
+  List<Coupon> bussinessCoupons = [];
 
   UserProvider() {
     FirebaseAuth.instance.authStateChanges().listen((userSnapshot) {
@@ -49,6 +57,7 @@ class UserProvider with ChangeNotifier {
         try {
           if (userData['business'] != null) {
             this._business = userData['business'];
+            this.storeId = userData['storeId'];
           }
         } catch (err) {
           this._business = false;
@@ -219,5 +228,28 @@ class UserProvider with ChangeNotifier {
       }
     });
     return usedPurchasedCoupons;
+  }
+
+  List<Coupon> getBussinessCoupons(String storeId) {
+    FirebaseFirestore.instance
+        .collection('coupons')
+        .snapshots()
+        .listen((event) {
+      List<Coupon> couponlst = [];
+      event.docs.forEach((element) {
+        if (storeId == element['store']) {
+          couponlst.add(Coupon(
+              id: element.id,
+              title: element['title'],
+              storeId: element['store'],
+              description: element['description'],
+              imageUrl: element['imageUrl'],
+              points: element['points']));
+        }
+      });
+      this.bussinessCoupons = couponlst;
+      notifyListeners();
+    });
+    return this.bussinessCoupons;
   }
 }
