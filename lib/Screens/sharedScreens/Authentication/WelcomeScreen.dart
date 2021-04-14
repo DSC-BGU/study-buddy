@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       margin: EdgeInsets.only(
@@ -37,11 +37,16 @@ class WelcomeScreen extends StatelessWidget {
                     Column(
                       children: [
                         Container(
-                          width: constraints.maxWidth * 0.6,
-                          height: constraints.maxHeight * 0.3,
+                          margin: EdgeInsets.only(
+                            top: constraints.maxHeight * 0.03,
+                          ),
+                          width: constraints.maxWidth * 0.7,
                           child: Image.asset("assets/logo.png"),
                         ),
                         Container(
+                          margin: EdgeInsets.only(
+                            top: constraints.maxHeight * 0.03,
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white70,
@@ -49,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
-                              "The more you learn, the more you earn!",
+                              t("The more you learn, the more you earn!"),
                               style: TextStyle(fontSize: 12),
                             ),
                           ),
@@ -58,29 +63,20 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        top: constraints.maxHeight * 0.03,
+                        top: constraints.maxHeight * 0.01,
+                        bottom: constraints.maxHeight * 0.01,
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // LoginWithGoogle(
-                          //   true,
-                          //   width: constraints.maxWidth * 0.5,
-                          // ),
-                          Container(
-                            child: LoginWithGoogle(
-                              true,
-                              width: constraints.maxWidth * 0.5,
-                            ),
-                            width: constraints.maxWidth * 0.55,
-                            height: constraints.maxHeight * 0.11,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
+                          LoginWithGoogle(
+                            true,
+                            width: constraints.maxWidth * 0.5,
                           ),
                           Container(
                             margin: EdgeInsets.only(
-                              top: constraints.maxHeight * 0.01,
+                              bottom: constraints.maxHeight * 0.004,
                             ),
                             child: Button(
                               onPressed: () {
@@ -89,12 +85,6 @@ class WelcomeScreen extends StatelessWidget {
                               },
                               child: Text(t('Businesses Entrance')),
                               pink: true,
-                            ),
-                            width: constraints.maxWidth * 0.55,
-                            height: constraints.maxHeight * 0.06,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(16),
                             ),
                           ),
                         ],
