@@ -25,32 +25,36 @@ class MyCoupons extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
       endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (ctx, constraints) {
-            return Stack(
-              children: [
-                Background(),
-                Column(
-                  children: [
-                    Container(
-                      child: Center(
-                          child: Text(
-                        t('My Coupons'),
-                        style: TextStyle(fontSize: 25),
-                      )),
-                      height: constraints.maxHeight * 0.09,
+      // body: Scaffold(
+      body: Stack(children: [
+        Background(),
+        Scaffold(
+          body: DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: TabBar(
+                  tabs: [
+                    Tab(
+                      text: t('Available'),
                     ),
-                    Expanded(
-                        child: UserWalletCoupons(myAvailablePurchasedCoupons)),
+                    Tab(
+                      text: t('Used'),
+                    ),
                   ],
                 ),
-                DrawerButton(),
-              ],
-            );
-          },
+              ),
+              body: TabBarView(children: [
+                UserWalletCoupons(myAvailablePurchasedCoupons),
+                UserWalletCoupons(myUsedPurchasedCoupons),
+              ]),
+            ),
+          ),
         ),
-      ),
+      ]),
+      // ),
     );
     // return Scaffold(
     //   appBar: AppBar(
