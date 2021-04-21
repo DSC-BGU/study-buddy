@@ -18,33 +18,31 @@ class UserWalletCoupons extends StatelessWidget {
     // UserProvider userProvider = Provider.of<UserProvider>(context);
     String t(String text) => AppLocalizations.of(context).translate(text);
 
-    return Stack(children: [
-      LayoutBuilder(
-        builder: (ctx, constraints) {
-          return Stack(
-            children: [
-              Background(),
-              Column(
-                children: [
-                  Container(
-                    child: Center(
-                        child: Text(
-                      t('My Coupons'),
-                      style: TextStyle(fontSize: 25),
-                    )),
-                    height: constraints.maxHeight * 0.09,
-                  ),
-                  Expanded(
-                      child: UserWalletCoupons(myAvailablePurchasedCoupons)),
-                ],
-              ),
-              DrawerButton(),
-            ],
-          );
-        },
-      )
-    ]);
-
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        return Stack(
+          children: [
+            Background(),
+            Column(
+              children: [
+                Container(
+                  child: Center(
+                      child: Text(
+                    t('My Coupons'),
+                    style: TextStyle(fontSize: 25),
+                  )),
+                  height: constraints.maxHeight * 0.09,
+                ),
+                Expanded(
+                  child: UserWalletCoupons(purchasedCoupons),
+                ),
+              ],
+            ),
+            DrawerButton(),
+          ],
+        );
+      },
+    );
     return ListView.builder(
       itemBuilder: (ctx, index) {
         return
@@ -63,5 +61,36 @@ class UserWalletCoupons extends StatelessWidget {
       },
       itemCount: purchasedCoupons.length,
     );
+// return Scaffold(
+//       backgroundColor: Theme.of(context).backgroundColor,
+//       drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+//       endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
+//       body: SafeArea(
+//         child: LayoutBuilder(
+//           builder: (ctx, constraints) {
+//             return Stack(
+//               children: [
+//                 Background(),
+//                 Column(
+//                   children: [
+//                     Container(
+//                       child: Center(
+//                           child: Text(
+//                         t('My Coupons'),
+//                         style: TextStyle(fontSize: 25),
+//                       )),
+//                       height: constraints.maxHeight * 0.09,
+//                     ),
+//                     Expanded(
+//                         child: UserWalletCoupons(myAvailablePurchasedCoupons)),
+//                   ],
+//                 ),
+//                 DrawerButton(),
+//               ],
+//             );
+//           },
+//         ),
+//       ),
+//     );
   }
 }
