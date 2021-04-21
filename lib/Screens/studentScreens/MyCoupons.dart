@@ -25,62 +25,67 @@ class MyCoupons extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       drawer: AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
       endDrawer: !AppLocalizations.of(context).isRtl() ? DrawerMenu() : null,
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (ctx, constraints) {
-            return Stack(
-              children: [
-                Background(),
-                Column(
-                  children: [
-                    Container(
-                      child: Center(
-                          child: Text(
-                        t('My Coupons'),
-                        style: TextStyle(fontSize: 25),
-                      )),
-                      height: constraints.maxHeight * 0.09,
-                    ),
-                    Expanded(
-                        child: UserWalletCoupons(myAvailablePurchasedCoupons)),
-                  ],
-                ),
-                DrawerButton(),
-              ],
-            );
-          },
+      body: Scaffold(
+        bottomNavigationBar: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            body: Container(
+              color: Theme.of(context).primaryColor,
+              child: TabBar(
+                // controller: _tabController,
+                tabs: [
+                  Tab(
+                    text: t('Available'),
+                  ),
+                  Tab(
+                    text: t('Used'),
+                  ),
+                ],
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.all(5.0),
+              ),
+            ),
+            // TabBarView(
+            //   children: [
+            //     UserWalletCoupons(myAvailablePurchasedCoupons),
+            //     UserWalletCoupons(myUsedPurchasedCoupons),
+            //   ],
+            // ),
+            // ],
+          ),
         ),
       ),
+      // ),
     );
     // return Scaffold(
-    //   appBar: AppBar(
-    //     centerTitle: true,
-    //     title: Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [Text('My Wallet '), Icon(Icons.wallet_giftcard)]),
-    //   ),
+    //   // appBar: AppBar(
+    //   //   centerTitle: true,
+    //   //   title: Row(
+    //   //       mainAxisAlignment: MainAxisAlignment.center,
+    //   //       children: [Text('My Wallet '), Icon(Icons.wallet_giftcard)]),
+    //   // ),
     //   body: Scaffold(
     //     body: DefaultTabController(
     //       length: 2,
     //       child: Scaffold(
     //         backgroundColor: Theme.of(context).backgroundColor,
-    //         appBar: AppBar(
-    //           automaticallyImplyLeading: false,
-    //           title: TabBar(
-    //             tabs: [
-    //               Tab(
-    //                 text: t('Available'),
-    //               ),
-    //               Tab(
-    //                 text: t('Used'),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //         body: TabBarView(children: [
-    //           UserWalletCoupons(myAvailablePurchasedCoupons),
-    //           UserWalletCoupons(myUsedPurchasedCoupons),
-    //         ]),
+    // appBar: AppBar(
+    //   automaticallyImplyLeading: false,
+    //   title: TabBar(
+    //     tabs: [
+    //       Tab(
+    //         text: t('Available'),
+    //       ),
+    //       Tab(
+    //         text: t('Used'),
+    //       ),
+    //     ],
+    //   ),
+    // ),
+    // body: TabBarView(children: [
+    //   UserWalletCoupons(myAvailablePurchasedCoupons),
+    //   UserWalletCoupons(myUsedPurchasedCoupons),
+    // ]),
     //       ),
     //     ),
     //   ),

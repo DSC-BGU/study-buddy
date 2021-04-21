@@ -98,7 +98,8 @@ class MyApp extends StatelessWidget {
                     }
                     return FocusScreen();
                   }
-                  return WelcomeScreen();
+                  // return WelcomeScreen();
+                  return FocusScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
