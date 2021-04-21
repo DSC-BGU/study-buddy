@@ -10,6 +10,7 @@ import 'package:study_buddy/Screens/businessScreens/CreateNewCouponScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ManageStoreScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/ScanDetailsScreen.dart';
 import 'package:study_buddy/Screens/businessScreens/manage_coupons.dart';
+import 'package:study_buddy/Screens/studentScreens/AllStoresScreen.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
@@ -98,7 +99,8 @@ class MyApp extends StatelessWidget {
                     }
                     return FocusScreen();
                   }
-                  return WelcomeScreen();
+                  // return WelcomeScreen();
+                  return FocusScreen();
                 },
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
@@ -106,6 +108,7 @@ class MyApp extends StatelessWidget {
           Dashboard.routeName: (ctx) => Dashboard(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
+          AllStoresScreen.routeName: (ctx) => AllStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
           AuthScreen.routeName: (ctx) => AuthScreen(),

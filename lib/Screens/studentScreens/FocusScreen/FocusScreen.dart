@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:study_buddy/Screens/studentScreens/AllStoresScreen.dart';
 import 'package:study_buddy/Screens/studentScreens/MyCoupons.dart';
 import 'package:study_buddy/Screens/studentScreens/categories_screen.dart';
 import 'package:study_buddy/providers/studentProviders/user_provider.dart';
@@ -48,10 +49,8 @@ class FocusScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: constraints.maxHeight * 0.07,
-                                backgroundImage:
-                                    user.imageProvider
-                              ),
+                                  radius: constraints.maxHeight * 0.07,
+                                  backgroundImage: user.imageProvider),
                               Text(
                                 t("Hi") + " " + user.name,
                                 style: TextStyle(fontSize: 25),
@@ -61,10 +60,14 @@ class FocusScreen extends StatelessWidget {
                                   user.points.toString() +
                                   " " +
                                   t("points")),
-                              focusProvider.mode == FocusMode.coop ? Container(
-                                  margin: EdgeInsets.only(top: constraints.maxHeight*0.03),
-                                  child: Text(t("Social session") + " 💪", style: TextStyle(fontSize:20))) : null,
-                            ].where((element) => element!=null).toList(),
+                              focusProvider.mode == FocusMode.coop
+                                  ? Container(
+                                      margin: EdgeInsets.only(
+                                          top: constraints.maxHeight * 0.03),
+                                      child: Text(t("Social session") + " 💪",
+                                          style: TextStyle(fontSize: 20)))
+                                  : null,
+                            ].where((element) => element != null).toList(),
                           ),
                         ),
                       ),
@@ -121,13 +124,15 @@ class FocusScreen extends StatelessWidget {
                                     ),
                             ].where((element) => element != null).toList(),
                           ),
-                          focusProvider.mode == FocusMode.solo ? Container(
-                            margin: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              t("want to get more points? focus with your friends"),
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ) : null,
+                          focusProvider.mode == FocusMode.solo
+                              ? Container(
+                                  margin: const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    t("want to get more points? focus with your friends"),
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                )
+                              : null,
                         ].where((element) => element != null).toList(),
                       ),
                       Padding(
@@ -138,7 +143,7 @@ class FocusScreen extends StatelessWidget {
                               Button(
                                 onPressed: () {
                                   Navigator.of(context)
-                                      .pushNamed(CategoriesScreen.routeName);
+                                      .pushNamed(AllStoresScreen.routeName);
                                 },
                                 child: Text(t("Coupons store")),
                                 icon: Icon(Ionicons.ios_add),
