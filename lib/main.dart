@@ -12,11 +12,8 @@ import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/analyticsService.dart';
 
 import './app_localizations.dart';
-
-import './Screens/studentScreens/TabsScreen.dart';
 import './Screens/studentScreens/storeScreen.dart';
 import './Screens/studentScreens/categories_screen.dart';
-import './Screens/studentScreens/MainScreen/Dashboard.dart';
 import './Screens/studentScreens/category_stores_screen.dart';
 import './Screens/studentScreens/FocusScreen/FocusScreen.dart';
 import './Screens/studentScreens/FocusScreen/ResultScreen.dart';
@@ -100,14 +97,12 @@ class MyApp extends StatelessWidget {
               ),
           FocusScreen.routeName: (ctx) => FocusScreen(),
           MyCoupons.routeName: (ctx) => MyCoupons(),
-          Dashboard.routeName: (ctx) => Dashboard(),
           CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
           CategoryStoresScreen.routeName: (ctx) => CategoryStoresScreen(),
           StoreScreen.routeName: (ctx) => StoreScreen(),
           ResultScreen.routeName: (ctx) => ResultScreen(),
           ScannerScreen.routeName: (ctx) => ScannerScreen(),
           AuthScreen.routeName: (ctx) => AuthScreen(),
-          'tabScreen': (ctx) => TabsScreen()
         },
       ),
     );
