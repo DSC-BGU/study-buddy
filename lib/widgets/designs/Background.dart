@@ -15,7 +15,7 @@ class Background extends StatelessWidget {
           Column(
             children: [
               Container(
-                height: constraints.maxHeight * 0.4,
+                height:constraints.maxHeight * 0.4,
                 decoration: BoxDecoration(
                   color: HexColor("#91CCF4"),
                   borderRadius: BorderRadius.only(
@@ -28,8 +28,7 @@ class Background extends StatelessWidget {
                 height: constraints.maxHeight * 0.6,
                 child: Stack(
                   children: [
-                    FittedBox(
-                      fit: BoxFit.fill,
+                    Container(
                       child: SvgPicture.string(
                         '<svg viewBox="-32.6 331.2 487.2 597.4" ><path transform="matrix(0.325568, -0.945519, 0.945519, 0.325568, -32.59, 818.62)" d="M 133.9144439697266 4.958671092987061 C 68.59900665283203 12.76398086547852 3.221581220626831 80.36195373535156 0.115386001765728 152.5227966308594 C -3.648317575454712 239.9583435058594 85.49879455566406 299.5778503417969 144.0722503662109 321.3473815917969 C 281.8222351074219 372.5464477539063 474.8547058105469 297.8077392578125 509.3921203613281 180.7661285400391 C 529.8274536132813 111.5174255371094 496.9800415039063 19.99903297424316 441.7923583984375 2.737515449523926 C 391.4920043945313 -12.99513721466064 359.2218627929688 44.40321350097656 270.5155334472656 40.18292999267578 C 199.6452331542969 36.81270980834961 187.1434631347656 -1.400654911994934 133.9144439697266 4.958671092987061 Z" fill="#91ccf4" fill-opacity="0.4" stroke="none" stroke-width="1" stroke-opacity="0.4" stroke-miterlimit="10" stroke-linecap="butt" /></svg>',
                         allowDrawingOutsideViewBox: false,

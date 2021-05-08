@@ -104,35 +104,34 @@ class _AuthScreenState extends State<AuthScreen> {
     UserCredential authResult;
     // FirabaseStorageUtils.uploadImageToFirebase(context, _imageFile, 'test.jpg');
     try {
-        print(this.userEmail);
-        print(this.password);
-        authResult = await _auth.createUserWithEmailAndPassword(
-          email: "test@testit.com",
-          password:"123456789"
-      );
-        await FirebaseFirestore.instance
-                .collection('users')
-                .doc(authResult.user.uid)
-                .set({
-              'username': storeName,
-              'email': userEmail,
-              'points': 0, // points,
-              'business': true
-            });
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
+      authResult = await _auth.createUserWithEmailAndPassword(email: userEmail, password: password);
+      print(authResult);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(authResult.user.uid)
+          .set({
+        'username': storeName,
+        'email': userEmail,
+        'business': true
+      });
+      await FirebaseFirestore.instance
+          .collection('stores')
+          .add({
+        'ownUser': authResult.user.uid,
+        'storeName': storeName,
+        'address': address,
+        // Temporary default picture until we will setup the files storage:
+        'imageUrl':"https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator-asia.com/headlines/markets/can-unmanned-convenience-stores-take-off-in-indonesia-jd.com-thinks-so/8506049-1-eng-GB/Can-unmanned-convenience-stores-take-off-in-Indonesia-JD.com-thinks-so.jpg"
+      });
+    }
+    catch (e) {
       print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     return Scaffold(
       backgroundColor: HexColor("#5CA2D5"),
       body: Container(
@@ -140,226 +139,234 @@ class _AuthScreenState extends State<AuthScreen> {
           return Stack(
             children: [
               Background(),
-              Container(
-                margin: EdgeInsets.only(top: constraints.maxHeight * 0.13),
-                child: Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: 39.8,
-                          ),
-                          height: constraints.maxHeight * 0.69,
-                          width: constraints.maxWidth * 0.9,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(92, 162, 213, 0.9),
-                          ),
-                          child:
-                          Form(
-                            key: _formKey,
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  top: constraints.maxHeight * 0.05),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    t("Register"),
-                                    style: TextStyle(fontSize: 40),
-                                  ),
-                                  Text(
-                                    t("Business Details"),
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  Container(
-                                      margin: EdgeInsets.only(
-                                          top: constraints.maxHeight * 0.03,
-                                          left: constraints.maxWidth * 0.1,
-                                          right: constraints.maxWidth * 0.1),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: TextFormField(
-                                              decoration: generateDecoration(
-                                                  "Email Address"),
-                                              key: ValueKey('email'),
-                                              validator: (value) {
-                                                if (value.isEmpty ||
-                                                    !value.contains('@')) {
-                                                  return t(
-                                                      'Please enter a valid email address.');
-                                                }
-                                                return null;
-                                              },
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              onSaved: (value) {
-                                                setState(() {
-                                                  userEmail = value;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 10),
-                                            child: TextFormField(
-                                              decoration: generateDecoration(
-                                                  "Password"),
-                                              key: ValueKey('password'),
-                                              validator: (value) {
-                                                if (value.isEmpty ||
-                                                    value.length < 6) {
-                                                  return t(
-                                                      'Please enter a password with at least 6 characters.');
-                                                }
-                                                return null;
-                                              },
-                                              keyboardType:
-                                                  TextInputType.visiblePassword,
-                                              obscureText: true,
-                                              onSaved: (value) {
-                                                setState(() {
-                                                  password = value;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 10),
-                                            child: TextFormField(
-                                              decoration: generateDecoration(
-                                                  "Store name"),
-                                              key: ValueKey('name'),
-                                              validator: (value) {
-                                                if (value.isEmpty) {
-                                                  return t(
-                                                      'Please enter the store name.');
-                                                }
-                                                return null;
-                                              },
-                                              keyboardType: TextInputType.name,
-                                              onSaved: (value) {
-                                                setState(() {
-                                                  storeName = value;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 10),
-                                            child: TextFormField(
-                                              decoration:
-                                                  generateDecoration("Address"),
-                                              key: ValueKey('Address'),
-                                              validator: (value) {
-                                                if (value.isEmpty) {
-                                                  return t(
-                                                      'Please enter the store address.');
-                                                }
-                                                return null;
-                                              },
-                                              keyboardType:
-                                                  TextInputType.streetAddress,
-                                              onSaved: (value) {
-                                                setState(() {
-                                                  address = value;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          // Container(
-                                          //   margin: EdgeInsets.only(top:10),
-                                          //   child: Row(
-                                          //     crossAxisAlignment:
-                                          //         CrossAxisAlignment.center,
-                                          //     children: [
-                                          //       Text(
-                                          //         t("Picture"),
-                                          //       ),
-                                          //       Container(
-                                          //         child: IconButton(
-                                          //             icon: Icon(Icons.image),
-                                          //             onPressed:  () async {
-                                          //               final picker = ImagePicker();
-                                          //               final pickedFile = await picker.getImage(source: ImageSource.camera);
-                                          //                 setState(() {
-                                          //                   _imageFile = File(pickedFile.path);
-                                          //                 });
-                                          //             }),
-                                          //         decoration: BoxDecoration(
-                                          //             borderRadius: BorderRadius.circular(10.0),
-                                          //             border: Border.all(color:Colors.white)
-                                          //         ),
-                                          //       )
-                                          //     ],
-                                          //   ),
-                                          // )
-                                        ],
-                                      ))
-                                ],
-                              ),
+              SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.only(top: constraints.maxHeight * 0.13),
+                  child: Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              top: 39.8,
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: constraints.maxHeight * 0.1),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                  child: Text("Register"),
-                                  onPressed: (){this.register(context);},
-                                ),
-                              ],
+                            constraints: BoxConstraints(minHeight: constraints.maxHeight * 0.69),
+                            width: constraints.maxWidth * 0.9,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromRGBO(92, 162, 213, 0.9),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: constraints.maxWidth * 0.08,
-                      ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
+                            child: Form(
+                              key: _formKey,
                               child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(7),
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                width: constraints.maxWidth * 0.12,
-                                height: constraints.maxWidth * 0.12,
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.black,
+                                margin: EdgeInsets.only(
+                                    top: constraints.maxHeight * 0.05),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        t("Register"),
+                                        style: TextStyle(fontSize: 40),
+                                      ),
+                                      Text(
+                                        t("Business Details"),
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      Container(
+                                          margin: EdgeInsets.only(
+                                              top: constraints.maxHeight * 0.03,
+                                              left: constraints.maxWidth * 0.1,
+                                              right: constraints.maxWidth * 0.1),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                child: TextFormField(
+                                                  onEditingComplete: () =>
+                                                      node.nextFocus(),
+                                                  decoration: generateDecoration(
+                                                      "Email Address"),
+                                                  key: ValueKey('email'),
+                                                  validator: (value) {
+                                                    if (value.isEmpty ||
+                                                        !value.contains('@')) {
+                                                      return t(
+                                                          'Please enter a valid email address.');
+                                                    }
+                                                    return null;
+                                                  },
+                                                  keyboardType:
+                                                      TextInputType.emailAddress,
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      userEmail = value;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 10),
+                                                child: TextFormField(
+                                                  onEditingComplete: () =>
+                                                      node.nextFocus(),
+                                                  decoration: generateDecoration(
+                                                      "Password"),
+                                                  key: ValueKey('password'),
+                                                  validator: (value) {
+                                                    if (value.isEmpty ||
+                                                        value.length < 6) {
+                                                      return t(
+                                                          'Please enter a password with at least 6 characters.');
+                                                    }
+                                                    return null;
+                                                  },
+                                                  keyboardType: TextInputType
+                                                      .visiblePassword,
+                                                  obscureText: true,
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      password = value;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 10),
+                                                child: TextFormField(
+                                                  onEditingComplete: () =>
+                                                      node.nextFocus(),
+                                                  decoration: generateDecoration(
+                                                      "Store name"),
+                                                  key: ValueKey('name'),
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return t(
+                                                          'Please enter the store name.');
+                                                    }
+                                                    return null;
+                                                  },
+                                                  keyboardType:
+                                                      TextInputType.name,
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      storeName = value;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top: 10),
+                                                child: TextFormField(
+                                                  onEditingComplete: () =>
+                                                      node.nextFocus(),
+                                                  decoration: generateDecoration(
+                                                      "Address"),
+                                                  key: ValueKey('Address'),
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return t(
+                                                          'Please enter the store address.');
+                                                    }
+                                                    return null;
+                                                  },
+                                                  keyboardType:
+                                                      TextInputType.streetAddress,
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      address = value;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(top:20),
+                                                child: ElevatedButton(
+                                                  child: Text("Register"),
+                                                  onPressed: () {
+                                                    if (_formKey.currentState.validate()) {
+                                                      _formKey.currentState.save();
+                                                      this.register(context);
+                                                      ScaffoldMessenger.of(context)
+                                                          .showSnackBar(SnackBar(
+                                                          content:
+                                                          Text(t("Register..."))));
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                              // Container(
+                                              //   margin: EdgeInsets.only(top:10),
+                                              //   child: Row(
+                                              //     crossAxisAlignment:
+                                              //         CrossAxisAlignment.center,
+                                              //     children: [
+                                              //       Text(
+                                              //         t("Picture"),
+                                              //       ),
+                                              //       Container(
+                                              //         child: IconButton(
+                                              //             icon: Icon(Icons.image),
+                                              //             onPressed:  () async {
+                                              //               final picker = ImagePicker();
+                                              //               final pickedFile = await picker.getImage(source: ImageSource.camera);
+                                              //                 setState(() {
+                                              //                   _imageFile = File(pickedFile.path);
+                                              //                 });
+                                              //             }),
+                                              //         decoration: BoxDecoration(
+                                              //             borderRadius: BorderRadius.circular(10.0),
+                                              //             border: Border.all(color:Colors.white)
+                                              //         ),
+                                              //       )
+                                              //     ],
+                                              //   ),
+                                              // )
+                                            ],
+                                          ))
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 50),
-                              child: SvgPicture.asset(
-                                "assets/kidWithComputer.svg",
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: constraints.maxWidth * 0.08,
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  width: constraints.maxWidth * 0.12,
+                                  height: constraints.maxWidth * 0.12,
+                                  child: Icon(
+                                    Icons.close,
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ),
-                            )
-                          ]),
-                    )
-                  ],
+                              Container(
+                                margin: EdgeInsets.only(bottom: 50),
+                                child: SvgPicture.asset(
+                                  "assets/kidWithComputer.svg",
+                                ),
+                              )
+                            ]),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
