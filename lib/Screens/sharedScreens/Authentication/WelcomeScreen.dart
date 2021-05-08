@@ -6,6 +6,7 @@ import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dar
 import '../../../app_localizations.dart';
 import '../../../widgets/designs/TopCurve.dart';
 import "auth_screen.dart";
+
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class WelcomeScreen extends StatelessWidget {
                           Container(
                             width: constraints.maxWidth * 0.5,
                             height: constraints.maxHeight * 0.18,
-                            child: Image.asset("assets/logo-temp.png"),
+                            child: Image.asset("assets/logo.png"),
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -44,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
-                                "סטודנטים ועסקים צומחים ביחד",
+                                "The more you learn, the more you earn!",
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),
@@ -58,27 +59,24 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     Container(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0,0,0,8.0),
-                          child: Column(
-                            children: [
-                              LoginWithGoogle(
-                                true,
-                                width:constraints.maxWidth * 0.5,
-                              ),
-                              Container(
-                                  child:Button(
-                                    onPressed: (){
-                                      Navigator.of(ctx).pushNamed(
-                                          AuthScreen.routeName
-                                      );
-                                    },
-                                    child: Text(t('Businesses Entrance')),
-                                    pink: true,
-                                  )
-                              )
-                            ],
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8.0),
+                      child: Column(
+                        children: [
+                          LoginWithGoogle(
+                            true,
+                            width: constraints.maxWidth * 0.5,
                           ),
-                        ))
+                          Container(
+                              child: Button(
+                            onPressed: () {
+                              Navigator.of(ctx).pushNamed(AuthScreen.routeName);
+                            },
+                            child: Text(t('Businesses Entrance')),
+                            pink: true,
+                          ))
+                        ],
+                      ),
+                    ))
                   ],
                 ),
               )

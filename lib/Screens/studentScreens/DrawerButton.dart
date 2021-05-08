@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:study_buddy/providers/studentProviders/user_provider.dart';
 import '../../app_localizations.dart';
 
 class DrawerButton extends StatelessWidget {
@@ -8,6 +10,8 @@ class DrawerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     bool rtl = AppLocalizations.of(context).isRtl();
     return LayoutBuilder(builder: (ctx, constraints) {
       return Row(
@@ -17,7 +21,9 @@ class DrawerButton extends StatelessWidget {
           Container(
             height: constraints.maxHeight * 0.09,
             decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
+                color: userProvider.business
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).accentColor,
                 borderRadius: new BorderRadius.only(
                     bottomLeft: const Radius.circular(10))),
             child: IconButton(
