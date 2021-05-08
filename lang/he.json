@@ -5,7 +5,7 @@
   "Please enter at least 4 characters": "אנא הכנס לפחות ארבע תווים",
   "Username": "שם משתמש",
   "Password": "סיסמא",
-  "Password must be at least 7 characters long.": "הסיסמא חייבת להיות באורך של שבעה תווים לפחות.",
+  "Please enter a password with at least 8 characters.": "הסיסמא חייבת להיות באורך של שמונה תווים לפחות.",
   "Create new account": "יצירת משתמש חדש",
   "Login": "כניסה",
   "Register": "הרשמה",
@@ -49,5 +49,13 @@
   "Are you sure": "האם אתה בטוח",
   "Yes": "כן",
   "No": "לא",
-  "Business Details": "פרטי בית העסק"
+  "Business Details": "פרטי בית העסק",
+  "The account already exists for that email.": "לא נמצא עסק המשויך לכתובת זו",
+  "Wrong Password": "טעות בסיסמא",
+  "Store name": "שם החנות",
+  "Please enter the store name.": "אנא הכנס שם חנות",
+  "Address": "כתובת",
+"Please enter the store address.": "אנא הכנס את כתובת החנות",
+  "Create New Store": "רשום חנות חדשה"
+
 }

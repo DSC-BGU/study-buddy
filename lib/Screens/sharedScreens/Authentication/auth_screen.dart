@@ -30,64 +30,6 @@ class _AuthScreenState extends State<AuthScreen> {
   File _imageFile = null;
   bool isRegister = false;
 
-  // void _submitAuthForm(
-  //   String email,
-  //   String password,
-  //   String username,
-  //   bool isLogin,
-  //   BuildContext ctx,
-  // ) async {
-  //   UserCredential authResult;
-  //
-  //   try {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     if (isLogin) {
-  //       authResult = await _auth.signInWithEmailAndPassword(
-  //         email: email,
-  //         password: password,
-  //       );
-  //     } else {
-  //       authResult = await _auth.createUserWithEmailAndPassword(
-  //         email: email,
-  //         password: password,
-  //       );
-  //
-  //       await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(authResult.user.uid)
-  //           .set({
-  //         'username': username,
-  //         'email': email,
-  //         'points': AuthScreen.INITIAL_POINTS, // points,
-  //         "purchased_coupons": [],
-  //         'business': true
-  //       });
-  //     }
-  //   } on PlatformException catch (err) {
-  //     var message = 'An error occurred, please check your credentials!';
-  //
-  //     if (err.message != null) {
-  //       message = err.message;
-  //     }
-  //
-  //     Scaffold.of(ctx).showSnackBar(
-  //       SnackBar(
-  //         content: Text(t(message)),
-  //         backgroundColor: Theme.of(ctx).errorColor,
-  //       ),
-  //     );
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   } catch (err) {
-  //     print(err);
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
 
   InputDecoration generateDecoration(text) {
     return InputDecoration(
