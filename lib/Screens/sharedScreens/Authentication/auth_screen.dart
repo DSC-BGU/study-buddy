@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/firebaseStorage.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
@@ -27,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
   String storeName = null;
   String address = null;
   File _imageFile = null;
+  bool isRegister = false;
 
   // void _submitAuthForm(
   //   String email,
@@ -105,14 +107,14 @@ class _AuthScreenState extends State<AuthScreen> {
     // FirabaseStorageUtils.uploadImageToFirebase(context, _imageFile, 'test.jpg');
     try {
       authResult = await _auth.createUserWithEmailAndPassword(email: userEmail, password: password);
-      print(authResult);
       await FirebaseFirestore.instance
           .collection('users')
           .doc(authResult.user.uid)
           .set({
         'username': storeName,
-        'email': userEmail,
-        'business': true
+        'email': userEmail.trim(),
+        'business': true,
+        'name':storeName,
       });
       await FirebaseFirestore.instance
           .collection('stores')
@@ -123,12 +125,41 @@ class _AuthScreenState extends State<AuthScreen> {
         // Temporary default picture until we will setup the files storage:
         'imageUrl':"https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator-asia.com/headlines/markets/can-unmanned-convenience-stores-take-off-in-indonesia-jd.com-thinks-so/8506049-1-eng-GB/Can-unmanned-convenience-stores-take-off-in-Indonesia-JD.com-thinks-so.jpg"
       });
+      Navigator.of(context).pushNamedAndRemoveUntil(BusinessMainScreen.routeName, (route) => false);
+    } on FirebaseAuthException catch (e){
+      if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(
+            content:
+            Text(t("The account already exists for that email."))));
+      }
     }
     catch (e) {
       print(e);
     }
   }
 
+  void login (BuildContext context) async{
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userEmail.trim(),
+          password: password
+      );
+      Navigator.of(context).pushNamedAndRemoveUntil(BusinessMainScreen.routeName, (route) => false);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(
+            content:
+            Text(t("User not found"))));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(
+            content:
+            Text(t("Wrong Password"))));
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -166,13 +197,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        t("Register"),
+                                        t(isRegister ? "Register" : "Login"),
                                         style: TextStyle(fontSize: 40),
                                       ),
-                                      Text(
+                                      isRegister ? Text(
                                         t("Business Details"),
                                         style: TextStyle(fontSize: 15),
-                                      ),
+                                      ) : Container(),
                                       Container(
                                           margin: EdgeInsets.only(
                                               top: constraints.maxHeight * 0.03,
@@ -216,9 +247,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                                   key: ValueKey('password'),
                                                   validator: (value) {
                                                     if (value.isEmpty ||
-                                                        value.length < 6) {
+                                                        value.length < 8) {
                                                       return t(
-                                                          'Please enter a password with at least 6 characters.');
+                                                          'Please enter a password with at least 8 characters.');
                                                     }
                                                     return null;
                                                   },
@@ -232,7 +263,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                                   },
                                                 ),
                                               ),
-                                              Container(
+                                              isRegister ? Container(
                                                 margin: EdgeInsets.only(top: 10),
                                                 child: TextFormField(
                                                   onEditingComplete: () =>
@@ -255,8 +286,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                                     });
                                                   },
                                                 ),
-                                              ),
-                                              Container(
+                                              ) : null,
+                                              isRegister ? Container(
                                                 margin: EdgeInsets.only(top: 10),
                                                 child: TextFormField(
                                                   onEditingComplete: () =>
@@ -279,21 +310,32 @@ class _AuthScreenState extends State<AuthScreen> {
                                                     });
                                                   },
                                                 ),
-                                              ),
+                                              ) : null,
                                               Container(
                                                 margin: EdgeInsets.only(top:20),
                                                 child: ElevatedButton(
-                                                  child: Text("Register"),
+                                                  child: Text(isRegister ? "Register" : "Login"),
                                                   onPressed: () {
                                                     if (_formKey.currentState.validate()) {
                                                       _formKey.currentState.save();
-                                                      this.register(context);
-                                                      ScaffoldMessenger.of(context)
-                                                          .showSnackBar(SnackBar(
-                                                          content:
-                                                          Text(t("Register..."))));
+                                                      if(isRegister){
+                                                        this.register(context);
+                                                      }
+                                                      else{
+                                                        this.login(context);
+                                                      }
                                                     }
                                                   },
+                                                ),
+                                              ),
+                                              Container(
+                                                child: TextButton(
+                                                  child: Text(isRegister ? "Login" : "Create New Store", style: TextStyle(color: Colors.black),),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      isRegister = !isRegister;
+                                                    });
+                                                    },
                                                 ),
                                               ),
                                               // Container(
@@ -323,7 +365,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                               //     ],
                                               //   ),
                                               // )
-                                            ],
+                                            ].where((element) => element !=null).toList(),
                                           ))
                                     ],
                                   ),

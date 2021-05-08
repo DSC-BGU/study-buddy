@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../app_localizations.dart';
 
 class BusinessMainScreen extends StatelessWidget {
+  static const String routeName = '/businessMainScreen';
   void toScan(BuildContext context){
     Navigator.pushNamed(context, ScannerScreen.routeName);
   }

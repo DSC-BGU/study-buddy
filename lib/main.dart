@@ -103,6 +103,7 @@ class MyApp extends StatelessWidget {
           ResultScreen.routeName: (ctx) => ResultScreen(),
           ScannerScreen.routeName: (ctx) => ScannerScreen(),
           AuthScreen.routeName: (ctx) => AuthScreen(),
+          BusinessMainScreen.routeName: (ctx) => BusinessMainScreen(),
         },
       ),
     );
