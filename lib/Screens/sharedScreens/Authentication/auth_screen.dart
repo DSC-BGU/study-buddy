@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:study_buddy/Screens/businessScreens/BusinessMainScreen.dart';
 import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/utils/firebaseStorage.dart';
