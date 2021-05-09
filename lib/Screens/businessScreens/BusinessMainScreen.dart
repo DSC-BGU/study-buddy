@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import '../../app_localizations.dart';
 
 class BusinessMainScreen extends StatelessWidget {
+  static const String routeName = '/businessMainScreen';
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
