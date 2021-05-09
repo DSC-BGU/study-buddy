@@ -1,85 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/utils/HexColor.dart';
 import 'package:study_buddy/widgets/designs/Background.dart';
 import 'package:study_buddy/widgets/designs/Button.dart';
 import 'package:study_buddy/widgets/sharedWidgets/auth/login_with_google_bar.dart';
 
 import '../../../app_localizations.dart';
-import '../../../widgets/designs/TopCurve.dart';
 import "auth_screen.dart";
+import 'package:flutter_svg/svg.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String t(String text) => AppLocalizations.of(context).translate(text);
     return Scaffold(
-      // backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: HexColor("#5CA2D5"),
       body: SafeArea(
         child: LayoutBuilder(builder: (ctx, constraints) {
           return Stack(
             children: [
+              Background(),
               Container(
-                color: Colors.white,
-              ),
-              TopCurve(
-                startPercent: 75,
-                endPercent: 85,
-              ),
-              Center(
+                width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: constraints.maxWidth * 0.5,
-                            height: constraints.maxHeight * 0.18,
-                            child: Image.asset("assets/logo.png"),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white70,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "The more you learn, the more you earn!",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          )
-                        ],
+                      margin: EdgeInsets.only(
+                        top: constraints.maxHeight * 0.13,
+                      ),
+                      height: constraints.maxHeight * 0.3,
+                      width: constraints.maxWidth * 0.8,
+                      child: SvgPicture.asset(
+                        "assets/kidsWithClock.svg",
                       ),
                     ),
-                    Container(
-                      height: constraints.maxHeight * 0.56,
-                      child: Image.asset("assets/two-kids-temp.png"),
+                    Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: constraints.maxHeight * 0.03,
+                          ),
+                          width: constraints.maxWidth * 0.7,
+                          child: Image.asset("assets/logo.png"),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: constraints.maxHeight * 0.03,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white70,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              t("The more you learn, the more you earn!"),
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Container(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8.0),
+                      margin: EdgeInsets.only(
+                        top: constraints.maxHeight * 0.01,
+                        bottom: constraints.maxHeight * 0.01,
+                      ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           LoginWithGoogle(
                             true,
                             width: constraints.maxWidth * 0.5,
                           ),
                           Container(
-                              child: Button(
-                            onPressed: () {
-                              Navigator.of(ctx).pushNamed(AuthScreen.routeName);
-                            },
-                            child: Text(t('Businesses Entrance')),
-                            pink: true,
-                          ))
+                            margin: EdgeInsets.only(
+                              bottom: constraints.maxHeight * 0.004,
+                            ),
+                            child: Button(
+                              onPressed: () {
+                                Navigator.of(ctx)
+                                    .pushNamed(AuthScreen.routeName);
+                              },
+                              child: Text(t('Businesses Entrance')),
+                              pink: true,
+                            ),
+                          ),
                         ],
                       ),
-                    ))
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           );
         }),
