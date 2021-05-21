@@ -67,6 +67,7 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
   GlobalKey _one = GlobalKey();
   GlobalKey _two = GlobalKey();
   GlobalKey _three = GlobalKey();
+  GlobalKey _four = GlobalKey();
 
   @override
   void initState() {
@@ -76,7 +77,7 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
       WidgetsBinding.instance.addPostFrameCallback((_)async{
           final prefs = await SharedPreferences.getInstance();
           if (prefs.getBool('wizardShown') == null) {
-            ShowCaseWidget.of(context).startShowCase([_one, _two, _three]);
+            ShowCaseWidget.of(context).startShowCase([_one, _two, _three,_four]);
           }
       });
     }
@@ -135,9 +136,9 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
                   Showcase(
                     key: _one,
                     description:
-                        t("Set a timer for how long you will not touch your phone") +
+                        t("Scroll the timer to set a target for your focus session!") +
                             "\n" +
-                            t("you will get a points as a reward for your time"),
+                            t("remember: the more you learn, the more you eran!"),
                     child: FocusCircleSlider(
                       height: constraints.maxHeight * 0.32,
                       maxMinutes: 120,
@@ -164,9 +165,9 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
                           widget.focusProvider.focusStatus
                               ? null
                               : Showcase(
-                                  key: _three,
+                                  key: _four,
                                   description: t(
-                                      'Focus with friends and get Extra points'),
+                                      'Focus with friends and get extra points'),
                                   child: Container(
                                     width: constraints.maxWidth * 0.24,
                                     child: FlatButton(
@@ -215,7 +216,7 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
                           Showcase(
                             key: _two,
                             description: t(
-                                "with the points you earn you can purchase coupons to business around the city"),
+                                "Check out our coupons store where you can spend the points you earn!"),
                             child: Button(
                               onPressed: () {
                                 Navigator.of(context)
@@ -228,18 +229,22 @@ class _FocusScreenContentState extends State<FocusScreenContent> {
                               height: constraints.maxHeight * 0.08,
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Button(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(MyCoupons.routeName);
-                              },
-                              child: Text(t("My coupons")),
-                              icon: Icon(Ionicons.md_pricetag),
-                              width: constraints.maxWidth * 0.7,
-                              color: HexColor("#E1E0E0"),
-                              height: constraints.maxHeight * 0.08,
+                          Showcase(
+                            description: t("You can find the coupons you bought over here"),
+                            key: _three,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Button(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(MyCoupons.routeName);
+                                },
+                                child: Text(t("My coupons")),
+                                icon: Icon(Ionicons.md_pricetag),
+                                width: constraints.maxWidth * 0.7,
+                                color: HexColor("#E1E0E0"),
+                                height: constraints.maxHeight * 0.08,
+                              ),
                             ),
                           )
                         ],
