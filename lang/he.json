@@ -75,5 +75,13 @@
   "Manage my store": "ניהול החנות",
   "Scan barcode": "סריקת קוד",
   "Create Coupon": "'יצירת\nקופון'",
-  "Back":"חזרה"
+  "Back":"חזרה",
+  "New Coupon":"קופון חדש",
+  "Please enter a valid title.": "אנא הכנס כותרת תקינה",
+  "Please enter a valid points.":"אנא הכנס כמות נקודות תקינה",
+  "Please enter valid description.":"אנא הכנס תיאור תקין",
+  " Add picture":" הוספת תמונה",
+  "Please enter valid expiration date and hour.":"אנא הכניס תאריך וזמן תפוגה תקינים",
+  "Create coupon": "צור קופון"
+
 }
