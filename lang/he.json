@@ -48,7 +48,6 @@
   "You are buying Coupon" : "את/ה עומד/ת לרכוש קופון",
   "Are you sure": "האם את/ה בטוח/ה",
   "Yes": "כן",
-  "No": "לא",
   "Business Details": "פרטי בית העסק",
   "The account already exists for that email.": "לא נמצא עסק המשויך לכתובת זו",
   "Wrong Password": "טעות בסיסמא",
@@ -81,5 +80,5 @@
   "Check out our coupons store where you can spend the points you earn!": "כנסו לכאן על מנת להמיר את הנקודות שצברתם לקופונים לחנויות ברחבי העיר",
   "You can find the coupons you bought over here": "את הקופונים שרכשתם תוכלו למצוא כאן",
   "User not found": "לא נמצא משתמש",
-  "Wrong password": "סיסמא שגויה",
+  "Wrong password": "סיסמא שגויה"
 }
