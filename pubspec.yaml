@@ -51,6 +51,8 @@ dependencies:
   wakelock: ^0.5.1
   is_lock_screen: ^2.0.0
   date_time_picker: "^2.0.0"
+  showcaseview: ^1.0.0
+  shared_preferences: ^2.0.5
 #  image_picker: ^0.7.5+3
   image_picker: ^0.7.5+3
 
