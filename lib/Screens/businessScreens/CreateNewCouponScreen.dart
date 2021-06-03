@@ -347,8 +347,8 @@ class _CreateNewCouponState extends State<CreateNewCouponScreen> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(bottom: 50),
-                                child: SvgPicture.asset(
-                                  "assets/kidWithComputer.svg",
+                                child: Image.asset(
+                                  "assets/women1.png",
                                 ),
                               )
                             ]),
