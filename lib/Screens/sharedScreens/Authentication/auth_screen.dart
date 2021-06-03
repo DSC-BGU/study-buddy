@@ -98,7 +98,7 @@ class _AuthScreenState extends State<AuthScreen> {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(
             content:
-            Text(t("Wrong Password"))));
+            Text(t("Wrong password"))));
       }
     }
   }
@@ -160,7 +160,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                                   onEditingComplete: () =>
                                                       node.nextFocus(),
                                                   decoration: generateDecoration(
-                                                      "Email Address"),
+                                                      "Email address"),
                                                   key: ValueKey('email'),
                                                   validator: (value) {
                                                     if (value.isEmpty ||
@@ -256,7 +256,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                               Container(
                                                 margin: EdgeInsets.only(top:20),
                                                 child: ElevatedButton(
-                                                  child: Text(isRegister ? "Register" : "Login"),
+                                                  child: Text(t(isRegister ? "Register" : "Login")),
                                                   onPressed: () {
                                                     if (_formKey.currentState.validate()) {
                                                       _formKey.currentState.save();
@@ -272,7 +272,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                               ),
                                               Container(
                                                 child: TextButton(
-                                                  child: Text(isRegister ? "Login" : "Create New Store", style: TextStyle(color: Colors.black),),
+                                                  child: Text(t(isRegister ? "Login" : "Create New Store"), style: TextStyle(color: Colors.black),),
                                                   onPressed: () {
                                                     setState(() {
                                                       isRegister = !isRegister;
